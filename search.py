@@ -1,12 +1,18 @@
 import csv
 import sys
 
+
+
+
 with open('courseData.csv', newline='') as csvfile:
-	spamreader = csv.reader(csvfile, delimiter=' ')
+	spamreader = csv.reader(csvfile)
+	
 	course = input(">")
-	print(course)
-	for row in spamreader:
-		temp = ' '.join(row)
-		if(course.upper() in temp):
-			print(temp)
-			print('\n')
+	while(course.lower() is not 'e'):
+		for row in spamreader:
+			temp = ' '.join(row)
+			if(course.upper() in temp):
+				print(temp)
+				print('\n')
+		
+		course = input(">")
