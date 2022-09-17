@@ -1,7 +1,8 @@
 import csv
 import sys
 
-with open('courseData.csv', newline='') as csvfile: # Open CSV File
+
+with open('Data\courseData.csv', newline='') as csvfile: # Open CSV File
 	spamreader = csv.reader(csvfile) # Iterator for the CSV File
 	course = input("(e) to exit >") # Get User input
 	# TODO VALIDATE INPUTS? Not necessary I dont think 
