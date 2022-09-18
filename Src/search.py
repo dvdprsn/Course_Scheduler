@@ -1,10 +1,13 @@
 import csv
 import sys
 
+print("---------------------------------")
+print("- F22 Course Information Search -")
+print("---------------------------------\n")
 
-with open('Data\courseData.csv', newline='') as csvfile: # Open CSV File
+with open('Data/courseData.csv', newline='') as csvfile: # Open CSV File
 	spamreader = csv.reader(csvfile) # Iterator for the CSV File
-	course = input("(e) to exit >") # Get User input
+	course = input("(e) to exit > ") # Get User input
 	# TODO VALIDATE INPUTS? Not necessary I dont think 
 	while(course is not 'e'): # Exit condition, add additional exit condiditions if desired
 		
@@ -16,4 +19,4 @@ with open('Data\courseData.csv', newline='') as csvfile: # Open CSV File
 				
 		csvfile.seek(0) # Return file pointer to SOF
 		
-		course = input("(e) to exit >")
+		course = input("(e) to exit > ")
