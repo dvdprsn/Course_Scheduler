@@ -18,18 +18,7 @@ class MyHTMLParser(HTMLParser):
                 self.numCourses += 1
 
             # TODO: Change to regex to be more precise with different data input?
-            if '. ' in data: # Indicates the end of the meeting time info before this Faculty name column
-                self.isMeetingTime = False
-                array.append(' '.join(self.meetingTimes)) # add all meeting time info for the course as one entry to the array
-                self.meetingTimes = [] # Reset the list
-
-            if self.isMeetingTime: # Adds the meeting time info to a separate array, which will be appended to the main array when completed
-                self.meetingTimes.append(data)
-            else:
-                array.append(data) # Adds the raw data to the array to be parsed later
-                
-            if 'Guelph' in data: # Indicates the beginning of the meeting time info after this location column
-                self.isMeetingTime = True
+            array.append(data) # Adds the raw data to the array to be parsed later
 
 dirPath = os.path.dirname(os.path.abspath("parse.py")) #Gets the path of the current file
 dataPath = os.path.join(dirPath, 'Data', 'guelph.html')
