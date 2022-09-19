@@ -1,12 +1,14 @@
 import csv
-import sys
+import os
 
+dirPath = os.path.dirname(os.path.abspath("parse.py")) #Gets the path of the current file
+writePath = os.path.join(dirPath, 'Data', 'courseData.csv')
 
-with open('Data\courseData.csv', newline='') as csvfile: # Open CSV File
+with open(writePath, newline='') as csvfile: # Open CSV File
 	spamreader = csv.reader(csvfile) # Iterator for the CSV File
 	course = input("(e) to exit >") # Get User input
 	# TODO VALIDATE INPUTS? Not necessary I dont think 
-	while(course is not 'e'): # Exit condition, add additional exit condiditions if desired
+	while(course != 'e'): # Exit condition, add additional exit condiditions if desired
 		
 		for row in spamreader: # For each row of the CSV
 			temp = ' '.join(row) # Since the CSV is stored arrays, this joins the array into a single string separating elements with ' '

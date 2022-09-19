@@ -1,6 +1,6 @@
 from html.parser import HTMLParser
 import csv
-import pathlib
+import os
 
 array = ['1'] # We need to skip all the garbage at top of file and this course ID gets skipped
 
@@ -31,9 +31,9 @@ class MyHTMLParser(HTMLParser):
             if 'Guelph' in data: # Indicates the beginning of the meeting time info after this location column
                 self.isMeetingTime = True
 
-filePath =pathlib.PurePath('parse.py') #Gets the path of the current file
-DirPath = filePath.parent #Gets the path of the parent directory
-f = open(str(DirPath) + "\Data\guelph.html", "r")
+dirPath = os.path.dirname(os.path.abspath("parse.py")) #Gets the path of the current file
+dataPath = os.path.join(dirPath, 'Data', 'guelph.html')
+f = open(dataPath, "r")
 
 parser = MyHTMLParser()
 parser.feed(f.read()) # Feed in HTML
@@ -50,7 +50,8 @@ for x in array: # For each element of the unparsed array
         allCourses.append(course) #Append singular course array to all 
         course = [] # Reset course array
 
-with open(str(DirPath)+'\Data\courseData.csv', 'w', newline='') as data: #Write to CSV
+writePath = os.path.join(dirPath, 'Data', 'courseData.csv')
+with open(writePath, 'w', newline='') as data: #Write to CSV
     write = csv.writer(data) 
     write.writerows(allCourses) #Write out each element of all courses
 # Clean up

@@ -22,11 +22,11 @@ the initial parsing script. For more guidance on the usage of the program, pleas
 ## **USAGE INSTRUCTIONS**
 1. **Run parse.py to create data file (csv)**
 ```bash
-python3 parse.py
+python3 Src/parse.py
 ```
 2. **Run search.py to initiate CLI**
 ```bash
-python3 search.py
+python3 Src/search.py
 ```
 3. **Within the *search* CLI tool, enter the course code *(Eg. 'CIS\*3760')*, in order to obtain all of its stored information**
     * **Note:** The inputted characters will be searched against the beginning of the stored course codes, meaning that multiple courses' information can be obtained if desired 
