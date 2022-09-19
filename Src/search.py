@@ -1,11 +1,14 @@
 import csv
-import sys
+import os
 
 print("---------------------------------")
 print("- F22 Course Information Search -")
 print("---------------------------------\n")
 
-with open('Data/courseData.csv', newline='') as csvfile: # Open CSV File
+dirPath = os.path.dirname(os.path.abspath("parse.py")) #Gets the path of the current file
+writePath = os.path.join(dirPath, 'Data', 'courseData.csv')
+
+with open(writePath, newline='') as csvfile: # Open CSV File
 	spamreader = csv.reader(csvfile) # Iterator for the CSV File
 	course = input("(e) to exit > ") # Get User input
 	# TODO VALIDATE INPUTS? Not necessary I dont think 
