@@ -5,32 +5,38 @@ import os
 # We need to skip all the garbage at top of file and this course ID gets skipped
 array = ['1']
 
+# TODO: Store object's as CSV instead of array
+
+# This array stores all information that a course can possibly contain
+
 
 class Course:
-    def __init__(self):
+    def __init__(self):  # init instance variables
+        # All start as NULL so we can parse easier later
+        # init basic info
         self.id = 'NULL'
         self.sem = 'NULL'
         self.oc = 'NULL'
         self.name = 'NULL'
         self.campus = 'NULL'
-
+        # init lecture info
         self.lecDays = 'NULL'
         self.lecTime = 'NULL'
         self.lecRoom = 'NULL'
-
+        # init sem/lab info
         self.semDay = 'NULL'
         self.semTime = 'NULL'
         self.semRoom = 'NULL'
-
+        # init exam info
         self.examDay = 'NULL'
         self.examTime = 'NULL'
         self.examRoom = 'NULL'
-
+        # Init final basic info
         self.prof = 'NULL'
-
         self.cap = 'NULL'
         self.cred = 'NULL'
         self.level = 'NULL'
+    # Simple setters for each attribute
 
     def setId(self, id):
         self.id = id
@@ -76,11 +82,13 @@ class Course:
 
     def setProf(self, prof):
         self.prof = prof
+    # Easier to set this as a group
 
     def setCCL(self, cap, cred, level):
         self.cap = cap
         self.cred = cred
         self.level = level
+    # Print statement for testing
 
     def printCourse(self):
         print(self.id + " " + self.sem + " " + self.oc +
@@ -114,52 +122,69 @@ class MyHTMLParser(HTMLParser):
 
 
 class Parse:
+    # Helpers
     def addLec(self, cArray, startIdx, c):
         c.setLecDays(cArray[startIdx])
         c.setLecTime(cArray[startIdx+1])
         c.setLecRoom(cArray[startIdx+2] + cArray[startIdx+3].replace(',', ''))
-        if ('LAB' not in cArray[startIdx+4] and 'LEC' not in cArray[startIdx+4] and 'EXAM' not in cArray[startIdx+4]):
+        # Next line: if there is not a lab, lecture, or exam listed after we know for a fact the next index is the prof
+        if (('LAB' not in cArray[startIdx+4] or 'SEM' not in cArray[startIdx+4]) and 'LEC' not in cArray[startIdx+4] and 'EXAM' not in cArray[startIdx+4]):
             c.setProf(cArray[startIdx+4])
 
     def addSem(self, cArray, startIdx, c):
         c.setSemDays(cArray[startIdx])
         c.setSemTime(cArray[startIdx+1])
         c.setSemRoom(cArray[startIdx+2] + cArray[startIdx+3].replace(',', ''))
-        if ('LAB' not in cArray[startIdx+4] and 'LEC' not in cArray[startIdx+4] and 'EXAM' not in cArray[startIdx+4]):
+        # Next line: if there is not a lab, lecture, or exam listed after we know for a fact the next index is the prof
+        if (('LAB' not in cArray[startIdx+4] or 'SEM' not in cArray[startIdx+4]) and 'LEC' not in cArray[startIdx+4] and 'EXAM' not in cArray[startIdx+4]):
             c.setProf(cArray[startIdx+4])
 
     def addExam(self, cArray, startIdx, c):
         c.setExamDay(cArray[startIdx])
         c.setExamTime(cArray[startIdx+1])
         c.setExamRoom(cArray[startIdx+2])
+        # Prof is always listed after the exam
         c.setProf(cArray[startIdx+3])
+    # Set Credits, Capacity, Level
 
     def addCCL(self, cArray, startIdx, c):
         c.setCCL(cArray[startIdx], cArray[startIdx+1], cArray[startIdx+2])
 
+    # Main Logic for creating the Course Object!!!
     def loadCourse(self, cArray):
-        c = Course()
+        c = Course()  # Empty object
         c.setId(cArray[0])  # Set ID
         c.setSem(cArray[1])  # Set Semester
         c.setOC(cArray[2])  # Set Open/Closed
         c.setName(cArray[3])  # Set Name
         c.setCampus(cArray[4])  # Set Campus
 
+        for index, elem in enumerate(cArray):  # ENUM gives an index as well
 
-        # TODO: Lec (TBA), LAB(TBA)
-        for index, elem in enumerate(cArray):  # Start=5 not working
-            # print(elem)
             if ('LEC' in elem and 'TBA' not in elem):  # Has Lecture slot booked
                 self.addLec(cArray, index, c)
 
-            if ('LAB' in elem and 'TBA' not in elem):  # Has Sem slot booked
+            if ('LEC' in elem and 'TBA' in elem):  # Lec booked but TBA
+                c.setLecDays(cArray[index])
+                c.setLecTime(cArray[index+1])
+                c.setLecRoom(cArray[index+2])
+                # Next line: if there is not a lab, lecture, or exam listed after we know for a fact the next index is the prof
+                if (('LAB' not in cArray[index+3] or 'SEM' not in cArray[index+3]) and 'LEC' not in cArray[index+3] and 'EXAM' not in cArray[index+3]):
+                    c.setProf(cArray[index+3])
+
+            if (('LAB' in elem or 'SEM' in elem) and 'TBA' not in elem):  # Has Sem slot booked
                 self.addSem(cArray, index, c)
+
+            if (('LAB' in elem or 'SEM' in elem) and 'TBA' in elem):  # Sem/Lab booked but TBA
+                c.setSemDays(cArray[index])
+                c.setSemTime(cArray[index+1])
+                c.setSemRoom(cArray[index+2])
+                # Next line: if there is not a lab, lecture, or exam listed after we know for a fact the next index is the prof
+                if (('LAB' not in cArray[index+3] or 'SEM' not in cArray[index+3]) and 'LEC' not in cArray[index+3] and 'EXAM' not in cArray[index+3]):
+                    c.setProf(cArray[index+3])
 
             if ('EXAM' in elem):
                 self.addExam(cArray, index, c)
-
-            # if ('TBA  TBA' in elem):  # No declared PROF
-            #     c.setProf(elem)
 
             if ('/' in elem):  # set capacity, credit, level
                 self.addCCL(cArray, index, c)
@@ -167,7 +192,7 @@ class Parse:
             else:
                 pass
 
-        return c
+        return c  # Return populated OBJ
 
     def parser(self):
         # Gets the path of the current file
@@ -187,6 +212,7 @@ class Parse:
 
             # Since one of these strings is the final element of a given course we block off here
             if ('graduate' == x.lower() or 'diploma' == x.lower() or 'undergraduate' == x.lower()):
+                # TODO: New Course Object creation, add this to an array of objects
                 c = self.loadCourse(course)
                 c.printCourse()
 
