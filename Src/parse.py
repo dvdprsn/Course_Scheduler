@@ -13,9 +13,24 @@ class Course:
         self.oc = 'NULL'
         self.name = 'NULL'
         self.campus = 'NULL'
+
         self.lecDays = 'NULL'
         self.lecTime = 'NULL'
         self.lecRoom = 'NULL'
+
+        self.semDay = 'NULL'
+        self.semTime = 'NULL'
+        self.semRoom = 'NULL'
+
+        self.examDay = 'NULL'
+        self.examTime = 'NULL'
+        self.examRoom = 'NULL'
+
+        self.prof = 'NULL'
+
+        self.cap = 'NULL'
+        self.cred = 'NULL'
+        self.level = 'NULL'
 
     def setId(self, id):
         self.id = id
@@ -41,10 +56,43 @@ class Course:
     def setLecRoom(self, room):
         self.lecRoom = room
 
+    def setSemDays(self, day):
+        self.semDay = day
+
+    def setSemTime(self, time):
+        self.semTime = time
+
+    def setSemRoom(self, room):
+        self.semRoom = room
+
+    def setExamDay(self, day):
+        self.examDay = day
+
+    def setExamTime(self, time):
+        self.examTime = time
+
+    def setExamRoom(self, room):
+        self.examRoom = room
+
+    def setProf(self, prof):
+        self.prof = prof
+
+    def setCCL(self, cap, cred, level):
+        self.cap = cap
+        self.cred = cred
+        self.level = level
+
     def printCourse(self):
         print(self.id + " " + self.sem + " " + self.oc +
               " " + self.name + " " + self.campus)
         print(self.lecDays + " " + self.lecTime + " " + self.lecRoom)
+        print(self.semDay + " " + self.semTime + " " + self.semRoom)
+        print(self.examDay + " " + self.examTime + " " + self.examRoom)
+
+        print(self.prof)
+        print(self.cap + " " + self.cred + " " + self.level)
+
+        print("")
 
 
 class MyHTMLParser(HTMLParser):
@@ -66,6 +114,28 @@ class MyHTMLParser(HTMLParser):
 
 
 class Parse:
+    def addLec(self, cArray, startIdx, c):
+        c.setLecDays(cArray[startIdx])
+        c.setLecTime(cArray[startIdx+1])
+        c.setLecRoom(cArray[startIdx+2] + cArray[startIdx+3].replace(',', ''))
+        if ('LAB' not in cArray[startIdx+4] and 'LEC' not in cArray[startIdx+4] and 'EXAM' not in cArray[startIdx+4]):
+            c.setProf(cArray[startIdx+4])
+
+    def addSem(self, cArray, startIdx, c):
+        c.setSemDays(cArray[startIdx])
+        c.setSemTime(cArray[startIdx+1])
+        c.setSemRoom(cArray[startIdx+2] + cArray[startIdx+3].replace(',', ''))
+        if ('LAB' not in cArray[startIdx+4] and 'LEC' not in cArray[startIdx+4] and 'EXAM' not in cArray[startIdx+4]):
+            c.setProf(cArray[startIdx+4])
+
+    def addExam(self, cArray, startIdx, c):
+        c.setExamDay(cArray[startIdx])
+        c.setExamTime(cArray[startIdx+1])
+        c.setExamRoom(cArray[startIdx+2])
+        c.setProf(cArray[startIdx+3])
+
+    def addCCL(self, cArray, startIdx, c):
+        c.setCCL(cArray[startIdx], cArray[startIdx+1], cArray[startIdx+2])
 
     def loadCourse(self, cArray):
         c = Course()
@@ -75,17 +145,27 @@ class Parse:
         c.setName(cArray[3])  # Set Name
         c.setCampus(cArray[4])  # Set Campus
 
-        # TODO: No consistent pattern for index 5, STUCK
-        # Some courses have lecture day, some have LAB, some have TBA, some have prof name.
-        # With no consistency we cant make a catch all
-        if ('LEC' in cArray[5] and 'TBA' not in cArray[5]):  # Has Lecture slot booked
-            c.setLecDays(cArray[5])
-            c.setLecTime(cArray[6])
-            c.setLecRoom(cArray[7] + cArray[8].replace(',', ''))
-        elif ('LAB' in cArray[5]):
-            pass
-        else:
-            pass
+
+        # TODO: Lec (TBA), LAB(TBA)
+        for index, elem in enumerate(cArray):  # Start=5 not working
+            # print(elem)
+            if ('LEC' in elem and 'TBA' not in elem):  # Has Lecture slot booked
+                self.addLec(cArray, index, c)
+
+            if ('LAB' in elem and 'TBA' not in elem):  # Has Sem slot booked
+                self.addSem(cArray, index, c)
+
+            if ('EXAM' in elem):
+                self.addExam(cArray, index, c)
+
+            # if ('TBA  TBA' in elem):  # No declared PROF
+            #     c.setProf(elem)
+
+            if ('/' in elem):  # set capacity, credit, level
+                self.addCCL(cArray, index, c)
+
+            else:
+                pass
 
         return c
 
