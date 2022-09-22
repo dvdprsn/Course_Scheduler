@@ -7,9 +7,7 @@ array = ['1']
 
 # TODO: Store object's as CSV instead of array
 
-# This array stores all information that a course can possibly contain
-
-
+# This class stores all information that a course can possibly contain
 class Course:
     def __init__(self):  # init instance variables
         # All start as NULL so we can parse easier later
@@ -102,6 +100,28 @@ class Course:
 
         print("")
 
+    def generateList(self):
+        return [
+                    "" + self.id,
+                    "" + self.sem,
+                    "" + self.oc,
+                    "" + self.name,
+                    "" + self.campus,
+                    "" + self.lecDays,
+                    "" + self.lecTime,
+                    "" + self.lecRoom,
+                    "" + self.semDay,
+                    "" + self.semTime,
+                    "" + self.semRoom,
+                    "" + self.examDay,
+                    "" + self.examTime,
+                    "" + self.examRoom,
+                    "" + self.prof,
+                    " " + self.cap, # Add space so that excel doesn't recognize this string as a calendar date
+                    "" + self.cred,
+                    "" + self.level
+                ]
+
 
 class MyHTMLParser(HTMLParser):
     found = False  # We use this to find where in the HTML the relevant data actually starts
@@ -123,6 +143,17 @@ class MyHTMLParser(HTMLParser):
 
 class Parse:
     # Helpers
+    def writeToCsv(self, dirPath, allCourses):
+            writePath = os.path.join(dirPath, 'Data', 'courseData.csv')
+            with open(writePath, 'w', newline='') as data:  # Write to CSV
+                write = csv.writer(data)
+                # Write out each element of all courses
+                for course in allCourses:
+                    write.writerow(Course.generateList(course))
+
+                # Clean up
+                data.close()
+
     def addLec(self, cArray, startIdx, c):
         c.setLecDays(cArray[startIdx])
         c.setLecTime(cArray[startIdx+1])
@@ -212,22 +243,13 @@ class Parse:
 
             # Since one of these strings is the final element of a given course we block off here
             if ('graduate' == x.lower() or 'diploma' == x.lower() or 'undergraduate' == x.lower()):
-                # TODO: New Course Object creation, add this to an array of objects
                 c = self.loadCourse(course)
-                c.printCourse()
 
-                # Append singular course array to all
-                allCourses.append(course)
+                # Append course to the course array
+                allCourses.append(c)
                 course = []  # Reset course array
 
-        writePath = os.path.join(dirPath, 'Data', 'courseData.csv')
-        with open(writePath, 'w', newline='') as data:  # Write to CSV
-            write = csv.writer(data)
-            # Write out each element of all courses
-            write.writerows(allCourses)
-        # Clean up
-
-        data.close()
+        self.writeToCsv(dirPath, allCourses)
         f.close()
 
 
