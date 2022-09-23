@@ -5,8 +5,6 @@ import os
 # We need to skip all the garbage at top of file and this course ID gets skipped
 array = ['1']
 
-# TODO: Store object's as CSV instead of array
-
 # This class stores all information that a course can possibly contain
 class Course:
     def __init__(self):  # init instance variables
@@ -151,9 +149,6 @@ class Parse:
                 for course in allCourses:
                     write.writerow(Course.generateList(course))
 
-                # Clean up
-                data.close()
-
     def addLec(self, cArray, startIdx, c):
         c.setLecDays(cArray[startIdx])
         c.setLecTime(cArray[startIdx+1])
@@ -229,10 +224,11 @@ class Parse:
         # Gets the path of the current file
         dirPath = os.path.dirname(os.path.abspath("parse.py"))
         dataPath = os.path.join(dirPath, 'Data', 'guelph.html')
-        f = open(dataPath, "r")
 
-        parser = MyHTMLParser()
-        parser.feed(f.read())  # Feed in HTML
+        # Open html file for reading course data
+        with open(dataPath, "r") as f:
+            parser = MyHTMLParser()
+            parser.feed(f.read())  # Feed in HTML
 
         course = []  # Array for a single course
         allCourses = []  # Array of all courses
@@ -250,7 +246,6 @@ class Parse:
                 course = []  # Reset course array
 
         self.writeToCsv(dirPath, allCourses)
-        f.close()
 
 
 p = Parse()
