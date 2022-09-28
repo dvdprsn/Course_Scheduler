@@ -23,8 +23,13 @@ Sub main()
     For Each course In inputs
         getMeetings (course)
         Next course
-    
     placeMeetings
+    
+    CourseHelper.hello
+    
+    Dim myBool As Boolean
+    myBool = getBool()
+    Debug.Print myBool
 End Sub
 
 Sub placeMeetings()
