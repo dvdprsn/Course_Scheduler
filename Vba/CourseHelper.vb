@@ -4,6 +4,10 @@ Sub hello()
 End Sub
 
 'Functions return values
-Function getBool()
-    getBool = True
+Function helperMeetings(numCourses As Integer) As Object
+    'Debug.Print numCourses
+    Set helperMeetings = New Collection
+    helperMeetings.Add ("MATH*1200*0101")
+    helperMeetings.Add ("MATH*1220*0101")
 End Function
+

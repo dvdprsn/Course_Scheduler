@@ -3,33 +3,38 @@ Option Explicit
 Const rootRow As Integer = 6
 Const rootCol As Integer = 4
 'This holds the row number/courseID of a course
-'   After using getCourseID. If -1 course was not found
+'After using getCourseID. If -1 course was not found
 Dim courseID As Integer
 Dim meetings As Collection
+Dim helperMeetings As Collection
 Public i As Integer
 
-
 Sub main()
+'Remember to clear suggested courses here
+'So that courses are suggested on every generate
+
     Set meetings = New Collection
     
     'User inputs
     Dim inputs As Variant
     inputs = Range("J6:J10").Value
     
-    i = 35 'set base color
+    i = 35                                       'set base color
     
     'populate meetings with meeting instances for each course in input
     Dim course As Variant
+    Dim validCourses As Integer
     For Each course In inputs
-        getMeetings (course)
-        Next course
+        If IsEmpty(course) = False Then
+            getMeetings (course)
+            validCourses = validCourses + 1
+        End If
+        
+    Next course
     placeMeetings
-    
-    CourseHelper.hello
-    
-    Dim myBool As Boolean
-    myBool = getBool()
-    Debug.Print myBool
+
+    Set helperMeetings = CourseHelper.helperMeetings(validCourses)
+    Debug.Print helperMeetings(1)
 End Sub
 
 Sub placeMeetings()
@@ -40,13 +45,13 @@ Sub placeMeetings()
     Dim adjust As Integer
     Dim cellIndex As Integer
     Dim conCheck As Integer
-    For Each aMeet In meetings 'Plot each meeting
+    For Each aMeet In meetings                   'Plot each meeting
         For Each day In aMeet.days
             dayNum = GetDayNum(CStr(day), rootCol)
-            Dim r1 As Range 'Top cell (coursename)
-            Dim r2 As Range 'Second to top cell (meetingtype)
-            Dim r3 As Range 'Second to bottom cell
-            Dim r4 As Range 'Bottom cell
+            Dim r1 As Range                      'Top cell (coursename)
+            Dim r2 As Range                      'Second to top cell (meetingtype)
+            Dim r3 As Range                      'Second to bottom cell
+            Dim r4 As Range                      'Bottom cell
             
             Set r1 = Worksheets("interface").Cells(aMeet.GetStartCell(rootRow), dayNum)
             Set r2 = Worksheets("interface").Cells(aMeet.GetStartCell(rootRow) + 1, dayNum)
@@ -65,8 +70,8 @@ Sub placeMeetings()
             Range(r2, r3).Borders(Excel.XlBordersIndex.xlInsideVertical).LineStyle = Excel.XlLineStyle.xlLineStyleNone
             r3.Value = aMeet.courseName
             r4.Value = aMeet.meetingType
-            Next day
-        Next aMeet
+        Next day
+    Next aMeet
 End Sub
 
 'Calls meeting class functions to parse information from CSV
@@ -75,7 +80,7 @@ Sub getMeetings(theID As String)
     getCourseID (theID)
     
     If courseID = -1 Then
-        Debug.Print "INVALID COURSE"
+        'Debug.Print "INVALID COURSE"
         Exit Sub
     End If
     
@@ -118,7 +123,7 @@ Sub getCourseID(course As String)
     Dim courseRange As Range
     Set courseRange = Worksheets("courseData").Range("D1:D3036").Find(course)
     
-    courseID = -1 'set to -1 if nothing is found
+    courseID = -1                                'set to -1 if nothing is found
     If Not courseRange Is Nothing Then
         courseID = courseRange.row
     End If
@@ -139,16 +144,16 @@ Function GetDayNum(day As String, col As Integer) As Integer
     theDays = Split("Mon,Tues,Wed,Thur,Fri", ",")
     For i = 0 To 4
         If day = theDays(i) Then
-            GetDayNum = col + i 'return integer matching day
+            GetDayNum = col + i                  'return integer matching day
         End If
-        Next i
+    Next i
 End Function
 
 'Reset all formatting values in the course panel
 Sub clearCells()
     Dim theRange As Range
     Set theRange = Worksheets("interface").Range(Cells(rootRow, rootCol), Cells(rootRow + 29, rootCol + 4))
-    theRange.ClearContents 'wipe everything
+    theRange.ClearContents                       'wipe everything
     theRange.Interior.Color = RGB(183, 215, 246) 'set colors
     
     'set borders (yep, it's this annoying)
@@ -172,3 +177,31 @@ End Sub
 Sub Clear_Click()
     clearCells
 End Sub
+
+'takes in time formated string, int encoded day of week, increments and loops
+Sub incrementTime(time As String, day As Integer)
+    time = time + TimeSerial(0, 30, 0)
+    If time = TimeValue("23:30") Then
+        time = "8:30:00 AM"
+        day = day + 1
+        If day > 4 Then
+            day = 0
+        End If
+    End If
+End Sub
+
+Sub timing()
+Dim myStr As String
+Dim myStr2 As String
+Dim date1 As Date
+Dim date2 As Date
+
+myStr = "12:11AM"
+myStr = "11:15AM"
+
+date1 = myStr
+date2 = myStr
+
+Debug.Print DateDiff(h, date1, date2)
+End Sub
+

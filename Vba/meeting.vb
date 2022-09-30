@@ -4,28 +4,28 @@
 'Coursename, meeting type, days held, start/end hour,
 'start/end hour
 
-Public courseName As String 'CIS*3760'
-Public meetingType As String 'LEC'
-Public days As Variant 'mon, wed, fri'
-Public startHour As Integer '4
-Public startMinute As Integer '30
-Public startDayHalf As String 'AM
-Public endHour As Integer '5
-Public endMinute As Integer '20
-Public endDayHalf As String 'PM
+Public courseName As String                      'CIS*3760'
+Public meetingType As String                     'LEC'
+Public days As Variant                           'mon, wed, fri'
+Public startHour As Integer                      '4
+Public startMinute As Integer                    '30
+Public startDayHalf As String                    'AM
+Public endHour As Integer                        '5
+Public endMinute As Integer                      '20
+Public endDayHalf As String                      'PM
 Public courseColor As Integer
 
 'Runs on initialization
 Private Sub Class_Initialize()
-      courseName = "NULL"
-      meetingType = "NULL"
-      startHour = -1
-      startMinute = -1
-      startDayHalf = "NULL"
-      endHour = -1
-      endMinute = -1
-      endDayHalf = "NULL"
-      courseColor = 1
+    courseName = "NULL"
+    meetingType = "NULL"
+    startHour = -1
+    startMinute = -1
+    startDayHalf = "NULL"
+    endHour = -1
+    endMinute = -1
+    endDayHalf = "NULL"
+    courseColor = 1
 End Sub
 
 Public Property Set day(Value As Collection)
@@ -93,14 +93,15 @@ Public Property Get GetStartCell(row As Integer)
     Dim adjust As Integer
     Dim index As Integer
     
-    If startDayHalf = "AM" Then
-            adjust = 8 'so 8:00 --> first cell
-        Else
-            adjust = -4 'so 1:00pm --> goes to fifth cell
+    adjust = 8
+    If startDayHalf = "PM" Then
+        If Not startHour = 12 Then
+            adjust = -4
         End If
-        index = (startHour - adjust) * 2 + row
-        If startMinute < 30 Then
-            index = index - 1
+    End If
+    index = (startHour - adjust) * 2 + row
+    If startMinute < 30 Then
+        index = index - 1
     End If
     GetStartCell = index
 End Property
@@ -116,13 +117,13 @@ Public Property Get GetEndCell(row As Integer) As Integer
             adjust = -4
         End If
     End If
-        index = (endHour - adjust) * 2 + row
+    index = (endHour - adjust) * 2 + row
         
-        'rounding for :20 and :50 min timings
-        If endMinute < 20 Then
-            index = index - 1
-        ElseIf endMinute > 30 Then
-            index = index + 1
-        End If
+    'rounding for :20 and :50 min timings
+    If endMinute <= 20 Then
+        index = index - 1
+    ElseIf endMinute > 30 Then
+        index = index + 1
+    End If
     GetEndCell = index
 End Property
