@@ -119,11 +119,9 @@ Public Property Get GetEndCell(row As Integer) As Integer
     End If
     index = (endHour - adjust) * 2 + row
         
-    'rounding for :20 and :50 min timings
-    If endMinute <= 20 Then
+    'rounding-down for :20 min timings
+    If endMinute <= 30 Then
         index = index - 1
-    ElseIf endMinute > 30 Then
-        index = index + 1
     End If
     GetEndCell = index
 End Property
