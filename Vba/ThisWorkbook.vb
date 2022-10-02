@@ -10,8 +10,8 @@ Dim helperMeetings As Collection
 Public i As Integer
 
 Sub main()
-'Remember to clear suggested courses here
-'So that courses are suggested on every generate
+    'Remember to clear suggested courses here
+    'So that courses are suggested on every generate
 
     Set meetings = New Collection
     
@@ -190,21 +190,20 @@ Sub incrementTime(time As String, Day As Integer)
     End If
 End Sub
 
-
 'test dummy function
 Sub timing()
-Dim myStr As String
-Dim myStr2 As String
-Dim date1 As Date
-Dim date2 As Date
+    Dim myStr As String
+    Dim myStr2 As String
+    Dim date1 As Date
+    Dim date2 As Date
 
-myStr = "12:11AM"
-myStr = "11:15AM"
+    myStr = "12:11AM"
+    myStr = "11:15AM"
 
-date1 = myStr
-date2 = myStr
+    date1 = myStr
+    date2 = myStr
 
-Debug.Print DateDiff(h, date1, date2)
+    Debug.Print DateDiff(h, date1, date2)
 End Sub
 
 'Convert day value to string
@@ -223,6 +222,7 @@ Function dayIntToStr(Day As Integer) As String
     End If
 
 End Function
+
 'convert time format to courseData format
 'assume time format is 11:30:00 AM
 Function formatTime(time As String) As String
@@ -234,6 +234,7 @@ Function formatTime(time As String) As String
     formatTime = subString1 & subString2
     
 End Function
+
 'Get course code only from course title
 Function trimCourseName(course As String) As String
     Dim pos
@@ -241,6 +242,7 @@ Function trimCourseName(course As String) As String
     trimCourseName = Left(course, pos - 1)
     
 End Function
+
 Function suggestCourse(Day As Integer, time As String) As String
 
     Dim pos
@@ -263,9 +265,43 @@ Function suggestCourse(Day As Integer, time As String) As String
                 tempCourse = cell.Offset(0, -3).Value
                 suggestCourse = trimCourseName(tempCourse)
         
-        End If
-    Next cell
-    'compare it with our day parameter
-    'if match then get time (24h format)
+            End If
+        Next cell
+        'compare it with our day parameter
+        'if match then get time (24h format)
 
+    End Function
+
+Function getBusiestDay() As String
+    'Function gets the busiest day of the week
+    'If tie gets the first day thats the highest
+    Dim i As Integer
+    Dim j As Integer
+    Dim total As Integer
+    Dim greatest As Integer
+    greatest = 0
+    Dim columnArray As Variant
+    columnArray = Array("D", "E", "F", "G", "H")
+    Dim dayArray As Variant
+    dayArray = Array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+    Dim dayString As String
+    'Iterates through the board by each column and finds cells that are not the same
+    'colour as the board., gets the totals for each column
+    For i = 4 To 8
+        For j = 6 To 35
+            If Range(columnArray(i - 4) & j).Interior.Color <> RGB(183, 215, 246) Then
+                total = total + 1
+            End If
+        Next j
+        'Using the totals calculated, checks to see which day has the most amount of cells populated with courses
+
+        If (total > greatest) Then
+            greatest = total
+            dayString = dayArray(i - 4)
+        End If
+        total = 0
+    Next i
+    'Function then returns the day that had the most courses populated(busiest)
+    getBusiestDay = dayString
+    Debug.Print getBusiestDay
 End Function
