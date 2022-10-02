@@ -40,14 +40,14 @@ End Sub
 Sub placeMeetings()
   
     Dim aMeet As Variant
-    Dim day As Variant
+    Dim Day As Variant
     Dim dayNum As Integer
     Dim adjust As Integer
     Dim cellIndex As Integer
     Dim conCheck As Integer
     For Each aMeet In meetings                   'Plot each meeting
-        For Each day In aMeet.days
-            dayNum = GetDayNum(CStr(day), rootCol)
+        For Each Day In aMeet.days
+            dayNum = GetDayNum(CStr(Day), rootCol)
             Dim r1 As Range                      'Top cell (coursename)
             Dim r2 As Range                      'Second to top cell (meetingtype)
             Dim r3 As Range                      'Second to bottom cell
@@ -70,7 +70,7 @@ Sub placeMeetings()
             Range(r2, r3).Borders(Excel.XlBordersIndex.xlInsideVertical).LineStyle = Excel.XlLineStyle.xlLineStyleNone
             r3.Value = aMeet.courseName
             r4.Value = aMeet.meetingType
-        Next day
+        Next Day
     Next aMeet
 End Sub
 
@@ -136,14 +136,14 @@ End Function
 
 'Converts days of the week strings to cell indexes
 'Takes a single string day
-Function GetDayNum(day As String, col As Integer) As Integer
+Function GetDayNum(Day As String, col As Integer) As Integer
     Dim theDays() As String
     Dim i As Integer
     
     'makes days array
     theDays = Split("Mon,Tues,Wed,Thur,Fri", ",")
     For i = 0 To 4
-        If day = theDays(i) Then
+        If Day = theDays(i) Then
             GetDayNum = col + i                  'return integer matching day
         End If
     Next i
@@ -179,17 +179,19 @@ Sub Clear_Click()
 End Sub
 
 'takes in time formated string, int encoded day of week, increments and loops
-Sub incrementTime(time As String, day As Integer)
+Sub incrementTime(time As String, Day As Integer)
     time = time + TimeSerial(0, 30, 0)
     If time = TimeValue("23:30") Then
         time = "8:30:00 AM"
-        day = day + 1
-        If day > 4 Then
-            day = 0
+        Day = Day + 1
+        If Day > 4 Then
+            Day = 0
         End If
     End If
 End Sub
 
+
+'test dummy function
 Sub timing()
 Dim myStr As String
 Dim myStr2 As String
@@ -205,3 +207,65 @@ date2 = myStr
 Debug.Print DateDiff(h, date1, date2)
 End Sub
 
+'Convert day value to string
+Function dayIntToStr(Day As Integer) As String
+
+    If Day = rootCol Then
+        dayIntToStr = "Mon"
+    ElseIf Day = rootCol + 1 Then
+        dayIntToStr = "Tues"
+    ElseIf Day = rootCol + 2 Then
+        dayIntToStr = "Wed"
+    ElseIf Day = rootCol + 3 Then
+        dayIntToStr = "Thur"
+    ElseIf Day = rootCol + 4 Then
+        dayIntToStr = "Fri"
+    End If
+
+End Function
+'convert time format to courseData format
+'assume time format is 11:30:00 AM
+Function formatTime(time As String) As String
+
+    Dim pos
+    pos = InStr(4, time, ":", 1)
+    subString1 = Left(time, pos - 1)
+    subString2 = Right(time, 2)
+    formatTime = subString1 & subString2
+    
+End Function
+'Get course code only from course title
+Function trimCourseName(course As String) As String
+    Dim pos
+    pos = InStr(1, course, " ", 1)
+    trimCourseName = Left(course, pos - 1)
+    
+End Function
+Function suggestCourse(Day As Integer, time As String) As String
+
+    Dim pos
+    Dim dayString, timeString, startTime, tempCourse As String
+    dayString = dayIntToStr(Day)
+    Dim dayRange, timeRange As Range
+    Set dayRange = Worksheets("courseData").Range("F1:F3036")
+    
+    timeString = formatTime(time)
+    
+    For Each cell In dayRange
+        pos = InStr(1, cell.Value, dayString, 1)
+        'check day contains in cell
+        If pos <> 0 And Not IsNull(pos) Then
+            'trim the starting time in courseData
+            startTime = Left(cell.Offset(0, 1).Value, 7)
+            'check time contains in cell 1 unit to the right
+            pos = InStr(1, startTime, timeString, 1)
+            If pos <> 0 And Not IsNull(pos) Then
+                tempCourse = cell.Offset(0, -3).Value
+                suggestCourse = trimCourseName(tempCourse)
+        
+        End If
+    Next cell
+    'compare it with our day parameter
+    'if match then get time (24h format)
+
+End Function
