@@ -9,7 +9,19 @@ Dim meetings As Collection
 Dim helperMeetings As Collection
 Public i As Integer
 
+Public userSelect As Integer
+
 Sub main()
+    Dim d As Integer
+    
+    d = main2
+    If d = 1 Then
+        MsgBox ("There exists a conflict with some selection")
+    End If
+    
+End Sub
+
+Function main2() As Integer
     'Remember to clear suggested courses here
     'So that courses are suggested on every generate
 
@@ -31,15 +43,18 @@ Sub main()
         End If
         
     Next course
-    placeMeetings
-
-    Set helperMeetings = CourseHelper.helperMeetings(validCourses)
-    Debug.Print helperMeetings(1)
+    Dim d As Integer
     
-End Sub
+    d = placeMeetings
+    main2 = d
+    
+    Set helperMeetings = CourseHelper.helperMeetings(validCourses)
+    'Debug.Print helperMeetings(1)
+    
+End Function
 
-Sub placeMeetings()
-  
+Function placeMeetings() As Integer
+    
     Dim aMeet As Variant
     Dim Day As Variant
     Dim dayNum As Integer
@@ -60,7 +75,11 @@ Sub placeMeetings()
             Set r4 = Worksheets("interface").Cells(aMeet.GetEndCell(rootRow), dayNum)
             
             If Not Range(r1, r4).Interior.Color = RGB(183, 215, 246) Then
-                MsgBox (aMeet.courseName & " Conflicts with one of your other selections")
+                Debug.Print "ConflictFound"
+                placeMeetings = 1
+                Exit Function
+            Else:
+                placeMeetings = 0
             End If
             
             'Set formatting and color for a course being placed
@@ -73,7 +92,7 @@ Sub placeMeetings()
             r4.Value = aMeet.meetingType
         Next Day
     Next aMeet
-End Sub
+End Function
 
 'Calls meeting class functions to parse information from CSV
 'Adds meeting objects to the meeting collection
@@ -152,6 +171,7 @@ End Function
 
 'Reset all formatting values in the course panel
 Sub clearCells()
+    
     Dim theRange As Range
     Set theRange = Worksheets("interface").Range(Cells(rootRow, rootCol), Cells(rootRow + 29, rootCol + 4))
     theRange.ClearContents                       'wipe everything
@@ -173,6 +193,7 @@ Sub clearCells()
         .Color = RGB(255, 255, 255)
         .Weight = xlMedium
     End With
+    
 End Sub
 
 Sub Clear_Click()
@@ -185,8 +206,8 @@ Sub incrementTime(time As Date, Day As Integer)
     If time = TimeValue("11:00 PM") Then
         time = TimeValue("8:30 AM")
         Day = Day + 1
-        If Day > 4 Then
-            Day = 0
+        If Day > 8 Then
+            Day = rootCol
         End If
     End If
 End Sub
@@ -268,7 +289,7 @@ Function suggestCourse(Day As Integer, time As String) As String
     Set dayRange = Worksheets("courseData").Range("F1:F3036")
     
     timeString = formatTime(time)
-    
+    suggestCourse = "NULL"
     For Each cell In dayRange
         pos = InStr(1, cell.Value, dayString, 1)
         'check day contains in cell
@@ -287,7 +308,7 @@ Function suggestCourse(Day As Integer, time As String) As String
             End If
         End If
     Next cell
-
+    
 End Function
 
 Function getBusiestDay() As String
@@ -325,21 +346,53 @@ End Function
 
 ' Work In Progress Function - Linked to generate button
 Sub suggestGenerate()
-    
-    Dim testTime As Date
-    Dim time As String
-    Dim bDay As String
-    Dim busiestDay As Integer
+    Dim time As Date
+    Dim timeStr As String
+    Dim strTime As String
+    Dim testDay As Integer
     Dim suggested As String
     
-    bDay = getBusiestDay ' Get busiest day as a string
+    ' Init
+    time = TimeValue("8:30:00 AM")
+    testDay = 4
     
-    busiestDay = dayStringToInt(bDay) ' Convert the string to the index value
+    Dim inputs As Range
+    Set inputs = Range("J6:J10")
     
-    'Call incrementTime(testTime, busiestDay)
-    time = testTime ' Converts the Date type to string
-
-    suggested = suggestCourse(busiestDay, time)
-    Debug.Print suggested
+    'populate meetings with meeting instances for each course in input
+    Dim course
+    Dim validCourses As Integer
+    Debug.Print time
+    Debug.Print testDay
+    Dim d As Integer
+    
+    Dim index As Integer
+    index = 1
+    While index <= 5 ' For checking each index of the Select Course window J6:J10
+    
+        Debug.Print "Index: " & index
+        timeStr = time ' Convert Time from date format to string
+        If IsEmpty(inputs.Item(index).Value) = True Then 'If there is no user selected course
+            suggested = suggestCourse(testDay, timeStr) ' Find first course at day and time
+            Debug.Print "Course Found: " & suggested
+            
+            If (StrComp(suggested, "NULL") <> 0) Then ' If course is found
+                inputs.Item(index).Value = suggested 'Add course to selection window
+                clearCells ' Clear if schedule is filled
+                d = main2 ' Populate and catch for conflict
+                Debug.Print "Debug Value: " & d
+                If d = 1 Then ' If there was a conflict
+                    inputs.Item(index).Value = "" ' Empty the cell
+                    clearCells ' Clear schedule
+                    Debug.Print "Didnt work"
+                Else:  ' On Success
+                    index = index + 1 ' Course has been added and no conflict, check next index
+                End If
+            End If
+            Call incrementTime(time, testDay) ' Increment the time by 30 mins and loop to next day
+        Else:
+            index = index + 1 ' If there was a user entered course already
+        End If
+    Wend
     
 End Sub
