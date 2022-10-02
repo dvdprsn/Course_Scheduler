@@ -40,6 +40,9 @@ python3 Src/search.py
 ### **Interactive Excel Spreadsheet**
 1. **Open the Excel (.xlsm) file**
 2. **Add desired course codes to the specified area in the top right portion of the sheet**
-3. **Click on the *"Generate"* button to add the courses to the schedule**
+3. **Click on the *"Generate"* button to add the courses to the schedule (course conflicts will notify the user, and let them try again)**
 4. **View the courses at their specified days and times in the schedule on the left portion of the sheet**
 5. **If at any time the course schedule needs to be cleared, click the *"Clear"* button to do so**
+
+### **Course Suggestion Helper**
+To fill in up to 5 courses, click on the "Fill in courses" button to have your courses automatically filled without conflicts. Suggested courses will prioritize early courses, as well as keeping Tuesday's and Thursday's empty. 
