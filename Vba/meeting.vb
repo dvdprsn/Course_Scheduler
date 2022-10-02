@@ -28,7 +28,7 @@ Private Sub Class_Initialize()
     courseColor = 1
 End Sub
 
-Public Property Set day(Value As Collection)
+Public Property Set Day(Value As Collection)
     Set days = Value
 End Property
 
