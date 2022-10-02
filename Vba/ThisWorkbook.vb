@@ -35,6 +35,7 @@ Sub main()
 
     Set helperMeetings = CourseHelper.helperMeetings(validCourses)
     Debug.Print helperMeetings(1)
+    
 End Sub
 
 Sub placeMeetings()
@@ -179,10 +180,10 @@ Sub Clear_Click()
 End Sub
 
 'takes in time formated string, int encoded day of week, increments and loops
-Sub incrementTime(time As String, Day As Integer)
+Sub incrementTime(time As Date, Day As Integer)
     time = time + TimeSerial(0, 30, 0)
-    If time = TimeValue("23:30") Then
-        time = "8:30:00 AM"
+    If time = TimeValue("11:00 PM") Then
+        time = TimeValue("8:30 AM")
         Day = Day + 1
         If Day > 4 Then
             Day = 0
@@ -206,19 +207,33 @@ Sub timing()
     Debug.Print DateDiff(h, date1, date2)
 End Sub
 
+Function dayStringToInt(Day As String) As Integer
+    If StrComp(Day, "Monday") = 0 Then
+        dayStringToInt = 0
+    ElseIf StrComp(Day, "Tuesday") = 0 Then
+        dayStringToInt = 1
+    ElseIf StrComp(Day, "Wednesday") = 0 Then
+        dayStringToInt = 2
+    ElseIf StrComp(Day, "Thursday") = 0 Then
+        dayStringToInt = 3
+    ElseIf StrComp(Day, "Friday") = 0 Then
+        dayStringToInt = 4
+    End If
+End Function
+
 'Convert day value to string
 Function dayIntToStr(Day As Integer) As String
 
     If Day = rootCol Then
-        dayIntToStr = "Mon"
+        dayIntToStr = "Monday"
     ElseIf Day = rootCol + 1 Then
-        dayIntToStr = "Tues"
+        dayIntToStr = "Tuesday"
     ElseIf Day = rootCol + 2 Then
-        dayIntToStr = "Wed"
+        dayIntToStr = "Wednesday"
     ElseIf Day = rootCol + 3 Then
-        dayIntToStr = "Thur"
+        dayIntToStr = "Thursday"
     ElseIf Day = rootCol + 4 Then
-        dayIntToStr = "Fri"
+        dayIntToStr = "Friday"
     End If
 
 End Function
@@ -228,6 +243,9 @@ End Function
 Function formatTime(time As String) As String
 
     Dim pos
+    Dim subString1, subString2 As String
+    
+    
     pos = InStr(4, time, ":", 1)
     subString1 = Left(time, pos - 1)
     subString2 = Right(time, 2)
@@ -238,6 +256,7 @@ End Function
 'Get course code only from course title
 Function trimCourseName(course As String) As String
     Dim pos
+    
     pos = InStr(1, course, " ", 1)
     trimCourseName = Left(course, pos - 1)
     
@@ -245,7 +264,8 @@ End Function
 
 Function suggestCourse(Day As Integer, time As String) As String
 
-    Dim pos
+    Dim pos As Integer
+    Dim cell As Variant
     Dim dayString, timeString, startTime, tempCourse As String
     dayString = dayIntToStr(Day)
     Dim dayRange, timeRange As Range
@@ -266,11 +286,12 @@ Function suggestCourse(Day As Integer, time As String) As String
                 suggestCourse = trimCourseName(tempCourse)
         
             End If
-        Next cell
-        'compare it with our day parameter
-        'if match then get time (24h format)
-
-    End Function
+        End If
+    Next cell
+    'compare it with our day parameter
+    'if match then get time (24h format)
+    
+End Function
 
 Function getBusiestDay() As String
     'Function gets the busiest day of the week
@@ -303,5 +324,25 @@ Function getBusiestDay() As String
     Next i
     'Function then returns the day that had the most courses populated(busiest)
     getBusiestDay = dayString
-    Debug.Print getBusiestDay
 End Function
+
+' Work In Progress Function - Linked to generate button
+Sub suggestGenerate()
+    
+    Dim testTime As Date
+    Dim time As String
+    Dim bDay As String
+    Dim busiestDay As Integer
+    Dim suggested As String
+    
+    bDay = getBusiestDay ' Get busiest day as a string
+    
+    busiestDay = dayStringToInt(bDay) ' Convert the string to the index value
+    
+    'Call incrementTime(testTime, busiestDay)
+    time = testTime ' Converts the Date type to string
+
+    suggested = suggestCourse(busiestDay, time)
+    Debug.Print suggested
+    
+End Sub
