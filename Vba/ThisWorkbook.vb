@@ -225,15 +225,15 @@ End Function
 Function dayIntToStr(Day As Integer) As String
 
     If Day = rootCol Then
-        dayIntToStr = "Monday"
+        dayIntToStr = "Mon"
     ElseIf Day = rootCol + 1 Then
-        dayIntToStr = "Tuesday"
+        dayIntToStr = "Tues"
     ElseIf Day = rootCol + 2 Then
-        dayIntToStr = "Wednesday"
+        dayIntToStr = "Wed"
     ElseIf Day = rootCol + 3 Then
-        dayIntToStr = "Thursday"
+        dayIntToStr = "Thur"
     ElseIf Day = rootCol + 4 Then
-        dayIntToStr = "Friday"
+        dayIntToStr = "Fri"
     End If
 
 End Function
@@ -241,34 +241,30 @@ End Function
 'convert time format to courseData format
 'assume time format is 11:30:00 AM
 Function formatTime(time As String) As String
-
     Dim pos
     Dim subString1, subString2 As String
-    
-    
+
     pos = InStr(4, time, ":", 1)
     subString1 = Left(time, pos - 1)
     subString2 = Right(time, 2)
+
     formatTime = subString1 & subString2
-    
 End Function
 
 'Get course code only from course title
 Function trimCourseName(course As String) As String
     Dim pos
-    
     pos = InStr(1, course, " ", 1)
     trimCourseName = Left(course, pos - 1)
-    
 End Function
 
+' Suggests a course based on the given start time and day of the week
 Function suggestCourse(Day As Integer, time As String) As String
 
-    Dim pos As Integer
-    Dim cell As Variant
+    Dim pos
     Dim dayString, timeString, startTime, tempCourse As String
     dayString = dayIntToStr(Day)
-    Dim dayRange, timeRange As Range
+    Dim dayRange, timeRange, cell As Range
     Set dayRange = Worksheets("courseData").Range("F1:F3036")
     
     timeString = formatTime(time)
@@ -282,15 +278,16 @@ Function suggestCourse(Day As Integer, time As String) As String
             'check time contains in cell 1 unit to the right
             pos = InStr(1, startTime, timeString, 1)
             If pos <> 0 And Not IsNull(pos) Then
-                tempCourse = cell.Offset(0, -3).Value
-                suggestCourse = trimCourseName(tempCourse)
-        
+                tempCourse = cell.Offset(0, -2).Value
+                ' ignores the DE (online) courses since they have no meeting time
+                If InStr(1, Right(tempCourse, 4), "DE", 1) = 0 Then
+                    suggestCourse = trimCourseName(tempCourse)
+                    Exit For
+                End If
             End If
         End If
     Next cell
-    'compare it with our day parameter
-    'if match then get time (24h format)
-    
+
 End Function
 
 Function getBusiestDay() As String
