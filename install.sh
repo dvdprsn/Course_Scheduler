@@ -1,29 +1,10 @@
-sudo apt update
-sudo apt install nginx
-
-# maybe enable port
-# not sure if david did this
-sudo ufw allow 'Nginx HTTP'
-
-# self signed
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
-CA
-Ontario
-Guelph
-CIS3760
-Group103
-34.130.28.136
-goodmand@uoguelph.ca
-sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-
-(COPY self-signed.conf from repo)
-(COPY ssl-params.conf from repo)
-(COPY 'default' server block from repo)
-
-# react build
-mkdir /var/www/G103/html
-(COPY react build from repo to above ^)
-
-# enable changes in nginx
-sudo nginx -t
+#!/bin/bash
+apt-get install nginx
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=CA/ST=Ontario/L=Guelph/O=G103/OU=CIS3760/CN='hostname -f'/emailAddress=dpears04@uoguelph.ca"
+openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+cp ./course-parser-sprint-4/resources/default /etc/nginx/sites-available/
+cp ./course-parser-sprint-4/resources/self-signed.conf /etc/nginx/snippets/
+cp ./course-parser-sprint-4/resources/ssl-params.conf /etc/nginx/snippets/
+cp -r ./course-parser-sprint-4/resources/build/* /var/www/html
+nginx -t
 systemctl restart nginx
