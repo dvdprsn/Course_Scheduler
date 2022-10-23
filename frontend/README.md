@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+You are not meant to develop in react on the google compute engine! These instructions are for an individuals machine with Node installed!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### `npm install`
 
 ## Available Scripts
 
