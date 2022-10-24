@@ -28,7 +28,7 @@ https://gitlab.socs.uoguelph.ca/cis3760-team-103/course-parser/-/tree/sprint-4/r
 <br>
 <hr>
 
-### **AUTHORS**
+### **Authors:**
 
 * Bhavsar, Megh
 * Chen, Zhelong
