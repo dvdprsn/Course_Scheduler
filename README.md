@@ -21,9 +21,11 @@ A webapp setup using nginx serving a React build. We setup a custom Linux VM usi
 ## **Web Application URL:**
 https://34.130.28.136/
 
-### **Config Files:**
+## **Config Files:**
 https://gitlab.socs.uoguelph.ca/cis3760-team-103/course-parser/-/tree/sprint-4/resources
 
+<br>
+<hr>
 <br>
 
 ### **AUTHORS**
