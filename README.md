@@ -25,8 +25,8 @@ https://34.130.28.136/
 https://gitlab.socs.uoguelph.ca/cis3760-team-103/course-parser/-/tree/sprint-4/resources
 
 <br>
-<hr>
 <br>
+<hr>
 
 ### **AUTHORS**
 
