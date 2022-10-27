@@ -1,0 +1,2 @@
+# Ignores anything not necessary to push to git repository
+**/node_modules
