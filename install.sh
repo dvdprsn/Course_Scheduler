@@ -1,10 +1,16 @@
 #!/bin/bash
-apt-get -y install nginx
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=CA/ST=Ontario/L=Guelph/O=G103/OU=CIS3760/CN=CourseSelect/emailAddress=example@gmail.com"
-openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-cp ./course-parser-sprint-4/resources/default /etc/nginx/sites-available/
-cp ./course-parser-sprint-4/resources/self-signed.conf /etc/nginx/snippets/
-cp ./course-parser-sprint-4/resources/ssl-params.conf /etc/nginx/snippets/
-cp -r ./course-parser-sprint-4/resources/build/* /var/www/html
-nginx -t
-systemctl restart nginx
+
+# install dependencies
+apt-get -y install nginx python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools
+apt-get -y install python3-venv
+
+# working folder for venv
+mkdir /home/py-venv
+cd /home/py-venv
+
+# new venv
+python3 -m venv theproject
+source theproject/bin/activate
+
+# install in venv only (doesn't effect anything else)
+pip install uwsgi flask
