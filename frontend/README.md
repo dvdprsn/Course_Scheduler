@@ -10,7 +10,7 @@ This app was kickstarted using [create-react-app](https://facebook.github.io/cre
 
 **In the frontend folder install dependencies for our project:**
 
-### `npm install`
+### `curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -`
 
 **To run in development mode and make live changes, type:**
 
