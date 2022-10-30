@@ -2,9 +2,6 @@
 
 # install dependencies
 echo "Installing dependencies"
-mandb -t
-rm -rf /var/cache/man
-mandb -c
 apt-get -y install nginx python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools
 apt-get -y install python3-venv
 
@@ -20,7 +17,7 @@ cp ./resources/ssl-params.conf /etc/nginx/snippets/
 
 # working folder for venv
 echo "make py-env/backend dir"
-mkdir /home/py-env/backend
+mkdir -p /home/py-env/backend
 #Move project.py to /home/py-env/backend
 echo "move myproject.py to backend"
 cp ./resources/myproject.py /home/py-env/backend
