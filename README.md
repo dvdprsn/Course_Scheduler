@@ -4,11 +4,13 @@ A webapp setup using nginx serving a React build. We setup a custom Linux VM usi
 
 ## **Run these commands to operate our server:**
 
-`tar -xf course-parser-sprint-4.tar`
+`tar -xf course-parser-sprint-5.tar`
 <br>
-`sudo chmod +x ./course-parser-sprint-4/install.sh`
+`cd course-parser-sprint-5`
 <br>
-`sudo ./course-parser-sprint-4/install.sh`
+`sudo chmod +x install.sh`
+<br>
+`sudo ./install.sh`
 
 ## **Commands to start and stop the server:**
 
