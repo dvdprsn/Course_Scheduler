@@ -147,7 +147,7 @@ class MyHTMLParser(HTMLParser):
 class Parse:
     # Helpers
     def writeToCsv(self, dirPath, allCourses):
-            writePath = os.path.join(dirPath, 'backend/Data', 'courseData.csv')
+            writePath = os.path.join(dirPath, 'backend/resources/Data', 'courseData.csv')
             with open(writePath, 'w', newline='') as data:  # Write to CSV
                 write = csv.writer(data)
                 # Write out each element of all courses
@@ -228,7 +228,7 @@ class Parse:
     def parser(self):
         # Gets the path of the current file
         dirPath = os.path.dirname(os.path.abspath("parse.py"))
-        dataPath = os.path.join(dirPath, 'backend/Data', 'guelph.html')
+        dataPath = os.path.join(dirPath, 'backend/resources/Data', 'guelph.html')
 
         # Open html file for reading course data
         with open(dataPath, "r") as f:
