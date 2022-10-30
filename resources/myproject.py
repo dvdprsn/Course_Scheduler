@@ -14,7 +14,7 @@ def get_current_time():
 	return {'time': time.time()}
 
 @app.route('/api/course', methods=['GET'])
-def test():
+def get_course():
     # Gets request JSON body
     #request_data = request.get_json()
 
