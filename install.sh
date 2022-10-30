@@ -8,7 +8,7 @@ apt-get -y install python3-venv
 #Create ssl
 echo "Creating SSL"
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=CA/ST=Ontario/L=Guelph/O=G103/OU=CIS3760/CN=CourseSelect/emailAddress=example@gmail.com"
-openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+openssl dhparam -dsaparam -out /etc/ssl/certs/dhparam.pem 2048
 
 #Move SSL CHANGE
 echo "Moving SSL configs"
