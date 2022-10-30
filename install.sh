@@ -2,6 +2,9 @@
 
 # install dependencies
 echo "Installing dependencies"
+mandb -t
+rm -rf /var/cache/man
+mandb -c
 apt-get -y install nginx python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools
 apt-get -y install python3-venv
 
