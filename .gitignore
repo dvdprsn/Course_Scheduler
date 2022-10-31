@@ -1,3 +1,4 @@
 # Ignores anything not necessary to push to git repository
 **/node_modules
 **.DS_Store
+**/__pycache__
