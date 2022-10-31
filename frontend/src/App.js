@@ -33,14 +33,14 @@ function App() {
   );
 }
 
-$("#getCourse").click(function() {
-  let courseName
-  useEffect(() => {
-    fetch('/api/course??name=CIS*3760*0101"').then(data => courseName)
-    });
-    return(<div>
-      <p>Here is a course: {courseName}</p>
-    </div>);
-})
+// $("#getCourse").click(function() {
+//   let courseName
+//   useEffect(() => {
+//     fetch('/api/course??name=CIS*3760*0101"').then(data => courseName)
+//     });
+//     return(<div>
+//       <p>Here is a course: {courseName}</p>
+//     </div>);
+// })
 
 export default App;
