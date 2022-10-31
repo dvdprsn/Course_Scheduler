@@ -3,7 +3,16 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+	const [courseN, setCourseName] = useState(0);
         const [currentTime, setCurrentTime] = useState(0);
+
+	const getCourseInfo = () => {
+		console.log("reached");
+		fetch('/api/course?name=ZOO*4300*0101').then(res => res.json()).then(data => {
+			setCourseName(data.name);
+		});
+	}
 
         useEffect(() => {
                 fetch('/api/time').then(res => res.json()).then(data => {
@@ -29,18 +38,14 @@ function App() {
           Learn React
         </a>
       </header>
+	<p>
+		<button id="getCourse" onClick={getCourseInfo}>Click Here for course info</button>
+	</p>
+	<p>
+		Course: {courseN}
+	</p>
     </div>
   );
 }
-
-// $("#getCourse").click(function() {
-//   let courseName
-//   useEffect(() => {
-//     fetch('/api/course??name=CIS*3760*0101"').then(data => courseName)
-//     });
-//     return(<div>
-//       <p>Here is a course: {courseName}</p>
-//     </div>);
-// })
 
 export default App;
