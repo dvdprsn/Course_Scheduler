@@ -42,3 +42,5 @@ $("#getCourse").click(function() {
       <p>Here is a course: {courseName}</p>
     </div>);
 })
+
+export default App;
