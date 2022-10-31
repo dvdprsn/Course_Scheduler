@@ -228,10 +228,10 @@ class Parse:
     def parser(self):
         # Gets the path of the current file
         dirPath = os.path.dirname(os.path.abspath("parse.py"))
-        dataPath = os.path.join(dirPath, 'backend/resources/Data', 'guelph.html')
+        #dataPath = os.path.join(dirPath, 'backend/resources/Data', 'guelph.html')
 
         # Open html file for reading course data
-        with open(dataPath, "r") as f:
+        with open('guelph.html', "r") as f:
             parser = MyHTMLParser()
             parser.feed(f.read())  # Feed in HTML
 
