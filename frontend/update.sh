@@ -1,3 +1,5 @@
 # Simple script to update the web server build
 
-cp -r ./build/* /var/www/G103/html
+npm run build
+cp -r ./build/* /var/www/html
+systemctl restart nginx
