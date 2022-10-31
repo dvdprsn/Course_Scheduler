@@ -9,8 +9,10 @@ This app was kickstarted using [create-react-app](https://facebook.github.io/cre
 [Install node](https://nodejs.org/en/download/) and follow directions for your operating system.
 
 **In the frontend folder install dependencies for our project:**
-### `sudo apt-get install nodejs`
+### `sudo apt update`
 ### `curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -`
+### `sudo apt -y install nodejs`
+
 ### `sudo npm install`
 
 **To run in development mode and make live changes, type:**
