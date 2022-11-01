@@ -20,7 +20,7 @@ const convertTime = (timeStr) => {
 	}
 	return `${hours}:${minutes}`;
 };
-
+//Convert day str to corrisponding int id for calendar
 const createDaysArray = (daysStr) => {
 	var daysAry = [];
 	if (daysStr.includes("Mon")) daysAry.push(1);
@@ -39,7 +39,7 @@ const createLecEventObj = (data) => {
 	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
 	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
 	var daysInts = createDaysArray(data.lecDays); // From the days that the lec is on
-	var desc = `Prof: ${data.prof} <br> Room: ${data.lecRoom}`;
+	var desc = `Prof: ${data.prof} <br> Room: ${data.lecRoom}`; // TODO Finish adding data to the tooltip
 	newLec = {
 		title: data.name + " Lec",
 		startTime: lecTimes[0],
@@ -71,34 +71,37 @@ const createSemEventObj = (data) => {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
+	//Testing course EXAMPLE - REMOVE
 	let zcourse = {
 		title: "CIS*3760*0101 Lec",
-		startTime: "09:00",
-		endTime: "10:20",
-		daysOfWeek: [1, 3, 5],
-		color: " #85929e",
-		description: "Example <br> Course", // MUST HAVE A DESC
+		startTime: "09:00", // 24hrs
+		endTime: "10:20", // 24hrs 
+		daysOfWeek: [1, 3, 5], // mon = 1, wed = 3, fri = 5
+		color: " #85929e", // Add bg color
+		description: "Example <br> Course", // MUST HAVE A DESC CANNOT BE EMPTY
 	};
 
 	var calendarEl = document.getElementById("calendar");
+	//Create calendar object
 	var calendar = new Calendar(calendarEl, {
 		plugins: [timeGridPlugin],
 		initialView: "timeGridWeek",
-		hiddenDays: [0, 6],
+		hiddenDays: [0, 6], // Hide weekends
 		eventDidMount: function (info) {
+			// Mouse hover tooltip function
 			new Tooltip(info.el, {
-				title: info.event.extendedProps.description,
+				title: info.event.extendedProps.description, // TODO ? Error handle, not sure how to do this
 				placement: "top",
 				trigger: "hover",
-				html: true,
+				html: true, // So <br> creates new line
 				container: "body",
 			});
 		},
 		//TODO consider https://fullcalendar.io/docs/eventOverlap
 	});
-
 	//TODO to clear calendar https://stackoverflow.com/questions/56647783/fullcalendar-v4-clear-all-events or reload
 	calendar.addEvent(zcourse); // IMPORTANT FOR DYNAMIC ADDING
+
 	document.getElementById("getCourse").onclick = function () {
 		fetch(
 			"/api/course?name=" + document.getElementById("desiredCourse").value
@@ -106,19 +109,23 @@ document.addEventListener("DOMContentLoaded", function () {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.name !== undefined && data.lecTime !== "NULL") {
-					// NOT remote and was valid input
+
 					calendar.addEvent(createLecEventObj(data)); // Add new lecture
 					//TODO Check that a sem actually exists
-
-					calendar.addEvent(createSemEventObj(data));
+					calendar.addEvent(createSemEventObj(data)); // Add seminar
 				}
 			});
 	};
 	calendar.render();
-
-	//TODO Make 5 text fields and a button
-	//TODO fetch api data for each of those courses and create an event object - ERROR CHECKING (does course have lec time?)
-	//TODO add all of those objects to the calendar
+	//TODO Integrate with bootstrap
+	//TODO Handle user inputs
+	//TODO Reorganization of UI
+	//TODO error handling
+	//TODO Event overlap handling
+	//TODO Clear calendar button
+	//TODO cleanup existing website
+	//TODO Add limit to courses added
+	//TODO ? Course color coding - Assign random hex color code to each course - reserve red for conflict
 });
 
 function App() {
