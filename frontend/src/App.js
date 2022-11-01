@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Tooltip } from "bootstrap";
 import { Calendar } from "@fullcalendar/core";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import logo from "./lantern.svg";
 import "./App.css";
-import bootstrapBundle from "bootstrap/dist/js/bootstrap.bundle";
 
+//Convert 12hrs to 24hrs
 const convertTime = (timeStr) => {
 	var time;
 	time = timeStr.replace("PM", "");
@@ -38,7 +39,7 @@ const createLecEventObj = (data) => {
 	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
 	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
 	var daysInts = createDaysArray(data.lecDays); // From the days that the lec is on
-	var desc =  `Prof: ${data.prof} <br> Room: ${data.lecRoom}`;
+	var desc = `Prof: ${data.prof} <br> Room: ${data.lecRoom}`;
 	newLec = {
 		title: data.name + " Lec",
 		startTime: lecTimes[0],
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		initialView: "timeGridWeek",
 		hiddenDays: [0, 6],
 		eventDidMount: function (info) {
-			new bootstrapBundle.Tooltip(info.el, {
+			new Tooltip(info.el, {
 				title: info.event.extendedProps.description,
 				placement: "top",
 				trigger: "hover",
