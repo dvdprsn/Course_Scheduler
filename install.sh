@@ -59,7 +59,6 @@ deactivate
 echo "start myproject systemctl"
 systemctl start myproject
 systemctl enable myproject
-#ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
 
 # restart NGINX
 echo "restart nginx"

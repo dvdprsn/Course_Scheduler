@@ -5,24 +5,60 @@ import logo from "./lantern.svg";
 import "./App.css";
 
 document.addEventListener("DOMContentLoaded", function () {
+	let date_ob = new Date();
+	let date = ("0" + date_ob.getDate()).slice(-2);
+	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+	let year = date_ob.getFullYear();
+	let dmy = year + "-" + month + "-" + date;
+
+	let zcourse = {
+		resourceId: "b",
+		title: "CIS*3760*0101",
+		start: dmy + "T09:00:00",
+		end: dmy + "T16:00:00",
+		allDay: false,
+	};
+
 	var calendarEl = document.getElementById("calendar");
 	var calendar = new Calendar(calendarEl, {
 		schedulerLicenseKey: "CC-Attribution-NonCommercial-NoDerivatives",
 		plugins: [resourceTimeGridDay],
-		timeZone: "UTC",
+		timeZone: "EST",
 		initialView: "resourceTimeGridDay",
 		resources: [
 			{ id: "a", title: "Monday" },
 			{ id: "b", title: "Tuesday" },
 			{ id: "c", title: "Wendesday" },
-			{ id: "d", title: "Room D" },
+			{ id: "d", title: "Thursday" },
+			{ id: "e", title: "Friday" },
 		],
-		events: "https://fullcalendar.io/api/demo-feeds/events.json?with-resources=4&single-day",
+		events: [
+			{
+				resourceId: "a",
+				title: "ZOO*4300*0101",
+				start: dmy + "T09:00:00",
+				end: dmy + "T14:00:00",
+				allDay: false,
+			},
+			{
+				resourceId: "a",
+				title: "HIST*2500*0101",
+				start: dmy + "T10:00:00",
+				end: dmy + "T14:00:00",
+				allDay: false,
+			},
+		],
 	});
 	calendar.render();
+	calendar.addEvent(zcourse); // IMPORTANT FOR DYNAMIC ADDING
+
+	//TODO Make 5 text fields and a button
+	//TODO fetch api data for each of those courses and create an event object - ERROR CHECKING (does course have lec time?)
+	//TODO add all of those objects to the calendar
 });
 
 function App() {
+
 	const [course = "N/A", setCourseData] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
 
@@ -45,15 +81,15 @@ function App() {
 				setCurrentTime(data.time);
 			});
 	}, []);
+
 	return (
 		<div className="App">
 			<div id="calendar"></div>
-
 			<header className="App-header">
 				<img src={logo} className="App-logo" alt="logo" />
 				<br></br>
 				<p>Showing the integration with uwsgi serving Flask:</p>
-				<p>The current time is {currentTime}.</p>
+				<p>The current time is {currentTime}</p>
 			</header>
 			<div className="Course-getter">
 				<div>
