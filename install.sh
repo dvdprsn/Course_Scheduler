@@ -22,7 +22,7 @@ mkdir -p /home/py-env/backend
 echo "move myproject.py to backend"
 cp ./resources/myproject.py /home/py-env/backend
 cp ./resources/parse.py /home/py-env/backend
-cp ./resources/Data/guelph.html /home/py-env/backend
+cp ./resources/guelph.html /home/py-env/backend
 #Move wsgi.py to /home/py-env/backend
 echo "move wsgi.py to backend"
 cp ./resources/wsgi.py /home/py-env/backend
@@ -59,7 +59,6 @@ deactivate
 echo "start myproject systemctl"
 systemctl start myproject
 systemctl enable myproject
-#ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
 
 # restart NGINX
 echo "restart nginx"
