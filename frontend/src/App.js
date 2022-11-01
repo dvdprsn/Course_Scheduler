@@ -1,56 +1,118 @@
 import React, { useState, useEffect } from "react";
 import { Calendar } from "@fullcalendar/core";
-import resourceTimeGridDay from "@fullcalendar/resource-timegrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import logo from "./lantern.svg";
 import "./App.css";
+import bootstrapBundle from "bootstrap/dist/js/bootstrap.bundle";
+
+const convertTime = (timeStr) => {
+	var time;
+	time = timeStr.replace("PM", "");
+	time = time.replace("AM", "");
+	time = time.replace(" ", "");
+	let [hours, minutes] = time.split(":");
+	if (hours === "12") {
+		hours = "00";
+	}
+	if (timeStr.includes("PM")) {
+		hours = parseInt(hours, 10) + 12;
+	}
+	return `${hours}:${minutes}`;
+};
+
+const createDaysArray = (daysStr) => {
+	var daysAry = [];
+	if (daysStr.includes("Mon")) daysAry.push(1);
+	if (daysStr.includes("Tues")) daysAry.push(2);
+	if (daysStr.includes("Wed")) daysAry.push(3);
+	if (daysStr.includes("Thur")) daysAry.push(4);
+	if (daysStr.includes("Fri")) daysAry.push(5);
+
+	return daysAry;
+};
+//CREATE Lecture EVENT
+const createLecEventObj = (data) => {
+	let newLec = {};
+
+	var lecTimes = data.lecTime.split("-"); // Remove the split between start and end time
+	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
+	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
+	var daysInts = createDaysArray(data.lecDays); // From the days that the lec is on
+	var desc =  `Prof: ${data.prof} <br> Room: ${data.lecRoom}`;
+	newLec = {
+		title: data.name + " Lec",
+		startTime: lecTimes[0],
+		endTime: lecTimes[1],
+		daysOfWeek: daysInts,
+		description: desc,
+	};
+
+	return newLec;
+};
+//Create a LAB/SEM EVENT
+const createSemEventObj = (data) => {
+	let newLec = {};
+
+	var lecTimes = data.semTime.split("-"); // Remove the split between start and end time
+	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
+	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
+	var daysInts = createDaysArray(data.semDay); // From the days that the lec is on
+
+	newLec = {
+		title: data.name + " " + data.semDay.split(" ")[0],
+		startTime: lecTimes[0],
+		endTime: lecTimes[1],
+		daysOfWeek: daysInts,
+	};
+
+	return newLec;
+};
 
 document.addEventListener("DOMContentLoaded", function () {
-	let date_ob = new Date();
-	let date = ("0" + date_ob.getDate()).slice(-2);
-	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-	let year = date_ob.getFullYear();
-	let dmy = year + "-" + month + "-" + date;
-
 	let zcourse = {
-		resourceId: "b",
-		title: "CIS*3760*0101",
-		start: dmy + "T09:00:00",
-		end: dmy + "T16:00:00",
-		allDay: false,
+		title: "CIS*3760*0101 Lec",
+		startTime: "09:00",
+		endTime: "10:20",
+		daysOfWeek: [1, 3, 5],
+		color: " #85929e",
+		description: "Example <br> Course", // MUST HAVE A DESC
 	};
 
 	var calendarEl = document.getElementById("calendar");
 	var calendar = new Calendar(calendarEl, {
-		schedulerLicenseKey: "CC-Attribution-NonCommercial-NoDerivatives",
-		plugins: [resourceTimeGridDay],
-		timeZone: "EST",
-		initialView: "resourceTimeGridDay",
-		resources: [
-			{ id: "a", title: "Monday" },
-			{ id: "b", title: "Tuesday" },
-			{ id: "c", title: "Wendesday" },
-			{ id: "d", title: "Thursday" },
-			{ id: "e", title: "Friday" },
-		],
-		events: [
-			{
-				resourceId: "a",
-				title: "ZOO*4300*0101",
-				start: dmy + "T09:00:00",
-				end: dmy + "T14:00:00",
-				allDay: false,
-			},
-			{
-				resourceId: "a",
-				title: "HIST*2500*0101",
-				start: dmy + "T10:00:00",
-				end: dmy + "T14:00:00",
-				allDay: false,
-			},
-		],
+		plugins: [timeGridPlugin],
+		initialView: "timeGridWeek",
+		hiddenDays: [0, 6],
+		eventDidMount: function (info) {
+			new bootstrapBundle.Tooltip(info.el, {
+				title: info.event.extendedProps.description,
+				placement: "top",
+				trigger: "hover",
+				html: true,
+				container: "body",
+			});
+		},
+		//TODO consider https://fullcalendar.io/docs/eventOverlap
 	});
-	calendar.render();
+
+	//TODO to clear calendar https://stackoverflow.com/questions/56647783/fullcalendar-v4-clear-all-events or reload
 	calendar.addEvent(zcourse); // IMPORTANT FOR DYNAMIC ADDING
+	document.getElementById("getCourse").onclick = function () {
+		fetch(
+			"/api/course?name=" + document.getElementById("desiredCourse").value
+		)
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.name !== undefined && data.lecTime !== "NULL") {
+					// NOT remote and was valid input
+					calendar.addEvent(createLecEventObj(data)); // Add new lecture
+					//TODO Check that a sem actually exists
+
+					calendar.addEvent(createSemEventObj(data));
+				}
+			});
+	};
+	calendar.render();
 
 	//TODO Make 5 text fields and a button
 	//TODO fetch api data for each of those courses and create an event object - ERROR CHECKING (does course have lec time?)
@@ -58,12 +120,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function App() {
-
 	const [course = "N/A", setCourseData] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
 
 	const getCourseInfo = () => {
-		console.log("reached");
 		fetch(
 			"/api/course?name=" + document.getElementById("desiredCourse").value
 		)
