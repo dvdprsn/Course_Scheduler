@@ -63,6 +63,7 @@ const createSemEventObj = (data) => {
 		startTime: lecTimes[0],
 		endTime: lecTimes[1],
 		daysOfWeek: daysInts,
+		description: "",
 	};
 
 	return newLec;
