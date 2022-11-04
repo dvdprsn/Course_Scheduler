@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "./components/Calendar/Calendar";
 import Search from "./components/Search/Search";
+import Clear from "./components/Clear/Clear";
+
 import "./App.css";
 
 /*Resources:
@@ -18,15 +20,16 @@ function App() {
 		setCourseData((courses) => [...courses, data]); // This just appends the new data to the events array used in calendar
 	};
 
-	//TODO Untested but should clear the events array when we make a button to use it
+	//Used with clear button, Can this be handled better?
 	const clearCourses = () => {
-		setCourseData(courses);
+		setCourseData([]);
 	};
 
 	return (
 		//TODO Look at https://getbootstrap.com/docs/4.0/components/
 		<div className="App">
 			<Search addCourse={addCourse} />
+			<Clear clearCourses={clearCourses} />
 			<Calendar courses={courses} />
 		</div>
 	);
