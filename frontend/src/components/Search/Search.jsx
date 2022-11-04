@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-//TODO We can possibly move the event builder functions to another component
+//TODO We can possibly move the event builder functions to another file
 
 //Convert 12hrs to 24hrs for calendar events
 const convertTime = (timeStr) => {
