@@ -6,8 +6,13 @@ import "./Calendar.css";
 
 //Builds the on hover tooltip
 const addDescription = (info) => {
+	//Basic error handling that will prevent crash
+	if (!info.event.extendedProps.description) {
+		console.log("Item must have description");
+		return;
+	}
 	new Tooltip(info.el, {
-		title: info.event.extendedProps.description, // TODO ? Error handle, not sure how to do this
+		title: info.event.extendedProps.description,
 		placement: "top",
 		trigger: "hover",
 		html: true, // So <br> creates new line
@@ -17,7 +22,7 @@ const addDescription = (info) => {
 
 export default function CalContainer({ courses }) {
 	// Monitor the state of our courses array
-    //Build the calendar
+	//Build the calendar
 	return (
 		<div className="calendar-container">
 			<FullCalendar

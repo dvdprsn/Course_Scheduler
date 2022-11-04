@@ -7,7 +7,7 @@ import "./App.css";
  *https://github.com/bradtraversy/react-crash-2021/tree/master/src
  *https://getbootstrap.com/docs/4.0/components/
  *https://www.youtube.com/watch?v=w7ejDZ8SWv8&ab_channel=TraversyMedia
-*/
+ */
 
 function App() {
 	// useState
@@ -18,7 +18,7 @@ function App() {
 		setCourseData((courses) => [...courses, data]); // This just appends the new data to the events array used in calendar
 	};
 
-	//TODO Untested but should clear the events array
+	//TODO Untested but should clear the events array when we make a button to use it
 	const clearCourses = () => {
 		setCourseData(courses);
 	};

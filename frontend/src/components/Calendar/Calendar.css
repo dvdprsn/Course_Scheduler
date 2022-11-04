@@ -1,4 +1,15 @@
 .calendar-container {
-    max-width: 1100px;
-    margin: 40px auto;
-  }
+	max-width: 1100px; /*This cant be a percentage*/
+	margin: 40px auto;
+}
+
+/* CSS for event title - was hoping to wrap but can't 
+  do that given the size of an event block font size works...
+*/
+.fc-event-time,
+.fc-event-title {
+	padding: 0 5px;
+	white-space: normal;
+	align-items: normal;
+	font-size: smaller;
+}

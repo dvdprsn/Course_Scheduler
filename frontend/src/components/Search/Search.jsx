@@ -39,9 +39,9 @@ const createLecEventObj = (data) => {
 	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
 	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
 	var daysInts = createDaysArray(data.lecDays); // From the days that the lec is on
-	var desc = `Prof: ${data.prof} <br> Room: ${data.lecRoom}`; // TODO Finish adding data to the tooltip
+	var desc = `LEC <br> Prof: ${data.prof} <br> Room: ${data.lecRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
 	newLec = {
-		title: data.name + " Lec",
+		title: data.name,
 		startTime: lecTimes[0],
 		endTime: lecTimes[1],
 		daysOfWeek: daysInts,
@@ -61,11 +61,11 @@ const createSemEventObj = (data) => {
 	var daysInts = createDaysArray(data.semDay); // From the days that the lec is on
 
 	newLec = {
-		title: data.name + " " + data.semDay.split(" ")[0],
+		title: data.name,
 		startTime: lecTimes[0],
 		endTime: lecTimes[1],
 		daysOfWeek: daysInts,
-		description: "",
+		description: data.semDay.split(" ")[0], // Often the sem or lab title gets cut off so best to put it here
 	};
 
 	return newLec;
@@ -74,7 +74,7 @@ const createSemEventObj = (data) => {
 //Main search component
 export default function Search({ addCourse }) {
 	const [text, setText] = useState(""); //Textbox usestate
-    //On submit button press
+	//On submit button press
 	const onSubmit = (e) => {
 		e.preventDefault(); // Prevent reload
 		if (!text) {
@@ -90,6 +90,7 @@ export default function Search({ addCourse }) {
 		fetch(`/api/course?name=${text}`)
 			.then((res) => res.json())
 			.then((data) => {
+				console.log(data);
 				//Includes error handling for DE and no seminar and bad inputs
 				if (data.name !== undefined && data.lecTime !== "NULL") {
 					addCourse(createLecEventObj(data));
