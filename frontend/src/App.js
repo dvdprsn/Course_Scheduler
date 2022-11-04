@@ -87,6 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		plugins: [timeGridPlugin],
 		initialView: "timeGridWeek",
 		hiddenDays: [0, 6], // Hide weekends
+		slotMinTime: "07:00",
+		slotMaxTime: "23:00",
+		allDaySlot: false,
 		eventDidMount: function (info) {
 			// Mouse hover tooltip function
 			new Tooltip(info.el, {
