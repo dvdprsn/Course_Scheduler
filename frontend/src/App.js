@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
 // import { Tooltip } from "bootstrap";
 // import logo from "./lantern.svg";
-import CalContainer from "./CalContainer"
+import Calendar from "./components/Calendar/Calendar"
 import "./App.css";
 
 
@@ -151,8 +151,8 @@ function App() {
 	// 		});
 	// }, []);
 	return (
-		<div className="container">
-		<CalContainer />
+		<div className="app">
+		<Calendar />
 		{/* <div className="App">
 			<div id="calendar"></div>
 			<header className="App-header">
