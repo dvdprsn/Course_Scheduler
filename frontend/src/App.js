@@ -2,6 +2,7 @@
 // import { Tooltip } from "bootstrap";
 // import logo from "./lantern.svg";
 import Calendar from "./components/Calendar/Calendar"
+import Search from "./components/Search/Search"
 import "./App.css";
 
 
@@ -152,6 +153,7 @@ function App() {
 	// }, []);
 	return (
 		<div className="app">
+		<Search />
 		<Calendar />
 		{/* <div className="App">
 			<div id="calendar"></div>

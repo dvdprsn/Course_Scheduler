@@ -36,9 +36,6 @@ export default function CalContainer() {
 
     return (
         <div className='calendar-container'>
-            <button onClick={addCourse}>
-            Click me
-            </button>
             <FullCalendar
             events={[courses]}
             plugins={[ timeGridPlugin ]}
