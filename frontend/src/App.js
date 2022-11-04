@@ -1,25 +1,14 @@
-// import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import { Tooltip } from "bootstrap";
 // import logo from "./lantern.svg";
 import Calendar from "./components/Calendar/Calendar"
 import Search from "./components/Search/Search"
 import "./App.css";
 
-
 function App() {
 	// const [course = "N/A", setCourseData] = useState(0);
 	// const [currentTime, setCurrentTime] = useState(0);
-	
-	// const getCourseInfo = () => {
-	// 	fetch(
-	// 		"/api/course?name=" + document.getElementById("desiredCourse").value
-	// 		)
-	// 		.then((res) => res.json())
-	// 		.then((data) => {
-	// 			document.getElementById("showCourse").removeAttribute("hidden");
-	// 			setCourseData(JSON.stringify(data, null, 2));
-	// 		});
-	// 	};
+
 		
 	// 	useEffect(() => {
 		//Convert 12hrs to 24hrs
@@ -151,45 +140,20 @@ function App() {
 	// 			setCurrentTime(data.time);
 	// 		});
 	// }, []);
+
+	// gets passed as prop to Calendar
+	const [courses, setCourseData] = useState([]);
+
+	// Pass this function to search 
+	// so they can return course data
+	const addCourse = (data) => {
+		setCourseData(...courses, data)
+	}
+
 	return (
-		<div className="app">
-		<Search />
-		<Calendar />
-		{/* <div className="App">
-			<div id="calendar"></div>
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<br></br>
-				<p>Showing the integration with uwsgi serving Flask:</p>
-				<p>The current time is {currentTime}</p>
-			</header>
-			<div className="Course-getter">
-				<div>
-					<br></br>
-					<label>
-						<b>Enter a course:</b>&nbsp;
-					</label>
-					<input id="desiredCourse"></input>
-				</div>
-				<br></br>
-				<button id="getCourse" onClick={getCourseInfo}>
-					Click Here for course info
-				</button>
-				<hr></hr>
-				<div id="showCourse" hidden align="center">
-					<label>
-						<b>Raw Course Data:</b>
-						<br></br>
-					</label>
-					<div className="JSON-display" display="block" align="left">
-						<pre id="json">
-							<p>{course}</p>
-						</pre>
-					</div>
-				</div>
-			</div>
-			<br></br>
-		</div> */}
+		<div className="App">
+			<Search addCourse={addCourse}/>
+			<Calendar courses={courses}/>
 		</div> 
 	);
 }
