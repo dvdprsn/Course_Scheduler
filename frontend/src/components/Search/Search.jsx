@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css"; // THIS IS A MUST
 
 //TODO We can possibly move the event builder functions to another file
-
 //Convert 12hrs to 24hrs for calendar events
 const convertTime = (timeStr) => {
 	var time;
@@ -73,43 +74,56 @@ const createSemEventObj = (data) => {
 
 //Main search component
 export default function Search({ addCourse }) {
-	const [text, setText] = useState(""); //Textbox usestate
+	const [selected, setSelected] = useState([]);
+
+	let options = ["CIS*3760*0101", "CIS*4300*0101", "CIS*3150*0101"]; // TEMP until we fix fetch
+
+	//TODO We need to wait for this fetch to finish before loading the site - needs to be somewhere else or await
+	//This fetch should run one time and get the array of course codes.
+	// This also works it just doesnt fetch before it renders the site
+	fetch("/api/codes")
+		.then((res) => res.json())
+		.then((data) => {
+			options = data.codes;
+		});
+
 	//On submit button press
 	const onSubmit = (e) => {
 		e.preventDefault(); // Prevent reload
-		if (!text) {
-			alert("Please add a course");
-			return;
-		}
-
 		getCourseInfo(); //API fetch and add to calendar
-		setText(""); //reset input field
+		setSelected([]); // Clear the selection options
 	};
 
 	const getCourseInfo = () => {
-		fetch(`/api/course?name=${text}`)
-			.then((res) => res.json())
-			.then((data) => {
-				console.log(data);
-				//Includes error handling for DE and no seminar and bad inputs
-				if (data.name !== undefined && data.lecTime !== "NULL") {
-					addCourse(createLecEventObj(data));
-				}
-				if (data.name !== undefined && data.semTime !== "NULL") {
-					addCourse(createSemEventObj(data));
-				}
-			});
+		//For each item in the selection fetch the event
+		selected.forEach(function (item) {
+			fetch(`/api/course?name=${item}`)
+				.then((res) => res.json())
+				.then((data) => {
+					console.log(data);
+					//Includes error handling for DE and no seminar and bad inputs
+					if (data.name !== undefined && data.lecTime !== "NULL") {
+						addCourse(createLecEventObj(data));
+					}
+					if (data.name !== undefined && data.semTime !== "NULL") {
+						addCourse(createSemEventObj(data));
+					}
+				});
+		});
 	};
-
+	//TODO resource for typeahead used - https://ericgio.github.io/react-bootstrap-typeahead/
+	// This has some pretty nice documenation for it
 	return (
 		<div className="search-container">
 			<form className="add-form" onSubmit={onSubmit}>
 				<div className="form-control">
-					<input
-						type="text"
-						placeholder="Enter Course Code"
-						value={text}
-						onChange={(e) => setText(e.target.value)}
+					<Typeahead
+						id="search-bar"
+						onChange={setSelected}
+						options={options}
+						placeholder="Choose a option..."
+						selected={selected}
+						multiple
 					/>
 				</div>
 				<input
