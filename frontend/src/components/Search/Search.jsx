@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
+import Clear from "../Clear/Clear";
 import "react-bootstrap-typeahead/css/Typeahead.css"; // THIS IS A MUST
+import "./Search.css"
 
 var color = [
 	"#25283D",
@@ -93,7 +95,7 @@ const createSemEventObj = (data) => {
 };
 
 //Main search component
-export default function Search({ addCourse }) {
+export default function Search({ addCourse, clearCourses }) {
 	const [selected, setSelected] = useState([]);
 	const [options, setOptions] = useState([]);
 
@@ -147,7 +149,7 @@ export default function Search({ addCourse }) {
 	return (
 		<div className="search-container">
 			<form className="add-form" onSubmit={onSubmit}>
-				<div className="form-control">
+				<div className="outer-form-control">
 					<Typeahead
 						id="search-bar"
 						onChange={setSelected}
@@ -160,12 +162,12 @@ export default function Search({ addCourse }) {
 						maxResults={10}
 					/>
 				</div>
-				<br></br>
 				<input
 					type="submit"
 					value="Load Courses"
 					className="btn btn-success"
 				/>
+			<Clear clearCourses={clearCourses} />
 			</form>
 		</div>
 	);
