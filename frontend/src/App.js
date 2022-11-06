@@ -5,7 +5,7 @@ import "./App.css";
 
 /*Resources:
  *https://github.com/bradtraversy/react-crash-2021/tree/master/src
- *https://getbootstrap.com/docs/4.0/components/
+ *https://getbootstrap.com/docs/5.0/components/buttons/
  *https://www.youtube.com/watch?v=w7ejDZ8SWv8&ab_channel=TraversyMedia
  *https://ericgio.github.io/react-bootstrap-typeahead/
  */

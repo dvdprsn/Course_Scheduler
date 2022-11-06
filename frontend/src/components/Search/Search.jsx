@@ -15,6 +15,7 @@ var color = [
 	"#ECA809",
 ];
 var colorindex = 0;
+var courseID = 0;
 
 //TODO We can possibly move the event builder functions to another file
 //Convert 12hrs to 24hrs for calendar events
@@ -60,6 +61,9 @@ const createLecEventObj = (data) => {
 		endTime: lecTimes[1],
 		daysOfWeek: daysInts,
 		description: desc,
+		extendedProps: {
+			id: courseID
+		},
 		color: color[colorindex],
 	};
 
@@ -81,6 +85,9 @@ const createSemEventObj = (data) => {
 		endTime: lecTimes[1],
 		daysOfWeek: daysInts,
 		description: data.semDay.split(" ")[0], // Often the sem or lab title gets cut off so best to put it here
+		extendedProps: {
+			id: courseID
+		},
 		color: color[colorindex],
 	};
 
@@ -131,6 +138,8 @@ export default function Search({ addCourse, clearCourses }) {
 					if (colorindex === color.length) {
 						colorindex = 0;
 					}
+					courseID++; // Once course is added, increment
+					//Access with info.event.extendedProps.description
 				});
 		});
 	};
