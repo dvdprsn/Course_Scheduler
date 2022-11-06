@@ -17,15 +17,17 @@
 
 .fc-col-header-cell-cushion,
 .fc-col-header-cell-cushion:hover {
-    color: black;
-    text-decoration: none;
+	color: black;
+	text-decoration: none;
 }
 
-.fc-theme-standard td, .fc-theme-standard th, .fc-scrollgrid {
-    border-width: 1px !important;
-    border-color: rgb(192, 192, 192) !important; 
+.fc-theme-standard td,
+.fc-theme-standard th,
+.fc-scrollgrid {
+	border-width: 1px !important;
+	border-color: rgb(192, 192, 192) !important;
 }
 
 .fc-theme-standard {
-    font-weight: 400;
+	font-weight: 400;
 }

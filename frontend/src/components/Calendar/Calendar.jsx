@@ -21,14 +21,14 @@ const addDescription = (info) => {
 };
 
 const headerOptions = {
-	left: '',
-	center: 'title',
-	right: ''
-}
+	left: "",
+	center: "title",
+	right: "",
+};
 
 const dayHeaderOptions = {
-	weekday: 'long'
-}
+	weekday: "long",
+};
 
 export default function CalContainer({ courses }) {
 	// Monitor the state of our courses array
@@ -46,7 +46,6 @@ export default function CalContainer({ courses }) {
 				eventDidMount={addDescription}
 				headerToolbar={headerOptions}
 				dayHeaderFormat={dayHeaderOptions}
-				
 			/>
 		</div>
 	);
