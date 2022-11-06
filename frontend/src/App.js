@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Calendar from "./components/Calendar/Calendar";
 import Search from "./components/Search/Search";
 import Clear from "./components/Clear/Clear";
-
 import "./App.css";
 
 /*Resources:
  *https://github.com/bradtraversy/react-crash-2021/tree/master/src
  *https://getbootstrap.com/docs/4.0/components/
  *https://www.youtube.com/watch?v=w7ejDZ8SWv8&ab_channel=TraversyMedia
+ *https://ericgio.github.io/react-bootstrap-typeahead/
  */
 
 function App() {
+	
 	// useState
 	const [courses, setCourseData] = useState([]);
 	// Pass this function to search
