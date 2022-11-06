@@ -1,16 +1,16 @@
+* { padding: 0; margin: 0; }
+
+#root {
+	background-color: #737373;
+}
+
 .App {
 	text-align: center;
-}
-
-.App-logo {
-	height: 40vmin;
-	pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-	.App-logo {
-		animation: App-logo-spin infinite 5s linear;
-	}
+	padding-top: 2.5vh;
+	background-color: rgb(251, 246, 234);
+	/* background: rgb(213,255,242);
+	background: linear-gradient(45deg, rgb(232, 255, 248) 0%, rgb(255, 243, 243) 83%); */
+	height: 100%;
 }
 
 .App-header {
@@ -24,19 +24,24 @@
 	color: white;
 }
 
+.course-buttons {
+	display: flex;
+	justify-content: center;
+	padding-top: 2vh;
+}
+
 .App-link {
 	color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
-}
-
 .JSON-display {
 	margin-left: 35%;
+}
+
+.text-muted {
+	font-size: 1.5rem;
+}
+
+body {
+	height: 100vh;
 }

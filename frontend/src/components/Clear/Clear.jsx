@@ -8,14 +8,12 @@ export default function ClearContainer({ clearCourses }) {
 	};
 
 	return (
-		<div className="clear-container">
-			<form className="add-form" onSubmit={onSubmit}>
+			<form className="clear-form" onSubmit={onSubmit}>
 				<input
 					type="submit"
 					value="Clear Calendar"
 					className="btn btn-danger"
 				/>
 			</form>
-		</div>
 	);
 }

@@ -20,6 +20,16 @@ const addDescription = (info) => {
 	});
 };
 
+const headerOptions = {
+	left: '',
+	center: 'title',
+	right: ''
+}
+
+const dayHeaderOptions = {
+	weekday: 'long'
+}
+
 export default function CalContainer({ courses }) {
 	// Monitor the state of our courses array
 	//Build the calendar
@@ -34,6 +44,9 @@ export default function CalContainer({ courses }) {
 				slotMinTime="07:00"
 				slotMaxTime="23:00"
 				eventDidMount={addDescription}
+				headerToolbar={headerOptions}
+				dayHeaderFormat={dayHeaderOptions}
+				
 			/>
 		</div>
 	);

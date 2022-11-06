@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "./components/Calendar/Calendar";
 import Search from "./components/Search/Search";
-import Clear from "./components/Clear/Clear";
 import "./App.css";
 
 /*Resources:
@@ -13,15 +12,14 @@ import "./App.css";
 
 function App() {
 	
-	// useState
+	// holds courses in the schedule
 	const [courses, setCourseData] = useState([]);
-	// Pass this function to search
-	// so they can return course data
+
+	// Pass this function to Search so course data is returnable
 	const addCourse = (data) => {
 		setCourseData((courses) => [...courses, data]); // This just appends the new data to the events array used in calendar
 	};
 
-	//Used with clear button, Can this be handled better?
 	const clearCourses = () => {
 		setCourseData([]);
 	};
@@ -29,8 +27,12 @@ function App() {
 	return (
 		//TODO Look at https://getbootstrap.com/docs/4.0/components/
 		<div className="App">
-			<Search addCourse={addCourse} />
-			<Clear clearCourses={clearCourses} />
+			<h1 class="display-4">Course Scheduler</h1>
+			<medium class="text-muted">University of Guelph - Team 103</medium>
+			<div className="course-buttons">
+				<Search addCourse={addCourse} clearCourses={clearCourses} />
+				{/* <Clear clearCourses={clearCourses} /> */}
+			</div>
 			<Calendar courses={courses} />
 		</div>
 	);
