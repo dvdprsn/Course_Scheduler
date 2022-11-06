@@ -18,15 +18,4 @@
 	color: rgb(46, 44, 44);
 	text-decoration: none;
 }
-.fc-border-separate {
-    border-width: 1px 0 0 1px;
-    border-color: red;
-}
-.fc-theme-standard td, .fc-theme-standard th, .fc-scrollgrid {
-	border-width: 2px !important;
-	border-color: red !important; 
-}
-.fc-theme-standard {
-	font-weight: bold;
-}
 
