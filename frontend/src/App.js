@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Calendar from "./components/Calendar/Calendar";
 import Search from "./components/Search/Search";
 import Clear from "./components/Clear/Clear";

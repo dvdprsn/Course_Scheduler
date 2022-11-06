@@ -1,5 +1,6 @@
 import time
 import parse
+import json
 from flask import Flask, request
 app = Flask(__name__)
 
@@ -7,16 +8,12 @@ app = Flask(__name__)
 
 courses = parse.main()
 coursesDict = {}
-courseCodes = [] # Array of just the course codes for the typeahead
 for c in courses:
     coursesDict[c.name[0:c.name.index(' ')]] = c
-    courseCodes.append(c.name.split(" ", 1)[0]) #Just the course code
 
-#Endpoint that sends the array of coursecodes to JS
-@app.route('/api/codes')
-def get_current_time():
-    return {'codes': courseCodes}
-
+@app.route('/api/coursesList', methods=['GET'])
+def get_coursesList(): # Retrieves list of all courses
+		return json.dumps(list(coursesDict.keys())), 200
 
 @app.route('/api/course', methods=['GET'])
 def get_course():
@@ -31,7 +28,6 @@ def get_course():
         return coursesDict[name].toJson(), 200
     else:
         return {'error': "Course not found with name '" + name + "'"}, 400
-
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
