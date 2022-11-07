@@ -62,5 +62,7 @@ systemctl enable myproject
 
 # restart NGINX
 echo "restart nginx"
+systemctl daemon-reload
+systemctl restart myproject
 nginx -t
 systemctl restart nginx

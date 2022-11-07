@@ -16,8 +16,8 @@ var color = [
 ];
 var colorindex = 0;
 var courseID = 0;
+var DEcounter = 1;
 
-//TODO We can possibly move the event builder functions to another file
 //Convert 12hrs to 24hrs for calendar events
 const convertTime = (timeStr) => {
 	var time;
@@ -45,7 +45,26 @@ const createDaysArray = (daysStr) => {
 
 	return daysAry;
 };
+const createDEEvent = (data) => {
+	let newLec = {};
 
+	var desc = `DE Course <br> Prof: ${data.prof} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	if (DEcounter >= 6) {
+		DEcounter = 1;
+	}
+
+	newLec = {
+		title: data.name,
+		daysOfWeek: [DEcounter++],
+		description: desc,
+		extendedProps: {
+			id: courseID,
+		},
+		color: color[colorindex],
+	};
+
+	return newLec;
+};
 //Create Lecture EVENT
 const createLecEventObj = (data) => {
 	let newLec = {};
@@ -78,13 +97,18 @@ const createSemEventObj = (data) => {
 	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
 	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
 	var daysInts = createDaysArray(data.semDay); // From the days that the lec is on
+	var desc = `${data.semDay.split(" ")[0]} <br> Prof: ${
+		data.prof
+	} <br> Room: ${data.semRoom} <br> Sem: ${data.sem} <br> Campus: ${
+		data.campus
+	}`; // Other data from course JSON
 
 	newLec = {
 		title: data.name,
 		startTime: lecTimes[0],
 		endTime: lecTimes[1],
 		daysOfWeek: daysInts,
-		description: data.semDay.split(" ")[0], // Often the sem or lab title gets cut off so best to put it here
+		description: desc, // Often the sem or lab title gets cut off so best to put it here
 		extendedProps: {
 			id: courseID,
 		},
@@ -122,10 +146,13 @@ export default function Search({ addCourse, clearCourses }) {
 				.then((res) => res.json())
 				.then((data) => {
 					var courseAdded = 0;
-					console.log(data);
 					//Includes error handling for DE and no seminar and bad inputs
 					if (data.name !== undefined && data.lecTime !== "NULL") {
 						addCourse(createLecEventObj(data));
+						courseAdded = 1;
+					}
+					if (data.name !== undefined && data.lecTime === "NULL") {
+						addCourse(createDEEvent(data));
 						courseAdded = 1;
 					}
 					if (data.name !== undefined && data.semTime !== "NULL") {
@@ -144,7 +171,7 @@ export default function Search({ addCourse, clearCourses }) {
 		});
 	};
 
-	//TODO resource for typeahead used - https://ericgio.github.io/react-bootstrap-typeahead/
+	//resource for typeahead used - https://ericgio.github.io/react-bootstrap-typeahead/
 	// This has some pretty nice documenation for it
 	return (
 		<div className="search-container">
