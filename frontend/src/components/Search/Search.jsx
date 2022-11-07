@@ -16,6 +16,7 @@ var color = [
 ];
 var colorindex = 0;
 var courseID = 0;
+var DEcounter = 1;
 
 //Convert 12hrs to 24hrs for calendar events
 const convertTime = (timeStr) => {
@@ -47,10 +48,14 @@ const createDaysArray = (daysStr) => {
 const createDEEvent = (data) => {
 	let newLec = {};
 
-	var desc = `DE <br> Prof: ${data.prof} <br> Room: ${data.lecRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	var desc = `DE Course <br> Prof: ${data.prof} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	if (DEcounter >= 6) {
+		DEcounter = 1;
+	}
+
 	newLec = {
 		title: data.name,
-		daysOfWeek: [1],
+		daysOfWeek: [DEcounter++],
 		description: desc,
 		extendedProps: {
 			id: courseID,
@@ -142,7 +147,7 @@ export default function Search({ addCourse, clearCourses }) {
 						addCourse(createLecEventObj(data));
 						courseAdded = 1;
 					}
-					if(data.name !== undefined && data.lecTime === "NULL") {
+					if (data.name !== undefined && data.lecTime === "NULL") {
 						addCourse(createDEEvent(data));
 						courseAdded = 1;
 					}
