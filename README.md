@@ -23,10 +23,10 @@ A Web Application for course scheduling based on the University of Guelph course
 `sudo systemctl restart nginx`
 
 ## **Web Application URL:**
-https://34.130.28.136
+https://34.130.47.217/
 
 ### **Usage Guide:**
-1. Search for a course by typing in the course code (eg. "CIS\*3760\*0101")
+1. Search for a course by typing in the course code in the input field that reads *"Select a course..."* (eg. "CIS\*3760\*0101")
     - As the course code is typed, the rest of the code will be autocompleted, with options presented after a minimum of 3 letters are entered (eg. "CIS")
     - Once the **"ENTER"** key is pressed with the full course code in the input field, or one of the suggestions is selected from the dropdown list, the course code will be selected
         - It is shown in blue container with an **"x"** icon on the right, which can be clicked to remove it
