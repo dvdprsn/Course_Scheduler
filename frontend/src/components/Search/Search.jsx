@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
 import Clear from "../Clear/Clear";
 import "react-bootstrap-typeahead/css/Typeahead.css"; // THIS IS A MUST
-import "./Search.css"
+import "./Search.css";
 
 var color = [
 	"#25283D",
@@ -62,7 +62,7 @@ const createLecEventObj = (data) => {
 		daysOfWeek: daysInts,
 		description: desc,
 		extendedProps: {
-			id: courseID
+			id: courseID,
 		},
 		color: color[colorindex],
 	};
@@ -86,7 +86,7 @@ const createSemEventObj = (data) => {
 		daysOfWeek: daysInts,
 		description: data.semDay.split(" ")[0], // Often the sem or lab title gets cut off so best to put it here
 		extendedProps: {
-			id: courseID
+			id: courseID,
 		},
 		color: color[colorindex],
 	};
@@ -139,7 +139,7 @@ export default function Search({ addCourse, clearCourses }) {
 						colorindex = 0;
 					}
 					courseID++; // Once course is added, increment
-					//Access with info.event.extendedProps.description
+					//Access with info.event.extendedProps.id
 				});
 		});
 	};
@@ -167,8 +167,8 @@ export default function Search({ addCourse, clearCourses }) {
 					value="Load Courses"
 					className="btn btn-success"
 				/>
-			<Clear clearCourses={clearCourses} />
 			</form>
+			<Clear clearCourses={clearCourses} />
 		</div>
 	);
 }

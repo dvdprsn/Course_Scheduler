@@ -1,5 +1,5 @@
 import React from "react";
-import "./Clear.css"
+import "./Clear.css";
 
 export default function ClearContainer({ clearCourses }) {
 	const onSubmit = (e) => {
@@ -8,12 +8,13 @@ export default function ClearContainer({ clearCourses }) {
 	};
 
 	return (
-			<form className="clear-form" onSubmit={onSubmit}>
-				<input
-					type="submit"
-					value="Clear Calendar"
-					className="btn btn-danger"
-				/>
-			</form>
+		<form className="clear-form" onSubmit={onSubmit}>
+			<input
+				type="submit"
+				value="Clear Calendar"
+				className="btn btn-danger"
+				onSubmit={onSubmit}
+			/>
+		</form>
 	);
 }

@@ -1,19 +1,19 @@
 .add-form {
-    display: flex;
-    width: 100%;
-    margin-left: 15%;
-    margin-right: 15%;
-    align-items: center;
-    gap: 3%;
+	display: flex;
+	width: 100%;
+	margin-left: 15%;
+	/* margin-right: 2%; */
+	align-items: center;
+	gap: 2%;
 }
 
 .search-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 .outer-form-control {
-    width: 100%;
-    min-width: 100px;
+	width: 100%;
+	min-width: 100px;
 }
