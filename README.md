@@ -36,10 +36,6 @@ https://34.130.28.136
     - Additional information for each meeting in the schedule can be seen by hovering over them with the mouse cursor
 4. More courses can be added in the same way as ***Step 1*** - there are no course selection restrictions implemented at this time
 5. The user can clear the schedule of all loaded courses by clicking the red **"Clear Calendar"** button 
-
-## **Config Files:**
-https://gitlab.socs.uoguelph.ca/cis3760-team-103/course-parser/-/tree/sprint-4/resources
-
 <br>
 <br>
 <hr>
