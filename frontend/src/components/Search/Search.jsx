@@ -17,7 +17,6 @@ var color = [
 var colorindex = 0;
 var courseID = 0;
 
-//TODO We can possibly move the event builder functions to another file
 //Convert 12hrs to 24hrs for calendar events
 const convertTime = (timeStr) => {
 	var time;
@@ -45,7 +44,22 @@ const createDaysArray = (daysStr) => {
 
 	return daysAry;
 };
+const createDEEvent = (data) => {
+	let newLec = {};
 
+	var desc = `DE <br> Prof: ${data.prof} <br> Room: ${data.lecRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	newLec = {
+		title: data.name,
+		daysOfWeek: [1],
+		description: desc,
+		extendedProps: {
+			id: courseID,
+		},
+		color: color[colorindex],
+	};
+
+	return newLec;
+};
 //Create Lecture EVENT
 const createLecEventObj = (data) => {
 	let newLec = {};
@@ -126,6 +140,10 @@ export default function Search({ addCourse, clearCourses }) {
 					//Includes error handling for DE and no seminar and bad inputs
 					if (data.name !== undefined && data.lecTime !== "NULL") {
 						addCourse(createLecEventObj(data));
+						courseAdded = 1;
+					}
+					if(data.name !== undefined && data.lecTime === "NULL") {
+						addCourse(createDEEvent(data));
 						courseAdded = 1;
 					}
 					if (data.name !== undefined && data.semTime !== "NULL") {

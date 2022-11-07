@@ -40,12 +40,12 @@ export default function CalContainer({ courses }) {
 				plugins={[timeGridPlugin]}
 				initialView="timeGridWeek"
 				hiddenDays={[0, 6]}
-				allDaySlot={false}
 				slotMinTime="07:00"
 				slotMaxTime="23:00"
 				eventDidMount={addDescription}
 				headerToolbar={headerOptions}
 				dayHeaderFormat={dayHeaderOptions}
+				allDayText="DE"
 			/>
 		</div>
 	);
