@@ -9,13 +9,38 @@ import "./App.css";
  *https://www.youtube.com/watch?v=w7ejDZ8SWv8&ab_channel=TraversyMedia
  *https://ericgio.github.io/react-bootstrap-typeahead/
  */
+function setCookie(cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+	let expires = "expires=" + d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(";");
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) === " ") {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) === 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
 
 function App() {
 	// holds courses in the schedule
-	const [courses, setCourseData] = useState([]);
-	//Get course IDs with access with info.event.extendedProps.id
+	let loadCourses = getCookie("courses");
 
+	const [courses, setCourseData] = useState(JSON.parse(loadCourses));
+
+	//Get course IDs with access with info.event.extendedProps.id
 	// Pass this function to Search so course data is returnable
+
 	const addCourse = (data) => {
 		setCourseData((courses) => [...courses, data]); // This just appends the new data to the events array used in calendar
 	};
@@ -24,8 +49,12 @@ function App() {
 		setCourseData([]);
 	};
 
+	let json_str = JSON.stringify(courses);
+	setCookie("courses", json_str, 7);
+
+
 	return (
-		//TODO Look at https://getbootstrap.com/docs/4.0/components/
+		//Useful https://getbootstrap.com/docs/4.0/components/
 		<div className="App">
 			<h1 className="display-4">Course Scheduler</h1>
 			<h1 className="text-muted">University of Guelph - Team 103</h1>
