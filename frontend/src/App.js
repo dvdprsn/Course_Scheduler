@@ -35,8 +35,13 @@ function getCookie(cname) {
 function App() {
 	// holds courses in the schedule
 	let loadCourses = getCookie("courses");
-
-	const [courses, setCourseData] = useState(JSON.parse(loadCourses));
+	let result = [];
+	try {
+		result = JSON.parse(loadCourses);
+	} catch (e) {
+		console.log(e);
+	}
+	const [courses, setCourseData] = useState(result);
 
 	//Get course IDs with access with info.event.extendedProps.id
 	// Pass this function to Search so course data is returnable
@@ -51,7 +56,6 @@ function App() {
 
 	let json_str = JSON.stringify(courses);
 	setCookie("courses", json_str, 7);
-
 
 	return (
 		//Useful https://getbootstrap.com/docs/4.0/components/
