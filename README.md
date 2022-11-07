@@ -29,7 +29,7 @@ https://34.130.47.217/
 1. Search for a course by typing in the course code in the input field that reads *"Select a course..."* (eg. "CIS\*3760\*0101")
     - As the course code is typed, the rest of the code will be autocompleted, with options presented after a minimum of 3 letters are entered (eg. "CIS")
     - Once the **"ENTER"** key is pressed with the full course code in the input field, or one of the suggestions is selected from the dropdown list, the course code will be selected
-        - It is shown in blue container with an **"x"** icon on the right, which can be clicked to remove it
+        - It is shown in a blue container with an **"x"** icon on the right, which can be clicked to remove it
     - After a course is selected, additional courses can be selected in the same input field alongside it
 2. When desired courses are selected, the **"Load Courses"** button can be clicked to load the courses into the schedule below
 3. The user can view the loaded courses' lectures and labs (if applicable) in the schedule, with unique colours for each
