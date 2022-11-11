@@ -39,7 +39,7 @@ function App() {
 	try {
 		result = JSON.parse(loadCourses);
 	} catch (e) {
-		console.log(e);
+		console.log("Cookie data of courses not available");
 	}
 	const [courses, setCourseData] = useState(result);
 
@@ -59,7 +59,7 @@ function App() {
 
 	return (
 		//Useful https://getbootstrap.com/docs/4.0/components/
-		<div className="App">
+		<div className="App" data-testid="App">
 			<h1 className="display-4">Course Scheduler</h1>
 			<h1 className="text-muted">University of Guelph - Team 103</h1>
 			<div className="course-buttons">
