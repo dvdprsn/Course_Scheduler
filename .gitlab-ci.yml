@@ -1,11 +1,12 @@
 image: node:latest
 
 stages:
+    - install
     - build
     - run
 
-first-job:
-    stage: build
+installer:
+    stage: install
     script:
         - cd frontend/
         - npm install
@@ -13,12 +14,21 @@ first-job:
         paths:
             - node_modules
 
-second-job:
+builder:
+    stage: build
+    script: 
+        - cd frontend/
+        - npm run build
+    artifacts:
+        paths:
+            -node_modules/
+
+runner:
     stage: run
     script:
         - cd frontend/
         - npm run start
-        - node test.js
+        # - node test.js
     artifacts:
         paths:
             - node_modules/
