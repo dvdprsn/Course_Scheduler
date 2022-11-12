@@ -34,7 +34,7 @@ export default function CalContainer({ courses }) {
 	// Monitor the state of our courses array
 	//Build the calendar
 	return (
-		<div className="calendar-container">
+		<div className="calendar-container" data-testid="calendar">
 			<FullCalendar
 				events={courses}
 				plugins={[timeGridPlugin]}

@@ -175,7 +175,7 @@ export default function Search({ addCourse, clearCourses }) {
 	// This has some pretty nice documenation for it
 	return (
 		<div className="search-container">
-			<form className="add-form" onSubmit={onSubmit}>
+			<form className="add-form" onSubmit={onSubmit} data-testid="search-bar">
 				<div className="outer-form-control">
 					<Typeahead
 						id="search-bar"
