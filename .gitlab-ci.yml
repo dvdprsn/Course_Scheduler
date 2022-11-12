@@ -19,7 +19,6 @@ builder:
     stage: build
     script: 
         - cd frontend/
-        - ls
         - npm ci
         - npm run build
 
@@ -27,5 +26,6 @@ runner:
     stage: run
     script:
         - cd frontend/
+        - npm ci
         - npm run start
         # - node test.js
