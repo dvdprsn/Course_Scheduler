@@ -20,7 +20,6 @@ builder:
     script: 
         - cd frontend/
         - ls
-        - cwd
         - npm ci
         - npm run build
 
