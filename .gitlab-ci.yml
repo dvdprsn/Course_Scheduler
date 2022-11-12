@@ -43,4 +43,5 @@ testing:
     stage: test
     script:
         - cd frontend/
+        - npm test -- -u
         - npm test
