@@ -1,0 +1,28 @@
+# Build step #1: build the React front end
+FROM node:16 as build-step
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY frontend/package.json ./
+COPY frontend/src ./src
+COPY frontend/public ./public
+RUN npm install
+RUN npm run build
+# Build NGINX
+
+# # Build step #2: build the API with the client as static files
+FROM python:3.9
+WORKDIR /app 
+COPY --from=build-step /app/build ./build
+
+RUN mkdir ./api
+RUN python3 -m venv backend/venv
+COPY resources/* ./api
+RUN pip install wheel && pip install uwsgi flask && pip install gunicorn
+ENV FLASK_DEBUG production
+
+EXPOSE 3000
+WORKDIR /app/api
+# RUN python3 myproject.py
+# CMD ["flask", ":3000", "api:wsgi"]
+CMD ["gunicorn", "-b", ":3000", "myproject:app"]
+# CMD [ "python", "myproject.py" ]

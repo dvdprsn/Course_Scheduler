@@ -2,7 +2,7 @@ import time
 import parse
 import json
 from flask import Flask, request
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 # Get all course data, create dictionary for easy retrieval based on course name
 
