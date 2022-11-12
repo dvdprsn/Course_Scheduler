@@ -34,11 +34,14 @@ builder:
         - cd frontend/
         # - npm ci
         - npm run build
+        
+# Run all testing units    
 flask:
     stage: test
     script:
         - cd frontend/
         - echo "Run Flask"
+
 testing:
     stage: test
     script:
