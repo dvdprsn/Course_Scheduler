@@ -3,7 +3,7 @@ image: node:latest
 stages:
     - install
     - build
-    - run
+    - test
 .dependencies_cache:
   cache:
     key:
@@ -37,12 +37,13 @@ builder:
         - cd frontend/
         # - npm ci
         - npm run build
-
-runner:
-    stage: run
+flask:
+    stage: test
     script:
         - cd frontend/
-        # - npm ci
-        # - npm run start
-        # - node test.js
+        - echo "Run Flask"
+testing:
+    stage: test
+    script:
+        - cd frontend/
         - npm test
