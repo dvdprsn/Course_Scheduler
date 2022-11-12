@@ -1,0 +1,22 @@
+image: node:latest
+
+stages:
+    - build
+    - run
+
+first-job:
+    stage: build
+    script:
+        - npm install
+    artifacts:
+        paths:
+            - node_modules
+
+second-job:
+    stage: run
+    script:
+        - npm run start
+        - node test.js
+    artifacts:
+        paths:
+            - node_modules/
