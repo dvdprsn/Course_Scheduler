@@ -1,0 +1,50 @@
+image: node:latest
+
+stages:
+    - install
+    - build
+    - test
+
+.dependencies_cache:
+  cache:
+    key:
+      files:
+        - frontend/package-lock.json
+    paths:
+      - frontend/node_modules/
+    policy: pull
+
+installer:
+    stage: install
+    script:
+        - cd frontend/
+        - npm ci
+    extends:
+        .dependencies_cache
+    cache:
+        policy: pull-push
+    artifacts:
+        expire_in: 1h
+        paths:
+            - frontend/node_modules
+
+builder:
+    stage: build
+    script: 
+        - cd frontend/
+        # - npm ci
+        - npm run build
+        
+# Run all testing units    
+flask:
+    stage: test
+    script:
+        - cd frontend/
+        - echo "Run Flask"
+
+testing:
+    stage: test
+    script:
+        - cd frontend/
+        - npm test -- -u
+        - npm test
