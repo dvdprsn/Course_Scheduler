@@ -4,22 +4,38 @@ stages:
     - install
     - build
     - run
-
-cache:
+.dependencies_cache:
+  cache:
+    key:
+      files:
+        - frontend/package-lock.json
     paths:
-        - frontend/node_modules/
+      - frontend/node_modules/
+    policy: pull
+
+# cache:
+#     paths:
+#         - frontend/node_modules/
 
 installer:
     stage: install
     script:
         - cd frontend/
         - npm ci
+    extends:
+        .dependencies_cache
+    cache:
+        policy: pull-push
+    artifacts:
+        expire_in: 1h
+        paths:
+            - fronend/node_modules
 
 builder:
     stage: build
     script: 
         - cd frontend/
-        - npm ci
+        # - npm ci
         - npm run build
 
 runner:
@@ -28,4 +44,4 @@ runner:
         - cd frontend/
         - npm ci
         - npm run start
-        # - node test.js
+        - node test.js
