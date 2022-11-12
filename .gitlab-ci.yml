@@ -42,6 +42,7 @@ runner:
     stage: run
     script:
         - cd frontend/
-        - npm ci
-        - npm run start
-        - node test.js
+        # - npm ci
+        # - npm run start
+        # - node test.js
+        - npm test
