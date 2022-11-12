@@ -29,7 +29,7 @@ installer:
     artifacts:
         expire_in: 1h
         paths:
-            - fronend/node_modules
+            - frontend/node_modules
 
 builder:
     stage: build
