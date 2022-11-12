@@ -4,6 +4,7 @@ stages:
     - install
     - build
     - test
+
 .dependencies_cache:
   cache:
     key:
@@ -12,10 +13,6 @@ stages:
     paths:
       - frontend/node_modules/
     policy: pull
-
-# cache:
-#     paths:
-#         - frontend/node_modules/
 
 installer:
     stage: install
@@ -45,5 +42,10 @@ flask:
 testing:
     stage: test
     script:
+        - cd backend/
+        - python3 -m venv env
+        - source env/bin/activate
+        - deactivate
+        - cd ..
         - cd frontend/
         - npm test
