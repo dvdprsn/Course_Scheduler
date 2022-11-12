@@ -17,7 +17,6 @@ stages:
 installer:
     stage: install
     script:
-        - python3
         - cd frontend/
         - npm ci
     extends:
@@ -43,10 +42,5 @@ flask:
 testing:
     stage: test
     script:
-        - cd resources/
-        - python3 -m venv env
-        - source env/bin/activate
-        - deactivate
-        - cd ..
         - cd frontend/
         - npm test
