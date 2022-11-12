@@ -5,23 +5,24 @@ stages:
     - build
     - run
 
+cache:
+    paths:
+        - frontend/node_modules/
+
 installer:
     stage: install
     script:
         - cd frontend/
         - npm ci
-    artifacts:
-        paths:
-            - node_modules/
 
 builder:
     stage: build
     script: 
         - cd frontend/
+        - ls
+        - cwd
+        - npm ci
         - npm run build
-    artifacts:
-        paths:
-            - frontend/
 
 runner:
     stage: run
@@ -29,6 +30,3 @@ runner:
         - cd frontend/
         - npm run start
         # - node test.js
-    artifacts:
-        paths:
-            - node_modules/
