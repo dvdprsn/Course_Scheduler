@@ -7,6 +7,7 @@ stages:
 first-job:
     stage: build
     script:
+        - cd frontend/
         - npm install
     artifacts:
         paths:
@@ -15,6 +16,7 @@ first-job:
 second-job:
     stage: run
     script:
+        - cd frontend/
         - npm run start
         - node test.js
     artifacts:
