@@ -5,9 +5,8 @@
 ## To Exit and delete the container (Container images will remain however)
 ### `docker-compose down`
 
-
 ## Run Project for Dev locally 
-###(Windows Powershell)
+### (Windows Powershell)
 - cd \venv\Scripts
 - `.\activate`
 - cd into flask dir
