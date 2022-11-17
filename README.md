@@ -5,10 +5,19 @@
 ### `docker-compose build`
 
 ### `docker-compose up`
+## To Exit and delete the container (Container images will remain however)
+### `docker-compose down`
 
-These instructions are for react developers on their individual machines. You are not meant to develop in react on the google compute engine itself, only push completed builds there.
-
-This app was kickstarted using [create-react-app](https://facebook.github.io/create-react-app/docs/getting-started) and has [bootstrap](https://getbootstrap.com/) embedded for CSS.
+## Run Project for Dev locally 
+### (Windows Powershell)
+- cd \venv\Scripts
+- `.\activate`
+- cd into flask dir
+- `$env:FLASK_APP = "app.py"` (First time only to update name)
+- `flask run` 
+- cd into node dir
+- `npm install`
+- `npm start`
 
 ## Run instructions
 
