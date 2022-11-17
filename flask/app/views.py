@@ -1,8 +1,6 @@
-from app import parse
-from flask import Flask, request
+from app import app, parse
+from flask import request
 import json
-
-app = Flask(__name__)
 
 # import parse
 '''Flask Application'''
@@ -35,4 +33,4 @@ def get_course():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(host='0.0.0.0')

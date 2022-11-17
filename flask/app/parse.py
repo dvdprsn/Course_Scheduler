@@ -8,7 +8,6 @@ array = ['1']
 
 # This class stores all information that a course can possibly contain
 
-
 class Course:
     def __init__(self):  # init instance variables
         # All start as NULL so we can parse easier later

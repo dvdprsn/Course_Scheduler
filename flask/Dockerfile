@@ -7,6 +7,7 @@ WORKDIR /app
 #Copy curr dir contents
 ADD . /app
 
+ENV PYTHONPATH /app
 #Dependencies
 RUN pip install -r requirements.txt
 

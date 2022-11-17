@@ -1,29 +1,33 @@
-## REACT APP
+# REACT APP
 
-## NEW DOCKER INSTRUCTIONS
+## Running Docker Locally
 
-### `docker-compose build`
+_Install Docker_
+`cd into course-parser`
 
-### `docker-compose up`
+### `docker-compose up` should build and start docker container running on `localhost`
 
-## To Exit and delete the container (Container images will remain however)
+## To Exit and delete the container (This removes bulky container images with --rmi)
 
 ### `docker-compose down --rmi local`
 
-## Run Project for Dev locally
+### Run Project for Dev locally
 
-### (Windows Powershell)
+### Windows Powershell
 
--   cd \venv\Scripts
--   `.\activate`
--   cd into flask dir
--   `$env:FLASK_APP = "app.py"` (First time only to update name)
--   `flask run`
--   cd into node dir
--   `npm install`
--   `npm start`
+_Running Flask_
 
-## Run instructions
+1.  cd \venv\Scripts
+2.  `.\activate`
+3.  cd into flask dir
+4.  `$env:FLASK_APP = "./app/views.py"` (First time only to update name)
+5.  `flask run`
+    _Running Node_
+6.  cd into node dir
+7.  `npm install`
+8.  `npm start`
+
+## Run instructions (Do not use)
 
 [Install node](https://nodejs.org/en/download/) and follow directions for your operating system.
 
