@@ -9,15 +9,15 @@ stages:
   cache:
     key:
       files:
-        - frontend/package-lock.json
+        - node/package-lock.json
     paths:
-      - frontend/node_modules/
+      - node/node_modules/
     policy: pull
 
 installer:
     stage: install
     script:
-        - cd frontend/
+        - cd node/
         - npm ci
     extends:
         .dependencies_cache
@@ -26,25 +26,24 @@ installer:
     artifacts:
         expire_in: 1h
         paths:
-            - frontend/node_modules
+            - node/node_modules
 
 builder:
     stage: build
     script: 
-        - cd frontend/
-        # - npm ci
+        - cd node/
         - npm run build
         
 # Run all testing units    
-flask:
+linting:
     stage: test
     script:
-        - cd frontend/
-        - echo "Run Flask"
+        - cd node/
+        - echo "Add Auto Linter"
 
 testing:
     stage: test
     script:
-        - cd frontend/
+        - cd node/
         - npm test -- -u
         - npm test
