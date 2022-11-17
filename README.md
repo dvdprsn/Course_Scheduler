@@ -8,7 +8,7 @@
 
 ## To Exit and delete the container (Container images will remain however)
 
-### `docker-compose down`
+### `docker-compose down --rmi local`
 
 ## Run Project for Dev locally
 

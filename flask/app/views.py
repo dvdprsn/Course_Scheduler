@@ -1,6 +1,9 @@
-from app import app, parse
-from flask import request
+from app import parse
+from flask import Flask, request
 import json
+
+app = Flask(__name__)
+
 # import parse
 '''Flask Application'''
 # Get all course data, create dictionary for easy retrieval based on course name
@@ -29,3 +32,7 @@ def get_course():
     if name in coursesDict:
         return coursesDict[name].toJson(), 200
     return {'error': "Course not found with name '" + name + "'"}, 400
+
+
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0')
