@@ -7,6 +7,8 @@ import json
 array = ['1']
 
 # This class stores all information that a course can possibly contain
+
+
 class Course:
     def __init__(self):  # init instance variables
         # All start as NULL so we can parse easier later
@@ -98,32 +100,31 @@ class Course:
         print(self.cap + " " + self.cred + " " + self.level)
 
         print("")
-    
+
     def toJson(self):
         return json.dumps(self, default=lambda o: o.__dict__)
-        
 
     def generateList(self):
         return [
-                    "" + self.id,
-                    "" + self.sem,
-                    "" + self.oc,
-                    "" + self.name,
-                    "" + self.campus,
-                    "" + self.lecDays,
-                    "" + self.lecTime,
-                    "" + self.lecRoom,
-                    "" + self.semDay,
-                    "" + self.semTime,
-                    "" + self.semRoom,
-                    "" + self.examDay,
-                    "" + self.examTime,
-                    "" + self.examRoom,
-                    "" + self.prof,
-                    " " + self.cap, # Add space so that excel doesn't recognize this string as a calendar date
-                    "" + self.cred,
-                    "" + self.level
-                ]
+            "" + self.id,
+            "" + self.sem,
+            "" + self.oc,
+            "" + self.name,
+            "" + self.campus,
+            "" + self.lecDays,
+            "" + self.lecTime,
+            "" + self.lecRoom,
+            "" + self.semDay,
+            "" + self.semTime,
+            "" + self.semRoom,
+            "" + self.examDay,
+            "" + self.examTime,
+            "" + self.examRoom,
+            "" + self.prof,
+            " " + self.cap,  # Add space so that excel doesn't recognize this string as a calendar date
+            "" + self.cred,
+            "" + self.level
+        ]
 
 
 class MyHTMLParser(HTMLParser):
@@ -147,12 +148,13 @@ class MyHTMLParser(HTMLParser):
 class Parse:
     # Helpers
     def writeToCsv(self, dirPath, allCourses):
-            writePath = os.path.join(dirPath, 'backend/resources/Data', 'courseData.csv')
-            with open(writePath, 'w', newline='') as data:  # Write to CSV
-                write = csv.writer(data)
-                # Write out each element of all courses
-                for course in allCourses:
-                    write.writerow(Course.generateList(course))
+        writePath = os.path.join(
+            dirPath, 'backend/resources/Data', 'courseData.csv')
+        with open(writePath, 'w', newline='') as data:  # Write to CSV
+            write = csv.writer(data)
+            # Write out each element of all courses
+            for course in allCourses:
+                write.writerow(Course.generateList(course))
 
     def addLec(self, cArray, startIdx, c):
         c.setLecDays(cArray[startIdx])
@@ -229,7 +231,6 @@ class Parse:
         # Gets the path of the current file
         dirPath = os.path.dirname(os.path.abspath("parse.py"))
         #dataPath = os.path.join(dirPath, 'backend/resources/Data', 'guelph.html')
-
         # Open html file for reading course data
         with open('./app/guelph.html', "r") as f:
             parser = MyHTMLParser()
@@ -252,8 +253,7 @@ class Parse:
 
         return allCourses
 
+
 def main():
     p = Parse()
     return p.parser()
-
-

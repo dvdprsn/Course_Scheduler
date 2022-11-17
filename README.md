@@ -1,6 +1,9 @@
 ## REACT APP
+
 ## NEW DOCKER INSTRUCTIONS
+
 ### `docker-compose build`
+
 ### `docker-compose up`
 
 These instructions are for react developers on their individual machines. You are not meant to develop in react on the google compute engine itself, only push completed builds there.
@@ -12,8 +15,11 @@ This app was kickstarted using [create-react-app](https://facebook.github.io/cre
 [Install node](https://nodejs.org/en/download/) and follow directions for your operating system.
 
 **In the frontend folder install dependencies for our project:**
+
 ### `sudo apt update`
+
 ### `curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -`
+
 ### `sudo apt -y install nodejs`
 
 ### `sudo npm install`
@@ -27,7 +33,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
 
 **For interactive testing:**
 

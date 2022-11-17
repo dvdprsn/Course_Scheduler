@@ -1,9 +1,8 @@
 from app import app, parse
-'''Flask Application'''
 from flask import request
 import json
 # import parse
-
+'''Flask Application'''
 # Get all course data, create dictionary for easy retrieval based on course name
 # pylint: disable=invalid-name
 courses = parse.main()
@@ -11,10 +10,12 @@ coursesDict = {}
 for c in courses:
     coursesDict[c.name[0:c.name.index(' ')]] = c
 
+
 @app.route('/api/coursesList', methods=['GET'])
 def get_coursesList():
     '''Retrieves list of all courses'''
     return json.dumps(list(coursesDict.keys())), 200
+
 
 @app.route('/api/course', methods=['GET'])
 def get_course():
