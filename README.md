@@ -5,19 +5,23 @@
 ### `docker-compose build`
 
 ### `docker-compose up`
+
 ## To Exit and delete the container (Container images will remain however)
+
 ### `docker-compose down`
 
-## Run Project for Dev locally 
+## Run Project for Dev locally
+
 ### (Windows Powershell)
-- cd \venv\Scripts
-- `.\activate`
-- cd into flask dir
-- `$env:FLASK_APP = "app.py"` (First time only to update name)
-- `flask run` 
-- cd into node dir
-- `npm install`
-- `npm start`
+
+-   cd \venv\Scripts
+-   `.\activate`
+-   cd into flask dir
+-   `$env:FLASK_APP = "app.py"` (First time only to update name)
+-   `flask run`
+-   cd into node dir
+-   `npm install`
+-   `npm start`
 
 ## Run instructions
 
