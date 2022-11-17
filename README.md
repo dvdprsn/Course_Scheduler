@@ -5,11 +5,15 @@
 _Install Docker_
 `cd into course-parser`
 
-### `docker-compose up` should build and start docker container running on `localhost`
+### `docker-compose up`
 
-## To Exit and delete the container (This removes bulky container images with --rmi)
+_should build and start docker container running on `localhost`_
+
+### To Exit and delete the container (Recommended)
 
 ### `docker-compose down --rmi local`
+
+_This removes bulky container images_
 
 ### Run Project for Dev locally
 
@@ -22,10 +26,12 @@ _Running Flask_
 3.  cd into flask dir
 4.  `$env:FLASK_APP = "./app/views.py"` (First time only to update name)
 5.  `flask run`
-    _Running Node_
-6.  cd into node dir
-7.  `npm install`
-8.  `npm start`
+
+_Running Node_
+
+1.  cd into node dir
+2.  `npm install`
+3.  `npm start`
 
 ## Run instructions (Do not use)
 
