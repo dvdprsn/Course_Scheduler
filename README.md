@@ -15,7 +15,7 @@ _should build and start docker container running on `localhost`_
 
 _This removes bulky container images_
 
-### Run Project for Dev locally
+## Run Project for Dev locally
 
 ### Windows Powershell
 
