@@ -2,15 +2,8 @@
 ## NEW DOCKER INSTRUCTIONS
 ### `docker-compose build`
 ### `docker-compose up`
-### To Exit and delete the container on windows (Possible issue on windows)
-### `docker ps -a` 
-- Grab the container ID for each of the two
-### `docker rm $[ID]`
-- Not sure why this is happening but it seemes isolated to windows
-
-These instructions are for react developers on their individual machines. You are not meant to develop in react on the google compute engine itself, only push completed builds there.
-
-This app was kickstarted using [create-react-app](https://facebook.github.io/create-react-app/docs/getting-started) and has [bootstrap](https://getbootstrap.com/) embedded for CSS.
+## To Exit and delete the container (Container images will remain however)
+### `docker-compose down`
 
 ## Run instructions
 
