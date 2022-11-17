@@ -231,7 +231,7 @@ class Parse:
         #dataPath = os.path.join(dirPath, 'backend/resources/Data', 'guelph.html')
 
         # Open html file for reading course data
-        with open('guelph.html', "r") as f:
+        with open('./app/guelph.html', "r") as f:
             parser = MyHTMLParser()
             parser.feed(f.read())  # Feed in HTML
 

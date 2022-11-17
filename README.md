@@ -1,51 +1,55 @@
-# **Description:**
+## REACT APP
+## NEW DOCKER INSTRUCTIONS
+### `docker-compose build`
+### `docker-compose up`
 
-A Web Application for course scheduling based on the University of Guelph course catalogue, set-up using NGINX, serving a React frontend and Flask backend. We set-up a custom Linux VM using Google's Compute Engine so that the application can be accessed from the URL at the bottom of this document.
+These instructions are for react developers on their individual machines. You are not meant to develop in react on the google compute engine itself, only push completed builds there.
 
-## **Run these commands to operate our server:** 
-*after downloading the git repository contents of sprint-6 (removes the need of installing git on your machine)*
-<br>
+This app was kickstarted using [create-react-app](https://facebook.github.io/create-react-app/docs/getting-started) and has [bootstrap](https://getbootstrap.com/) embedded for CSS.
 
-`tar -xf course-parser-sprint-6.tar`
-<br>
-`cd course-parser-sprint-6`
-<br>
-`sudo chmod +x install.sh`
-<br>
-`sudo ./install.sh`
+## Run instructions
 
-## **Commands to start and stop the server:**
+[Install node](https://nodejs.org/en/download/) and follow directions for your operating system.
 
-`sudo systemctl start nginx`
-<br>
-`sudo systemctl stop nginx`
-<br>
-`sudo systemctl restart nginx`
+**In the frontend folder install dependencies for our project:**
+### `sudo apt update`
+### `curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -`
+### `sudo apt -y install nodejs`
 
-## **Web Application URL:**
-https://34.130.47.217/
+### `sudo npm install`
 
-### **Usage Guide:**
-1. Search for a course by typing in the course code in the input field that reads *"Select a course..."* (eg. "CIS\*3760\*0101")
-    - As the course code is typed, the rest of the code will be autocompleted, with options presented after a minimum of 3 letters are entered (eg. "CIS")
-    - Once the **"ENTER"** key is pressed with the full course code in the input field, or one of the suggestions is selected from the dropdown list, the course code will be selected
-        - It is shown in a blue container with an **"x"** icon on the right, which can be clicked to remove it as a selection
-    - After a course is selected, additional courses can be selected in the same input field alongside it
-2. When desired courses are selected, the **"Load Courses"** button can be clicked to load the courses into the schedule below
-3. The user can view the loaded courses' lectures and labs (if applicable) in the schedule, with unique colours for each
-    - Additional information for each meeting in the schedule can be seen by hovering over them with the mouse cursor
-4. More courses can be added in the same way as ***Step 1*** - there are no course selection restrictions implemented at this time
-5. The user can clear the schedule of all loaded courses by clicking the red **"Clear Calendar"** button 
-<br>
-<br>
-<hr>
+**To run in development mode and make live changes, type:**
 
-### **Authors:**
+### `npm start`
 
-* Bhavsar, Megh
-* Chen, Zhelong
-* D'Mello, Dean
-* Forrest, Devin
-* Goodman, Dylan
-* Pearson, David
-* Van Braeckel, Austin
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+
+**For interactive testing:**
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+**To create a working build that can be copied to the server:**
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
