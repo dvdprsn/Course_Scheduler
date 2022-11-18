@@ -1,5 +1,4 @@
-from __init__ import app
-import parse
+from app import app, parse
 from flask import request
 import json
 
