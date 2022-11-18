@@ -134,11 +134,11 @@ class MyHTMLParser(HTMLParser):
     meetingTimes = []  # Stores the strings related to meeting times
 
     def handle_data(self, data):  # When data is found in the HTML
-        # once we find 'Fall 2022' once we can begin scanning courses
-        if 'fall' in data.lower() and self.found == False:
+        # once we find 'Fall 2022'/'Winter 2023' once we can begin scanning courses
+        if 'fall' in data.lower() or 'winter' in data.lower() and self.found == False:
             self.found = True
         if not data.isspace() and self.found == True:
-            if 'Fall 2022' in data:  # Just for testing to verify num courses == expected
+            if 'Fall 2022' in data or 'Winter 2023' in data:  # Just for testing to verify num courses == expected
                 self.numCourses += 1
             # Adds the raw data to the array to be parsed later
             array.append(data)
@@ -146,14 +146,16 @@ class MyHTMLParser(HTMLParser):
 
 class Parse:
     # Helpers
-    def writeToCsv(self, dirPath, allCourses):
-        writePath = os.path.join(
-            dirPath, 'backend/resources/Data', 'courseData.csv')
-        with open(writePath, 'w', newline='') as data:  # Write to CSV
-            write = csv.writer(data)
-            # Write out each element of all courses
-            for course in allCourses:
-                write.writerow(Course.generateList(course))
+
+    # (DEPRECATED)
+    # def writeToCsv(self, dirPath, allCourses):
+    #     writePath = os.path.join(
+    #         dirPath, 'backend/resources/Data', 'courseData.csv')
+    #     with open(writePath, 'w', newline='') as data:  # Write to CSV
+    #         write = csv.writer(data)
+    #         # Write out each element of all courses
+    #         for course in allCourses:
+    #             write.writerow(Course.generateList(course))
 
     def addLec(self, cArray, startIdx, c):
         c.setLecDays(cArray[startIdx])
@@ -226,12 +228,12 @@ class Parse:
 
         return c  # Return populated OBJ
 
-    def parser(self):
+    def parser(self, filename):
         # Gets the path of the current file
-        dirPath = os.path.dirname(os.path.abspath("parse.py"))
-        #dataPath = os.path.join(dirPath, 'backend/resources/Data', 'guelph.html')
+        dirPath = os.path.dirname(os.path.abspath("parse.py")) + '/'
+        dataPath = os.path.join(dirPath, filename)
         # Open html file for reading course data
-        with open('./app/guelph.html', "r") as f:
+        with open(dataPath, "r") as f:
             parser = MyHTMLParser()
             parser.feed(f.read())  # Feed in HTML
 
@@ -252,7 +254,12 @@ class Parse:
 
         return allCourses
 
+# MAIN FUNCTIONS - TO BE CALLED IN BACKEND
 
-def main():
+def getF22Courses():
     p = Parse()
-    return p.parser()
+    return p.parser('F22.html')
+
+def getW23Courses():
+    p = Parse()
+    return p.parser('W23.html')
