@@ -40,7 +40,7 @@ def get_course():
     #request_data = request.get_json()
 
     # Gets request arguments from the route/path
-    # (e.g. "/api/course?name=CIS*3760*0101?semester=F22")
+    # (e.g. "/api/course?name=CIS*3760*0101&semester=F22")
     name = request.args.get('name')
     semester = request.args.get('semester')
     # Check if it is in an available semester, and return it
