@@ -3,9 +3,6 @@ import csv
 import os
 import json
 
-# We need to skip all the garbage at top of file and this course ID gets skipped
-array = ['1']
-
 # This class stores all information that a course can possibly contain
 
 class Course:
@@ -141,8 +138,7 @@ class MyHTMLParser(HTMLParser):
             if 'Fall 2022' in data or 'Winter 2023' in data:  # Just for testing to verify num courses == expected
                 self.numCourses += 1
             # Adds the raw data to the array to be parsed later
-            array.append(data)
-
+            Parse.array.append(data)
 
 class Parse:
     # Helpers
@@ -156,6 +152,7 @@ class Parse:
     #         # Write out each element of all courses
     #         for course in allCourses:
     #             write.writerow(Course.generateList(course))
+    array = ['1']
 
     def addLec(self, cArray, startIdx, c):
         c.setLecDays(cArray[startIdx])
@@ -240,7 +237,7 @@ class Parse:
         course = []  # Array for a single course
         allCourses = []  # Array of all courses
 
-        for x in array:  # For each element of the unparsed array
+        for x in Parse.array:  # For each element of the unparsed array
 
             course.append(x)
 
@@ -251,15 +248,15 @@ class Parse:
                 # Append course to the course array
                 allCourses.append(c)
                 course = []  # Reset course array
-
+        Parse.array = ['1'] # reset array of course data
         return allCourses
 
 # MAIN FUNCTIONS - TO BE CALLED IN BACKEND
 
 def getF22Courses():
     p = Parse()
-    return p.parser('F22.html')
+    return p.parser("F22.html")
 
 def getW23Courses():
     p = Parse()
-    return p.parser('W23.html')
+    return p.parser("W23.html")

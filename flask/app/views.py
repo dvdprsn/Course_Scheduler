@@ -43,10 +43,11 @@ def get_course():
     # (e.g. "/api/course?name=CIS*3760*0101&semester=F22")
     name = request.args.get('name')
     semester = request.args.get('semester')
+
     # Check if it is in an available semester, and return it
-    if semester == 'W22' & name in coursesDictW23:
+    if semester == 'W23' and name in coursesDictW23:
         return coursesDictW23[name].toJson(), 200
-    elif semester == 'F22' & name in coursesDictF22:
+    elif semester == 'F22' and name in coursesDictF22:
         return coursesDictF22[name].toJson(), 200
     else:
         return {'error': "Course not found with name '" + name + "'"}, 400
