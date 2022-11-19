@@ -3,7 +3,6 @@ import parse
 from flask import request
 import json
 
-# import parse
 '''Flask Application'''
 # Get all course data, create dictionary for easy retrieval based on course name
 # pylint: disable=invalid-name

@@ -48,13 +48,13 @@ const createDaysArray = (daysStr) => {
 const createDEEvent = (data) => {
 	let newLec = {};
 
-	var desc = `DE Course <br> Prof: ${data.prof} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	var desc = `${data.name} <br><br> Distance Education Course <br> Prof: ${data.prof} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
 	if (DEcounter >= 6) {
 		DEcounter = 1;
 	}
 
 	newLec = {
-		title: data.name,
+		title: data.name.substring(0, data.name.indexOf(" ")),
 		daysOfWeek: [DEcounter++],
 		description: desc,
 		extendedProps: {
@@ -73,9 +73,9 @@ const createLecEventObj = (data) => {
 	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
 	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
 	var daysInts = createDaysArray(data.lecDays); // From the days that the lec is on
-	var desc = `LEC <br> Prof: ${data.prof} <br> Room: ${data.lecRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	var desc = `${data.name} <br><br> Prof: ${data.prof} <br> Room: ${data.lecRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
 	newLec = {
-		title: data.name,
+		title: data.name.substring(0, data.name.indexOf(" ")) + " - (LEC)",
 		startTime: lecTimes[0],
 		endTime: lecTimes[1],
 		daysOfWeek: daysInts,
@@ -97,14 +97,10 @@ const createSemEventObj = (data) => {
 	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
 	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
 	var daysInts = createDaysArray(data.semDay); // From the days that the lec is on
-	var desc = `${data.semDay.split(" ")[0]} <br> Prof: ${
-		data.prof
-	} <br> Room: ${data.semRoom} <br> Sem: ${data.sem} <br> Campus: ${
-		data.campus
-	}`; // Other data from course JSON
+	var desc = `${data.name} <br><br> Prof: ${data.prof} <br> Room: ${data.semRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
 
 	newLec = {
-		title: data.name,
+		title: data.name.substring(0, data.name.indexOf(" ")) + " - (LAB)",
 		startTime: lecTimes[0],
 		endTime: lecTimes[1],
 		daysOfWeek: daysInts,
@@ -119,7 +115,7 @@ const createSemEventObj = (data) => {
 };
 
 //Main search component
-export default function Search({ addCourse, clearCourses }) {
+export default function Search({ addCourse, clearCourses, semType }) {
 	const [selected, setSelected] = useState([]);
 	const [options, setOptions] = useState([]);
 
@@ -132,7 +128,7 @@ export default function Search({ addCourse, clearCourses }) {
 
 	// Get the list of courses
 	if (options.length === 0) {
-		fetch("/api/coursesList")
+		fetch(`/api/coursesList?semester=${semType === "F22" ? "F22" : "W23"}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setOptions(data);
@@ -142,7 +138,7 @@ export default function Search({ addCourse, clearCourses }) {
 	const getCourseInfo = () => {
 		//For each item in the selection fetch the event
 		selected.forEach(function (item) {
-			fetch(`/api/course?name=${item}`)
+			fetch(`/api/course?name=${item}&semester=${semType === "F22" ? "F22" : "W23"}`)
 				.then((res) => res.json())
 				.then((data) => {
 					var courseAdded = 0;

@@ -29,6 +29,28 @@ html {
 	color: #61dafb;
 }
 
+.year-toggle {
+	display: flex;
+	justify-content: center;
+	padding-top: 1vh;
+}
+
+.selected {
+	background-color: #2e6bd8 !important;
+	color: white !important;
+}
+
+.selected:hover {
+	cursor: default;
+}
+
+.not-selected {
+	color: #00000091 !important;
+}
+
+.not-selected:hover {
+	cursor: pointer;
+}
 .JSON-display {
 	margin-left: 35%;
 }
