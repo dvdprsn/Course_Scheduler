@@ -119,7 +119,7 @@ const createSemEventObj = (data) => {
 };
 
 //Main search component
-export default function Search({ addCourse, clearCourses }) {
+export default function Search({ addCourse, clearCourses, semType }) {
 	const [selected, setSelected] = useState([]);
 	const [options, setOptions] = useState([]);
 
@@ -132,7 +132,7 @@ export default function Search({ addCourse, clearCourses }) {
 
 	// Get the list of courses
 	if (options.length === 0) {
-		fetch("/api/coursesList")
+		fetch(`/api/coursesList?semester=${semType === "F22" ? "F22" : "W23"}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setOptions(data);
@@ -142,7 +142,7 @@ export default function Search({ addCourse, clearCourses }) {
 	const getCourseInfo = () => {
 		//For each item in the selection fetch the event
 		selected.forEach(function (item) {
-			fetch(`/api/course?name=${item}`)
+			fetch(`/api/course?name=${item}&semester=${semType === "F22" ? "F22" : "W23"}`)
 				.then((res) => res.json())
 				.then((data) => {
 					var courseAdded = 0;
