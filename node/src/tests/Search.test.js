@@ -2,16 +2,16 @@
  * @jest-environment jsdom
  */
 
-import { render, fireEvent, screen } from "@testing-library/react";
+import React, { render, fireEvent, screen } from "@testing-library/react";
 import App from "../App.js";
-import Search from "../components/Search/Search"
+import Search from "../components/Search/Search";
 
 beforeEach(() => {
-    render(<App/>);
+	render(<App />);
 });
 
 it("Search bar matches snapshot", () => {
-    expect(screen.getByTestId("search-bar")).toMatchInlineSnapshot(`
+	expect(screen.getByTestId("search-bar")).toMatchInlineSnapshot(`
 <form
   class="add-form"
   data-testid="search-bar"
