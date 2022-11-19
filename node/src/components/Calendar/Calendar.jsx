@@ -22,7 +22,7 @@ const addDescription = (info) => {
 
 const headerOptions = {
 	left: "",
-	center: "title",
+	center: "",
 	right: "",
 };
 
