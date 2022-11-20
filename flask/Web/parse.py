@@ -5,6 +5,7 @@ import json
 
 # This class stores all information that a course can possibly contain
 
+
 class Course:
     def __init__(self):  # init instance variables
         # All start as NULL so we can parse easier later
@@ -140,6 +141,7 @@ class MyHTMLParser(HTMLParser):
             # Adds the raw data to the array to be parsed later
             Parse.array.append(data)
 
+
 class Parse:
     # Helpers
 
@@ -227,7 +229,8 @@ class Parse:
 
     def parser(self, filename):
         # Gets the path of the current file
-        dirPath = os.path.dirname(os.path.abspath("parse.py")) + '/'
+        # !! Had to change pathing here - Should work
+        dirPath = os.path.dirname(os.path.abspath("parse.py")) + '/Web'
         dataPath = os.path.join(dirPath, filename)
         # Open html file for reading course data
         with open(dataPath, "r") as f:
@@ -248,14 +251,16 @@ class Parse:
                 # Append course to the course array
                 allCourses.append(c)
                 course = []  # Reset course array
-        Parse.array = ['1'] # reset array of course data
+        Parse.array = ['1']  # reset array of course data
         return allCourses
 
 # MAIN FUNCTIONS - TO BE CALLED IN BACKEND
 
+
 def getF22Courses():
     p = Parse()
     return p.parser("F22.html")
+
 
 def getW23Courses():
     p = Parse()

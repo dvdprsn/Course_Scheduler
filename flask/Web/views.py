@@ -1,5 +1,5 @@
-from __init__ import app
-import parse
+from Web import app, parse
+# import parse
 from flask import request
 import json
 
@@ -16,11 +16,9 @@ for c in coursesW23:
     coursesDictW23[c.name[0:c.name.index(' ')]] = c
 
 
-
 @app.route('/api/coursesList', methods=['GET'])
 def get_coursesList():
     '''Retrieves list of all courses'''
-
     # Gets request arguments from the route/path
     # (e.g. "/api/coursesList?semester=F22") - where "F" or "W" specifies Fall or Winter, respectively
     # and the 2-digit number that follows indicates the year (assuming the year can be represented by 20XX)
@@ -50,7 +48,3 @@ def get_course():
         return coursesDictF22[name].toJson(), 200
     else:
         return {'error': "Course not found with name '" + name + "'"}, 400
-
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
