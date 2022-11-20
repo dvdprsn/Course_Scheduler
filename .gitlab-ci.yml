@@ -39,7 +39,7 @@ linting:
     stage: test
     script:
         - cd node/
-        - echo "Add Auto Linter"
+        - npm run lint
 
 testing:
     stage: test

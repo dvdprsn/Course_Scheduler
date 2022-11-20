@@ -2,38 +2,28 @@
  * @jest-environment jsdom
  */
 
-import { render, fireEvent, screen } from "@testing-library/react";
+import React, { render, screen } from "@testing-library/react";
 import App from "../App.js";
 
 beforeEach(() => {
-    render(<App/>);
+	render(<App />);
 });
 
 it("App matches snapshot", () => {
-    expect(screen.getByTestId("App")).toMatchSnapshot();
+	expect(screen.getByTestId("App")).toMatchSnapshot();
 });
 
 it("Load Courses button is visible", () => {
-    const submitBtn = screen.getByText("Load Courses");
-    expect(submitBtn).toBeVisible();
+	const submitBtn = screen.getByText("Load Courses");
+	expect(submitBtn).toBeVisible();
 });
 
 it("Clear calendar button is visible", () => {
-    const clearBtn = screen.getByText("Clear Calendar");
-    expect(clearBtn).toBeVisible();
+	const clearBtn = screen.getByText("Clear Calendar");
+	expect(clearBtn).toBeVisible();
 });
 
 it("Calendar is visible", () => {
-    const calendar = screen.getByTestId("calendar");
-    expect(calendar).toBeVisible();
+	const calendar = screen.getByTestId("calendar");
+	expect(calendar).toBeVisible();
 });
-
-
-
-
-
-
-
-
-
-
