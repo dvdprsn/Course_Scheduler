@@ -24,7 +24,7 @@ _Running Flask_
 1.  cd \venv\Scripts
 2.  `.\activate`
 3.  cd into flask dir
-4.  `$env:FLASK_APP = "./app/views.py"` (First time only to update name)
+4.  `$env:FLASK_APP = "run.py"` (First time only to update name)
 5.  `flask run`
 
 _Running Node_

@@ -9,7 +9,7 @@ RUN npm run build
 
 FROM nginx:stable-alpine
 COPY --from=build-step /app/build /usr/share/nginx/html
-COPY ./nginx/certs /etc/nginx/certs
+COPY ./Resources/certs /etc/nginx/certs
 RUN rm /etc/nginx/conf.d/default.conf
 # TODO Changed path here
-COPY ./nginx/nginx.conf /etc/nginx/conf.d/
+COPY ./Resources/nginx.conf /etc/nginx/conf.d/
