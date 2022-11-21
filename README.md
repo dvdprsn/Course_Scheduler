@@ -44,7 +44,7 @@ _Running Flask_
 
 1.  source ./venv/bin/activate
 2.  cd to flask directory
-3.  python(3) run.py
+3.  `python run.py`
 
 _Running Node_
 
