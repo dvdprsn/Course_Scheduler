@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
 import Clear from "../Clear/Clear";
+import ListView from "../ListView/ListView";
 import "react-bootstrap-typeahead/css/Typeahead.css"; // THIS IS A MUST
 import "./Search.css";
 
@@ -115,7 +116,7 @@ const createSemEventObj = (data) => {
 };
 
 //Main search component
-export default function Search({ addCourse, clearCourses, semType }) {
+export default function Search({ courses, addCourse, clearCourses, semType, removeEvent }) {
 	const [selected, setSelected] = useState([]);
 	const [options, setOptions] = useState([]);
 
@@ -191,6 +192,7 @@ export default function Search({ addCourse, clearCourses, semType }) {
 					className="btn btn-success"
 				/>
 			</form>
+			<ListView courses={courses} removeEvent={removeEvent}/>
 			<Clear clearCourses={clearCourses} />
 		</div>
 	);

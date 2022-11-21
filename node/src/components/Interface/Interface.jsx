@@ -28,7 +28,7 @@ function getCookie(cname) {
 
 export default function Interface({ semType, isFall }) {
 	// holds courses in the schedule
-	let loadCourses = getCookie("courses");
+	let loadCourses = getCookie(`${semType === "F22" ? "F22" : "W23"}`);
 	let result = [];
 	try {
 		result = JSON.parse(loadCourses);
@@ -48,14 +48,22 @@ export default function Interface({ semType, isFall }) {
 		setCourseData([]);
 	};
 
+	const removeEvent = (info) => {
+	   setCourseData(courses.filter(item => info !== item.extendedProps.id))
+	   let cookie_string = JSON.stringify(courses);
+	   setCookie(`${semType === "F22" ? "F22" : "W23"}`, cookie_string, 7);
+	   console.log("hey");
+   };
+
+
 	let json_str = JSON.stringify(courses);
-	setCookie("courses", json_str, 7);
+	setCookie(`${semType === "F22" ? "F22" : "W23"}`, json_str, 7);
 
 	if (!isFall) { return null; }
 	return (
 		<div className="interface-container">
 			<div className="course-buttons">
-				<Search addCourse={addCourse} clearCourses={clearCourses} semType={semType} />
+				<Search courses={courses} addCourse={addCourse} clearCourses={clearCourses} semType={semType} removeEvent={removeEvent}/>
 			</div>
 			<Calendar courses={courses} />
 		</div>	
