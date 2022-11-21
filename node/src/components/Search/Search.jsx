@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
 import Clear from "../Clear/Clear";
+import ListView from "../ListView/ListView";
 import "react-bootstrap-typeahead/css/Typeahead.css"; // THIS IS A MUST
 import "./Search.css";
 
@@ -115,7 +116,13 @@ const createSemEventObj = (data) => {
 };
 
 //Main search component
-export default function Search({ addCourse, clearCourses, semType }) {
+export default function Search({
+	courses,
+	addCourse,
+	clearCourses,
+	semType,
+	removeEvent,
+}) {
 	const [selected, setSelected] = useState([]);
 	const [options, setOptions] = useState([]);
 
@@ -138,7 +145,11 @@ export default function Search({ addCourse, clearCourses, semType }) {
 	const getCourseInfo = () => {
 		//For each item in the selection fetch the event
 		selected.forEach(function (item) {
-			fetch(`/api/course?name=${item}&semester=${semType === "F22" ? "F22" : "W23"}`)
+			fetch(
+				`/api/course?name=${item}&semester=${
+					semType === "F22" ? "F22" : "W23"
+				}`
+			)
 				.then((res) => res.json())
 				.then((data) => {
 					var courseAdded = 0;
@@ -171,7 +182,11 @@ export default function Search({ addCourse, clearCourses, semType }) {
 	// This has some pretty nice documenation for it
 	return (
 		<div className="search-container">
-			<form className="add-form" onSubmit={onSubmit} data-testid="search-bar">
+			<form
+				className="add-form"
+				onSubmit={onSubmit}
+				data-testid="search-bar"
+			>
 				<div className="outer-form-control">
 					<Typeahead
 						id="search-bar"
@@ -191,6 +206,7 @@ export default function Search({ addCourse, clearCourses, semType }) {
 					className="btn btn-success"
 				/>
 			</form>
+			<ListView courses={courses} removeEvent={removeEvent} />
 			<Clear clearCourses={clearCourses} />
 		</div>
 	);

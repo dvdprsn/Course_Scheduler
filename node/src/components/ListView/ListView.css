@@ -1,0 +1,10 @@
+.listview-container {
+	color: red;
+	display: flex;
+	justify-content: center;
+	margin-left: 1%;
+}
+
+.list-group:hover {
+	text-decoration: line-through;
+}
