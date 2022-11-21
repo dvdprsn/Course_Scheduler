@@ -1,4 +1,8 @@
-# REACT APP
+# CIS*3760 G103 Course Scheduler Sprint-8
+
+[**Presentation Slides**](https://docs.google.com/presentation/d/1ywOEH7IntSBclFvSkMoHfssJkafbLHIoCxETgKGEcz8/edit?usp=sharing)
+
+[**Website**](https://34.130.11.106/)
 
 ## Running Docker Locally
 
