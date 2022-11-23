@@ -1,6 +1,6 @@
-# CIS*3760 G103 Course Scheduler Sprint-8
+# CIS*3760 G103 Course Scheduler Sprint-9
 
-[**Presentation Slides**](https://docs.google.com/presentation/d/1ywOEH7IntSBclFvSkMoHfssJkafbLHIoCxETgKGEcz8/edit?usp=sharing)
+[**Presentation Slides UPDATE**]()
 
 [**Website**](https://34.130.11.106/)
 
@@ -51,17 +51,3 @@ _Running Node_
 1.  cd into node directory
 2.  `npm install`
 3.  `npm start`
-
-## Run instructions (Outdated)
-
-[Install node](https://nodejs.org/en/download/) and follow directions for your operating system.
-
-**In the node folder install dependencies for our project:**
-
-### `sudo apt update`
-
-### `curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -`
-
-### `sudo apt -y install nodejs`
-
-### `sudo npm install`
