@@ -50,7 +50,7 @@ const createDaysArray = (daysStr) => {
 const createDEEvent = (data) => {
 	let newLec = {};
 
-	var desc = `Distance Education Course <br> Prof: ${data.prof} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	var desc = `Distance Education Course <br /> Prof: ${data.prof} <br /> Sem: ${data.sem} <br /> Campus: ${data.campus}`; // Other data from course JSON
 	if (DEcounter >= 6) {
 		DEcounter = 1;
 	}
