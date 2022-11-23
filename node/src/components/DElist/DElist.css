@@ -17,7 +17,3 @@
 	--bs-accordion-active-color: none !important;
 	--bs-accordion-btn-focus-border-color: none !important;
 }
-
-.accordion-button {
-	color: red;
-}

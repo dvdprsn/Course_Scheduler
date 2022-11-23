@@ -52,6 +52,7 @@ export default function CalContainer({ courses }) {
 				headerToolbar={headerOptions}
 				dayHeaderFormat={dayHeaderOptions}
 				allDaySlot={false}
+				height="auto"
 			/>
 		</div>
 	);

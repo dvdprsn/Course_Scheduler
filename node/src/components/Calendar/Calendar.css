@@ -30,6 +30,7 @@
 .fc-scrollgrid {
 	border-width: 1px !important;
 	border-color: rgb(192, 192, 192) !important;
+	background: none !important;
 }
 
 .fc-theme-standard {

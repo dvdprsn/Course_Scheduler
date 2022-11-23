@@ -26,7 +26,10 @@ export default function DElist({ courses }) {
 						data-bs-toggle="collapse"
 						data-bs-target="#collapseOne"
 					>
-						<b className="text-center">DE courses</b>
+						<b className="text-center">
+							DE courses{" "}
+							<span className="badge bg-secondary">{courses.filter(course => course["title"].split(" ")[0].includes("*DE")).length}</span>
+						</b>
 					</button>
 				</h2>
 				<div
