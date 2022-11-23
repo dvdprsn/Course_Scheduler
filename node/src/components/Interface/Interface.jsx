@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Calendar from "../Calendar/Calendar";
 import Search from "../Search/Search";
+import DElist from "../DElist/DElist";
+
 import "./Interface.css";
 
 function setCookie(cname, cvalue, exdays) {
@@ -70,6 +72,14 @@ export default function Interface({ semType, isFall }) {
 					clearCourses={clearCourses}
 					semType={semType}
 					removeEvent={removeEvent}
+				/>
+			</div>
+			<div className="DE-container">
+				<DElist
+					courses={courses}
+					addCourse={addCourse}
+					clearCourses={clearCourses}
+					semType={semType}
 				/>
 			</div>
 			<Calendar courses={courses} />
