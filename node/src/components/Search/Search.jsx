@@ -18,6 +18,7 @@ var color = [
 var colorindex = 0;
 var courseID = 0;
 var DEcounter = 1;
+var cName = "";
 
 //Convert 12hrs to 24hrs for calendar events
 const convertTime = (timeStr) => {
@@ -49,10 +50,11 @@ const createDaysArray = (daysStr) => {
 const createDEEvent = (data) => {
 	let newLec = {};
 
-	var desc = `${data.name} <br><br> Distance Education Course <br> Prof: ${data.prof} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	var desc = `Distance Education Course <br> Prof: ${data.prof} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
 	if (DEcounter >= 6) {
 		DEcounter = 1;
 	}
+	cName = data.name.substring(data.name.indexOf(") ") + 1);
 
 	newLec = {
 		title: data.name.substring(0, data.name.indexOf(" ")),
@@ -60,6 +62,7 @@ const createDEEvent = (data) => {
 		description: desc,
 		extendedProps: {
 			id: courseID,
+			name: cName,
 		},
 		color: color[colorindex],
 	};
@@ -74,7 +77,9 @@ const createLecEventObj = (data) => {
 	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
 	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
 	var daysInts = createDaysArray(data.lecDays); // From the days that the lec is on
-	var desc = `${data.name} <br><br> Prof: ${data.prof} <br> Room: ${data.lecRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	var desc = `Prof: ${data.prof} <br> Room: ${data.lecRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	cName = data.name.substring(data.name.indexOf(") ") + 1);
+
 	newLec = {
 		title: data.name.substring(0, data.name.indexOf(" ")) + " - (LEC)",
 		startTime: lecTimes[0],
@@ -83,6 +88,7 @@ const createLecEventObj = (data) => {
 		description: desc,
 		extendedProps: {
 			id: courseID,
+			name: cName,
 		},
 		color: color[colorindex],
 	};
@@ -98,7 +104,8 @@ const createSemEventObj = (data) => {
 	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
 	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
 	var daysInts = createDaysArray(data.semDay); // From the days that the lec is on
-	var desc = `${data.name} <br><br> Prof: ${data.prof} <br> Room: ${data.semRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	var desc = `Prof: ${data.prof} <br> Room: ${data.semRoom} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	cName = data.name.substring(data.name.indexOf(") ") + 1);
 
 	newLec = {
 		title: data.name.substring(0, data.name.indexOf(" ")) + " - (LAB)",
@@ -108,6 +115,7 @@ const createSemEventObj = (data) => {
 		description: desc, // Often the sem or lab title gets cut off so best to put it here
 		extendedProps: {
 			id: courseID,
+			name: cName,
 		},
 		color: color[colorindex],
 	};

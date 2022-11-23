@@ -1,7 +1,7 @@
 import React from "react";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { Tooltip } from "bootstrap";
+import { Popover } from "bootstrap";
 import "./Calendar.css";
 
 //Builds the on hover tooltip
@@ -11,8 +11,9 @@ const addDescription = (info) => {
 		console.log("Item must have description");
 		return;
 	}
-	new Tooltip(info.el, {
-		title: info.event.extendedProps.description,
+	new Popover(info.el, {
+		title: info.event.extendedProps.name,
+		content: info.event.extendedProps.description,
 		placement: "top",
 		trigger: "hover",
 		html: true, // So <br> creates new line
