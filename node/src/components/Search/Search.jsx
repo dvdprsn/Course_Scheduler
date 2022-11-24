@@ -133,6 +133,7 @@ export default function Search({
 }) {
 	const [selected, setSelected] = useState([]);
 	const [options, setOptions] = useState([]);
+	const [children, setChildren] = useState([]);
 
 	//On submit button press
 	const onSubmit = (e) => {
@@ -146,8 +147,8 @@ export default function Search({
 		fetch(`/api/coursesList?semester=${semType === "F22" ? "F22" : "W23"}`)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				setOptions(data.codes);
+				setChildren(data.info);
 			});
 	}
 
@@ -207,6 +208,23 @@ export default function Search({
 						multiple
 						paginate={true}
 						maxResults={10}
+						renderMenuItemChildren={(option) => (
+							<div>
+								<strong>{children[options.indexOf(option)].name}</strong>
+								<div>
+									<small>{
+										children[options.indexOf(option)].lecDays === "NULL" ? "" : children[options.indexOf(option)].lecDays + ":"} {
+										children[options.indexOf(option)].lecTime === "NULL" ? "" : children[options.indexOf(option)].lecTime}
+									</small>
+								</div>
+								<div>
+									<small>{
+										children[options.indexOf(option)].semDay === "NULL" ? "" : children[options.indexOf(option)].semDay + ":"} {
+										children[options.indexOf(option)].semTime === "NULL" ? "" : children[options.indexOf(option)].semTime}
+									</small>
+								</div>
+							</div>
+						)}
 					/>
 				</div>
 				<input
