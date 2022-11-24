@@ -51,7 +51,6 @@ export default function Interface({ semType, isFall }) {
 	};
 
 	const removeEvent = (info) => {
-		console.log(info);
 		setCourseData(courses.filter((item) => info !== item.extendedProps.id));
 		let cookie_string = JSON.stringify(courses);
 		setCookie(`${semType === "F22" ? "F22" : "W23"}`, cookie_string, 7);
@@ -75,12 +74,7 @@ export default function Interface({ semType, isFall }) {
 				/>
 			</div>
 			<div className="DE-container">
-				<DElist
-					courses={courses}
-					addCourse={addCourse}
-					clearCourses={clearCourses}
-					semType={semType}
-				/>
+				<DElist courses={courses} />
 			</div>
 			<Calendar courses={courses} />
 		</div>
