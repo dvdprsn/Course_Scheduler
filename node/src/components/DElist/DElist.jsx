@@ -7,7 +7,10 @@ export default function DElist({ courses }) {
 		var unique = [];
 		courses.forEach((item) => {
 			if (!courseNames.includes(item["title"].split(" ")[0])) {
-				if (item["title"].split(" ")[0].includes("*DE")) {
+				if (
+					item["title"].split(" ")[0].includes("*DE") ||
+					item["title"].split(" ")[0].includes("*AU")
+				) {
 					unique.push(item);
 					courseNames.push(item["title"].split(" ")[0]);
 				}
@@ -30,10 +33,14 @@ export default function DElist({ courses }) {
 							DE courses{" "}
 							<span className="badge bg-primary">
 								{
-									courses.filter((course) =>
-										course["title"]
-											.split(" ")[0]
-											.includes("*DE")
+									courses.filter(
+										(course) =>
+											course["title"]
+												.split(" ")[0]
+												.includes("*DE") ||
+											course["title"]
+												.split(" ")[0]
+												.includes("*AU")
 									).length
 								}
 							</span>
@@ -56,7 +63,10 @@ export default function DElist({ courses }) {
 									<div className="d-flex w-100 justify-content-between">
 										<h6 className="mb-1">
 											<b>
-												{course["title"] + " - " + course["extendedProps"].name} 
+												{course["title"] +
+													" - " +
+													course["extendedProps"]
+														.name}
 											</b>
 										</h6>
 									</div>

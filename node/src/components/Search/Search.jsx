@@ -131,6 +131,14 @@ export default function Search({
 	semType,
 	removeEvent,
 }) {
+	let maxID = 0;
+	courses.forEach((item) => {
+		if (item["extendedProps"].id > maxID) {
+			maxID = item["extendedProps"].id;
+		}
+	});
+	courseID = maxID + 1;
+
 	const [selected, setSelected] = useState([]);
 	const [options, setOptions] = useState([]);
 
