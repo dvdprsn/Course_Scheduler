@@ -156,7 +156,7 @@ export default function Search({
 		//For each item in the selection fetch the event
 		selected.forEach(function (item) {
 			fetch(
-				`/api/course?name=${item}&semester=${
+				`/api/course?name=${item.substring(0, item.indexOf(" "))}&semester=${
 					semType === "F22" ? "F22" : "W23"
 				}`
 			)

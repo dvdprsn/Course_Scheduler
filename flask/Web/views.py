@@ -2,6 +2,7 @@ from Web import app, parse
 # import parse
 from flask import request
 import json
+# import re
 
 '''Flask Application'''
 # Get all course data, create dictionary for easy retrieval based on course name
@@ -10,14 +11,20 @@ coursesF22 = parse.getF22Courses()
 coursesW23 = parse.getW23Courses()
 coursesDictF22 = {}
 coursesDictW23 = {}
+typeaheadF22 = []
+typeaheadW23 = []
 coursesListF22 = []
 coursesListW23 = []
 for c in coursesF22:
+    # re.sub("\(([^\)]+)\)", "-", c.name)
+    typeaheadF22.append(c.name)
     coursesDictF22[c.name[0:c.name.index(' ')]] = c
     coursesListF22.append(json.loads(c.toJson()))
 for c in coursesW23:
+    typeaheadW23.append(c.name)
     coursesDictW23[c.name[0:c.name.index(' ')]] = c
     coursesListW23.append(json.loads(c.toJson()))
+
 
 @app.route('/api/coursesList', methods=['GET'])
 def get_coursesList():
@@ -28,14 +35,20 @@ def get_coursesList():
     semester = request.args.get('semester')
     output = {}
     if semester == 'F22':
-        output["codes"] = list(coursesDictF22.keys())
+
+        # output["codes"] = list(coursesDictF22.keys())
+
+        output["codes"] = list(typeaheadF22)
         output["info"] = coursesListF22
         return json.dumps(output), 200
     elif semester == 'W23':
-        newList = []
-        for i in list(coursesDictW23.values()):
-            newList.append(i.toJson())
-        output["codes"] = list(coursesDictW23.keys())
+
+        # newList = []
+        # for i in list(coursesDictW23.values()):
+        #     newList.append(i.toJson())
+        # output["codes"] = list(coursesDictW23.keys())
+        
+        output["codes"] = list(typeaheadW23)
         output["info"] = coursesListW23
         return json.dumps(output), 200
     else:
