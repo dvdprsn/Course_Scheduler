@@ -28,7 +28,15 @@ export default function DElist({ courses }) {
 					>
 						<b className="text-center">
 							DE courses{" "}
-							<span className="badge bg-secondary">{courses.filter(course => course["title"].split(" ")[0].includes("*DE")).length}</span>
+							<span className="badge bg-primary">
+								{
+									courses.filter((course) =>
+										course["title"]
+											.split(" ")[0]
+											.includes("*DE")
+									).length
+								}
+							</span>
 						</b>
 					</button>
 				</h2>
@@ -47,7 +55,9 @@ export default function DElist({ courses }) {
 								>
 									<div className="d-flex w-100 justify-content-between">
 										<h6 className="mb-1">
-											{course["title"].split(" ")[0]}
+											<b>
+												{course["title"] + " - " + course["extendedProps"].name} 
+											</b>
 										</h6>
 									</div>
 									<p

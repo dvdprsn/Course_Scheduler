@@ -51,10 +51,10 @@ export default function Interface({ semType, isFall }) {
 	};
 
 	const removeEvent = (info) => {
+		console.log(info);
 		setCourseData(courses.filter((item) => info !== item.extendedProps.id));
 		let cookie_string = JSON.stringify(courses);
 		setCookie(`${semType === "F22" ? "F22" : "W23"}`, cookie_string, 7);
-		console.log("hey");
 	};
 
 	let json_str = JSON.stringify(courses);
