@@ -10,11 +10,14 @@ coursesF22 = parse.getF22Courses()
 coursesW23 = parse.getW23Courses()
 coursesDictF22 = {}
 coursesDictW23 = {}
+coursesListF22 = []
+coursesListW23 = []
 for c in coursesF22:
     coursesDictF22[c.name[0:c.name.index(' ')]] = c
+    coursesListF22.append(json.loads(c.toJson()))
 for c in coursesW23:
     coursesDictW23[c.name[0:c.name.index(' ')]] = c
-
+    coursesListW23.append(json.loads(c.toJson()))
 
 @app.route('/api/coursesList', methods=['GET'])
 def get_coursesList():
@@ -23,10 +26,18 @@ def get_coursesList():
     # (e.g. "/api/coursesList?semester=F22") - where "F" or "W" specifies Fall or Winter, respectively
     # and the 2-digit number that follows indicates the year (assuming the year can be represented by 20XX)
     semester = request.args.get('semester')
+    output = {}
     if semester == 'F22':
-        return json.dumps(list(coursesDictF22.keys())), 200
+        output["codes"] = list(coursesDictF22.keys())
+        output["info"] = coursesListF22
+        return json.dumps(output), 200
     elif semester == 'W23':
-        return json.dumps(list(coursesDictW23.keys())), 200
+        newList = []
+        for i in list(coursesDictW23.values()):
+            newList.append(i.toJson())
+        output["codes"] = list(coursesDictW23.keys())
+        output["info"] = coursesListW23
+        return json.dumps(output), 200
     else:
         return {'error': "Requested semester '{semester}' is not currently available"}, 400
 

@@ -146,7 +146,8 @@ export default function Search({
 		fetch(`/api/coursesList?semester=${semType === "F22" ? "F22" : "W23"}`)
 			.then((res) => res.json())
 			.then((data) => {
-				setOptions(data);
+				console.log(data);
+				setOptions(data.codes);
 			});
 	}
 
