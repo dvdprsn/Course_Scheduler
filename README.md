@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# CIS*3760 G103 Course Scheduler Sprint-9
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[**Presentation Slides UPDATE**]()
 
-## Available Scripts
+[**Website**](https://34.130.11.106/)
 
-In the project directory, you can run:
+## Running Docker Locally
 
-### `npm start`
+**Prereq: Install Docker**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `cd into course-parser`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `docker-compose up`
 
-### `npm test`
+**This will build and start docker container running on `localhost`**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### To Exit and delete the container after use (Recommended)
 
-### `npm run build`
+### `docker-compose down --rmi local`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**This removes bulky container images and the container**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Run Project for Dev locally
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Windows Powershell
 
-### `npm run eject`
+_Running Flask_
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1.  cd \venv\Scripts
+2.  `.\activate`
+3.  cd into flask directory in course-parser
+4.  `$env:FLASK_APP = "run.py"` (First time only to update name)
+5.  `flask run`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+_Running Node_
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1.  cd into node dir
+2.  `npm install`
+3.  `npm start`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### UNIX
 
-## Learn More
+_Running Flask_
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1.  source ./venv/bin/activate
+2.  cd to flask directory
+3.  `python run.py`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+_Running Node_
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1.  cd into node directory
+2.  `npm install`
+3.  `npm start`

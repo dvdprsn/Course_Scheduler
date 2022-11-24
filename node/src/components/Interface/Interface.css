@@ -1,0 +1,12 @@
+.interface-container {
+	animation: fadein 1s;
+}
+
+@keyframes fadein {
+	0% {
+		opacity: 0%;
+	}
+	100% {
+		opacity: 100%;
+	}
+}

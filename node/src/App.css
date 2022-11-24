@@ -1,0 +1,64 @@
+html {
+	background-color: rgb(251, 246, 234);
+}
+.App {
+	text-align: center;
+	padding-top: 2.5vh;
+	background-color: rgb(251, 246, 234);
+	height: 100%;
+}
+
+.App-header {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+
+.course-buttons {
+	display: flex;
+	justify-content: center;
+	padding-top: 2vh;
+}
+
+.App-link {
+	color: #61dafb;
+}
+
+.year-toggle {
+	display: flex;
+	justify-content: center;
+	padding-top: 1vh;
+}
+
+.selected {
+	background-color: #2e6bd8 !important;
+	color: white !important;
+}
+
+.selected:hover {
+	cursor: default;
+}
+
+.not-selected {
+	color: #00000091 !important;
+}
+
+.not-selected:hover {
+	cursor: pointer;
+}
+.JSON-display {
+	margin-left: 35%;
+}
+
+.text-muted {
+	font-size: 1.5rem;
+}
+
+body {
+	height: 100vh;
+}

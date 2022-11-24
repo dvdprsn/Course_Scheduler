@@ -1,0 +1,49 @@
+image: node:latest
+
+stages:
+    - install
+    - build
+    - test
+
+.dependencies_cache:
+  cache:
+    key:
+      files:
+        - node/package-lock.json
+    paths:
+      - node/node_modules/
+    policy: pull
+
+installer:
+    stage: install
+    script:
+        - cd node/
+        - npm ci
+    extends:
+        .dependencies_cache
+    cache:
+        policy: pull-push
+    artifacts:
+        expire_in: 1h
+        paths:
+            - node/node_modules
+
+builder:
+    stage: build
+    script: 
+        - cd node/
+        - npm run build
+        
+# Run all testing units    
+linting:
+    stage: test
+    script:
+        - cd node/
+        - npm run lint
+
+testing:
+    stage: test
+    script:
+        - cd node/
+        - npm test -- -u
+        - npm test
