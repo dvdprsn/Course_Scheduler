@@ -37,17 +37,17 @@ const dayHeaderOptions = {
 	weekday: "long",
 };
 
-
 export default function CalContainer({ courses }) {
 	// Monitor the state of our courses array
 	//Build the calendar
 	const ref = createRef(null);
 	const [image, takeScreenShot] = useScreenshot({
 		type: "image/jpeg",
-		quality: 1.0
+		quality: 1.0,
 	});
-	console.log(image);
-	const download = (image, { name = "img", extension = "jpg" } = {}) => {
+	// To fix linting unused error
+	image;
+	const download = (image, { name = "calendar", extension = "jpg" } = {}) => {
 		const a = document.createElement("a");
 		a.href = image;
 		a.download = createFileName(extension, name);
@@ -57,7 +57,11 @@ export default function CalContainer({ courses }) {
 	const downloadScreenshot = () => takeScreenShot(ref.current).then(download);
 	return (
 		<div>
-			<div className="calendar-container" data-testid="calendar" ref={ref}>
+			<div
+				className="calendar-container"
+				data-testid="calendar"
+				ref={ref}
+			>
 				<FullCalendar
 					events={courses}
 					plugins={[timeGridPlugin]}
@@ -72,7 +76,13 @@ export default function CalContainer({ courses }) {
 					height="auto"
 				/>
 			</div>
-			<button onClick={downloadScreenshot} className="btn btn-primary">Download Calendar Screenshot</button>
+			<button
+				id="download-btn"
+				onClick={downloadScreenshot}
+				className="btn btn-primary"
+			>
+				Download Calendar Screenshot
+			</button>
 		</div>
 	);
 }
