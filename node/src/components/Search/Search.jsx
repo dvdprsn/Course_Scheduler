@@ -240,7 +240,9 @@ export default function Search({
 					value="Load Courses"
 					className="btn btn-success"
 				/>
+				
 			</form>
+			
 			<ListView courses={courses} removeEvent={removeEvent} />
 			<Clear clearCourses={clearCourses} />
 		</div>
