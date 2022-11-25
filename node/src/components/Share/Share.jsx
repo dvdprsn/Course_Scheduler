@@ -18,7 +18,7 @@ export default function Share({ courses }) {
 			<div>
 				<button className="download-button" onClick={share}>Download Course</button>
 			</div>
-			<img src={image} alt={"Screenshot"} />
+			<img width={width} src={image} alt={"Screenshot"} />
 			<div ref={ref}>
 				<h1>use-react-screenshot</h1>
 				<p>
