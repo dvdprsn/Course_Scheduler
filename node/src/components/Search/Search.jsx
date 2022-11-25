@@ -50,7 +50,7 @@ const createDaysArray = (daysStr) => {
 const createDEEvent = (data) => {
 	let newLec = {};
 
-	var desc = `Distance Education Course <br> Prof: ${data.prof} <br> Sem: ${data.sem} <br> Campus: ${data.campus}`; // Other data from course JSON
+	var desc = `Distance Education Course <br /> Prof: ${data.prof} <br /> Sem: ${data.sem} <br /> Campus: ${data.campus}`; // Other data from course JSON
 	if (DEcounter >= 6) {
 		DEcounter = 1;
 	}
@@ -131,6 +131,14 @@ export default function Search({
 	semType,
 	removeEvent,
 }) {
+	let maxID = 0;
+	courses.forEach((item) => {
+		if (item["extendedProps"].id > maxID) {
+			maxID = item["extendedProps"].id;
+		}
+	});
+	courseID = maxID + 1;
+
 	const [selected, setSelected] = useState([]);
 	const [options, setOptions] = useState([]);
 	const [children, setChildren] = useState([]);

@@ -11,6 +11,10 @@ const addDescription = (info) => {
 		console.log("Item must have description");
 		return;
 	}
+	if (!info.event.extendedProps.name) {
+		console.log("Item must have a name");
+		return;
+	}
 	new Popover(info.el, {
 		title: info.event.extendedProps.name,
 		content: info.event.extendedProps.description,
@@ -34,6 +38,7 @@ const dayHeaderOptions = {
 export default function CalContainer({ courses }) {
 	// Monitor the state of our courses array
 	//Build the calendar
+
 	return (
 		<div className="calendar-container" data-testid="calendar">
 			<FullCalendar
@@ -46,7 +51,8 @@ export default function CalContainer({ courses }) {
 				eventDidMount={addDescription}
 				headerToolbar={headerOptions}
 				dayHeaderFormat={dayHeaderOptions}
-				allDayText="DE"
+				allDaySlot={false}
+				height="auto"
 			/>
 		</div>
 	);

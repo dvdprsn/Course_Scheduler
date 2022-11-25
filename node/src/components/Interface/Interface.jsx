@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Calendar from "../Calendar/Calendar";
 import Search from "../Search/Search";
+import DElist from "../DElist/DElist";
+
 import "./Interface.css";
 
 function setCookie(cname, cvalue, exdays) {
@@ -52,7 +54,6 @@ export default function Interface({ semType, isFall }) {
 		setCourseData(courses.filter((item) => info !== item.extendedProps.id));
 		let cookie_string = JSON.stringify(courses);
 		setCookie(`${semType === "F22" ? "F22" : "W23"}`, cookie_string, 7);
-		console.log("hey");
 	};
 
 	let json_str = JSON.stringify(courses);
@@ -71,6 +72,9 @@ export default function Interface({ semType, isFall }) {
 					semType={semType}
 					removeEvent={removeEvent}
 				/>
+			</div>
+			<div className="DE-container">
+				<DElist courses={courses} />
 			</div>
 			<Calendar courses={courses} />
 		</div>
