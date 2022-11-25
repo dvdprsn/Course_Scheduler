@@ -36,3 +36,7 @@
 .fc-theme-standard {
 	font-weight: 400;
 }
+
+.download {
+	background-color: red;
+}

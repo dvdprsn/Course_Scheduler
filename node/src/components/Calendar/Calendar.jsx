@@ -1,7 +1,9 @@
 import React from "react";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import timeGridPlugin from "@fullcalendar/timegrid";
+import Share from "../Share/Share";
 import { Popover } from "bootstrap";
+
 import "./Calendar.css";
 
 //Builds the on hover tooltip
@@ -34,6 +36,7 @@ const headerOptions = {
 const dayHeaderOptions = {
 	weekday: "long",
 };
+ 
 
 export default function CalContainer({ courses }) {
 	// Monitor the state of our courses array
@@ -54,6 +57,7 @@ export default function CalContainer({ courses }) {
 				allDaySlot={false}
 				height="auto"
 			/>
+			<Share courses={courses} />
 		</div>
 	);
 }
