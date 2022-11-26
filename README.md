@@ -49,5 +49,5 @@ _Running Flask_
 _Running Node_
 
 1.  cd into node directory
-2.  `npm install`
+2.  `npm install --legacy-peer-deps`
 3.  `npm start`
