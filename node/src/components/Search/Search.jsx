@@ -20,6 +20,18 @@ var courseID = 0;
 var DEcounter = 1;
 var cName = "";
 
+//Stick the selection bar to the top on scroll
+const stickNavbar = (navbar) =>  {
+	var sticky = navbar.offsetTop;
+	if (window.pageYOffset >= sticky) {
+		console.log("Stick");
+		navbar.classList.add("sticky");
+	} else {
+		console.log("Not stuck");
+		navbar.classList.remove("sticky");
+	}
+};
+
 //Convert 12hrs to 24hrs for calendar events
 const convertTime = (timeStr) => {
 	var time;
@@ -152,6 +164,14 @@ export default function Search({
 			});
 	}
 
+	// Get the navbar
+	var navbar = document.getElementById("search-container");
+
+	// Get the offset position of the navbar
+	if(navbar != null) {	
+		window.onscroll = stickNavbar(navbar);
+	}
+
 	const getCourseInfo = () => {
 		//For each item in the selection fetch the event
 		selected.forEach(function (item) {
@@ -191,7 +211,7 @@ export default function Search({
 	//resource for typeahead used - https://ericgio.github.io/react-bootstrap-typeahead/
 	// This has some pretty nice documenation for it
 	return (
-		<div className="search-container">
+		<div className="search-container" id="search-container">
 			<form
 				className="add-form"
 				onSubmit={onSubmit}
