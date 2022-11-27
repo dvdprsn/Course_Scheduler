@@ -1,5 +1,13 @@
 .interface-container {
 	animation: fadein 1s;
+	justify-items: center;
+}
+
+.funcBtns {
+	display: flex;
+	max-width: 1100px; /*This cant be a percentage*/
+	justify-content: right;
+	margin: 0 auto 40px auto;
 }
 
 .DE-container {

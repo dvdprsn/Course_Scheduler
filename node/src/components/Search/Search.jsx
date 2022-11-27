@@ -99,7 +99,6 @@ const createLecEventObj = (data) => {
 //Create a LAB/SEM EVENT
 const createSemEventObj = (data) => {
 	let newLec = {};
-
 	var lecTimes = data.semTime.split("-"); // Remove the split between start and end time
 	lecTimes[0] = convertTime(lecTimes[0]); // Convert 12hrs to 24hrs for start time
 	lecTimes[1] = convertTime(lecTimes[1]); // Convert 12hrs to 24hrs for end time
@@ -173,17 +172,30 @@ export default function Search({
 					var courseAdded = 0;
 					//Includes error handling for DE and no seminar and bad inputs
 					if (data.name !== undefined && data.lecTime !== "NULL") {
-						addCourse(createLecEventObj(data));
-						courseAdded = 1;
+						if(data.lecTime === "Times TBA") {
+							console.log("Cannot add this course");
+							return;
+						} else {
+							addCourse(createLecEventObj(data));
+							courseAdded = 1;
+						}
 					}
+					
+					if (data.name !== undefined && data.semTime !== "NULL") {
+						if(data.semTime === "Times TBA") {
+							console.log("Cannot add this course");
+							return;
+						} else {
+							addCourse(createSemEventObj(data));
+							courseAdded = 1;
+						}
+					}
+
 					if (data.name !== undefined && data.lecTime === "NULL") {
 						addCourse(createDEEvent(data));
 						courseAdded = 1;
 					}
-					if (data.name !== undefined && data.semTime !== "NULL") {
-						addCourse(createSemEventObj(data));
-						courseAdded = 1;
-					}
+				
 					if (courseAdded === 1) {
 						colorindex++;
 					}
