@@ -60,11 +60,11 @@ export default function Save({ courses, setCourseData, semType }) {
 	return (
 		<div className="upBtns">
 			<Button variant="primary" onClick={handleShow}>
-				Upload Calendar
+				Save
 			</Button>
 
 			<Button id="saveBtn" variant="primary" onClick={exportToJson}>
-				Download Calendar
+				Load
 			</Button>
 
 			<Modal show={show} onHide={handleClose}>
