@@ -37,8 +37,8 @@ export default function Save({ courses, setCourseData, semType }) {
 	};
 
 	const loadCourses = (e) => {
-		const fileReader = new FileReader();
 		if (e.target.files[0].name.includes(semType)) {
+			const fileReader = new FileReader();
 			fileReader.readAsText(e.target.files[0], "UTF-8");
 			fileReader.onload = (e) => {
 				setFiles(e.target.result);
@@ -53,18 +53,18 @@ export default function Save({ courses, setCourseData, semType }) {
 			setCourseData(JSON.parse(files));
 			setFiles("");
 		} else {
-			window.alert("Cannot load this file to calendar: " + semType);
+			window.alert("Cannot load this file to calendar " + semType);
 		}
 	};
 
 	return (
 		<div className="upBtns">
 			<Button variant="primary" onClick={handleShow}>
-				Save
+				Load
 			</Button>
 
 			<Button id="saveBtn" variant="primary" onClick={exportToJson}>
-				Load
+				Save
 			</Button>
 
 			<Modal show={show} onHide={handleClose}>
