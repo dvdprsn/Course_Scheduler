@@ -59,11 +59,11 @@ export default function Save({ courses, setCourseData, semType }) {
 
 	return (
 		<div className="upBtns">
-			<Button variant="primary" onClick={handleShow}>
+			<Button variant="outline-success" onClick={handleShow}>
 				Load
 			</Button>
 
-			<Button id="saveBtn" variant="primary" onClick={exportToJson}>
+			<Button id="saveBtn" variant="outline-danger" onClick={exportToJson}>
 				Save
 			</Button>
 

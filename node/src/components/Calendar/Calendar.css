@@ -8,6 +8,16 @@
 	margin-bottom: 0px !important;
 }
 
+.shareBar {
+    display: flex;
+	max-width: 1100px;
+	/* justify-content: left; */
+	margin: 0 auto 40px auto;
+	gap: 5px;
+	margin-top: -1.5%;
+}
+
+
 /* CSS for event title - was hoping to wrap but can't 
   do that given the size of an event block font size works...
 */
@@ -37,6 +47,3 @@
 	font-weight: 400;
 }
 
-#download-btn {
-	margin-bottom: 5vh;
-}

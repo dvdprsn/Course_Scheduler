@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Calendar from "../Calendar/Calendar";
 import Search from "../Search/Search";
 import DElist from "../DElist/DElist";
-import Save from "../Save/Save";
 
 import "./Interface.css";
 
@@ -77,10 +76,7 @@ export default function Interface({ semType, isFall }) {
 			<div className="DE-container">
 				<DElist courses={courses} />
 			</div>
-			<Calendar courses={courses} />
-			<div className="funcBtns">
-				<Save courses={courses} setCourseData={setCourseData} semType={semType}/>
-			</div>
+			<Calendar courses={courses} setCourseData={setCourseData} semType={semType} />
 		</div>
 	);
 }

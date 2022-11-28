@@ -1,3 +1,5 @@
-#saveBtn {
-	margin-left: 5px;
+.upBtns{
+    display: flex;
+    gap: 5px;
+    margin-left: auto;
 }
