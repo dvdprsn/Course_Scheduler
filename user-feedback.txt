@@ -3,3 +3,7 @@
 Users want to be able to search courses by the course name and not just the course code. 
 - In this instance the user tried to search for "bee bio" without knowning the course code (which was ENVS and not BIO) and was unable to locate and add the course. 
 + See branch 'typeahead-bytitle' for solution.
+
+Users want to be able to view exam information for courses.
+- In this instance the user really liked the website however they thought it would be useful for the user if exam information was also readily available.
+- we were not able to implement this as we already reached our weights for the sprint and it was not feasible for the time left.
