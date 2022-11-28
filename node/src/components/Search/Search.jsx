@@ -163,7 +163,7 @@ export default function Search({
 		//For each item in the selection fetch the event
 		selected.forEach(function (item) {
 			fetch(
-				`/api/course?name=${item}&semester=${
+				`/api/course?name=${item.substring(0, item.indexOf(" "))}&semester=${
 					semType === "F22" ? "F22" : "W23"
 				}`
 			)
@@ -251,12 +251,12 @@ export default function Search({
 					type="submit"
 					value="Load Courses"
 					className="btn btn-success"
+					id="loadBtn"
 				/>
-				
+				<ListView courses={courses} removeEvent={removeEvent} />
+				<Clear clearCourses={clearCourses} />
 			</form>
 			
-			<ListView courses={courses} removeEvent={removeEvent} />
-			<Clear clearCourses={clearCourses} />
 		</div>
 	);
 }
