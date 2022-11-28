@@ -7,12 +7,18 @@
 
 #loadBtn {
 	margin-left: 1%;
+	white-space: nowrap;
+	display: flex;
+	justify-content: center;
+	margin-left: 1%;
+	max-height: 38px;
 }
 
 .search-container {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	margin-left: 15%;
 }
 
 .outer-form-control {

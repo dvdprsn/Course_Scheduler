@@ -5,6 +5,8 @@ import Clear from "../Clear/Clear";
 import ListView from "../ListView/ListView";
 import "react-bootstrap-typeahead/css/Typeahead.css"; // THIS IS A MUST
 import "./Search.css";
+import Button from "react-bootstrap/Button";
+
 
 var color = [
 	"#25283D",
@@ -143,8 +145,8 @@ export default function Search({
 	const [children, setChildren] = useState([]);
 
 	//On submit button press
-	const onSubmit = (e) => {
-		e.preventDefault(); // Prevent reload
+	const onSubmit = () => {
+		// e.preventDefault(); // Prevent reload
 		getCourseInfo(); //API fetch and add to calendar
 		setSelected([]); // Clear the selection options
 	};
@@ -212,50 +214,43 @@ export default function Search({
 	// This has some pretty nice documenation for it
 	return (
 		<div className="search-container">
-			<form
-				className="add-form"
-				onSubmit={onSubmit}
-				data-testid="search-bar"
-			>
-				<div className="outer-form-control">
-					<Typeahead
-						id="search-bar"
-						onChange={setSelected}
-						options={options}
-						placeholder="Select a course..."
-						selected={selected}
-						minLength={3}
-						multiple
-						paginate={true}
-						maxResults={10}
-						renderMenuItemChildren={(option) => (
+			<div className="outer-form-control">
+				<Typeahead
+					id="search-bar"
+					onChange={setSelected}
+					options={options}
+					placeholder="Select a course..."
+					selected={selected}
+					minLength={3}
+					multiple
+					paginate={true}
+					maxResults={10}
+					renderMenuItemChildren={(option) => (
+						<div>
+							<strong>{children[options.indexOf(option)].name}</strong>
 							<div>
-								<strong>{children[options.indexOf(option)].name}</strong>
-								<div>
-									<small>{
-										children[options.indexOf(option)].lecDays === "NULL" ? "" : children[options.indexOf(option)].lecDays + ":"} {
-										children[options.indexOf(option)].lecTime === "NULL" ? "" : children[options.indexOf(option)].lecTime}
-									</small>
-								</div>
-								<div>
-									<small>{
-										children[options.indexOf(option)].semDay === "NULL" ? "" : children[options.indexOf(option)].semDay + ":"} {
-										children[options.indexOf(option)].semTime === "NULL" ? "" : children[options.indexOf(option)].semTime}
-									</small>
-								</div>
+								<small>{
+									children[options.indexOf(option)].lecDays === "NULL" ? "" : children[options.indexOf(option)].lecDays + ":"} {
+									children[options.indexOf(option)].lecTime === "NULL" ? "" : children[options.indexOf(option)].lecTime}
+								</small>
 							</div>
-						)}
-					/>
-				</div>
-				<input
-					type="submit"
-					value="Load Courses"
-					className="btn btn-success"
-					id="loadBtn"
+							<div>
+								<small>{
+									children[options.indexOf(option)].semDay === "NULL" ? "" : children[options.indexOf(option)].semDay + ":"} {
+									children[options.indexOf(option)].semTime === "NULL" ? "" : children[options.indexOf(option)].semTime}
+								</small>
+							</div>
+						</div>
+					)}
 				/>
-				<ListView courses={courses} removeEvent={removeEvent} />
-				<Clear clearCourses={clearCourses} />
-			</form>
+			</div>
+			<Button id="loadBtn" variant="success" onClick={onSubmit}>
+				Load Courses
+			</Button>
+
+			<ListView courses={courses} removeEvent={removeEvent} />
+			<Clear clearCourses={clearCourses} />
+
 			
 		</div>
 	);
