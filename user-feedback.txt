@@ -11,3 +11,7 @@ Users want to be able to view exam information for courses.
 Users would like to view course information while hovering over courses added in schedule.
 - In this instance the particular user is interested in knowing more information about the course.
 - We have implemented a display of course name, professor, lecture room, semester taken and campus when mouse hovering over the courses.
+
+Users would like a tooltip helper that explains functionality of the buttons on the webpage
+- The user liked the course information that popped up once they hovered a over a course, but it took some trial and error to get there
+- The user wasn't aware that you had to hit "load courses" after entering courses, as it prompted them to only enter a single one
