@@ -1,4 +1,5 @@
-.clear-form {
+#clear-form {
 	margin-right: 15%;
 	margin-left: 1%;
+	white-space: nowrap;
 }

@@ -231,10 +231,12 @@ export default function Search({
 					type="submit"
 					value="Load Courses"
 					className="btn btn-success"
+					id="loadBtn"
 				/>
+				<ListView courses={courses} removeEvent={removeEvent} />
+				<Clear clearCourses={clearCourses} />
 			</form>
-			<ListView courses={courses} removeEvent={removeEvent} />
-			<Clear clearCourses={clearCourses} />
+			
 		</div>
 	);
 }
