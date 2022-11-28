@@ -1,5 +1,6 @@
 .interface-container {
 	animation: fadein 1s;
+	justify-items: center;
 }
 
 .DE-container {

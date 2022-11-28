@@ -18,7 +18,7 @@ installer:
     stage: install
     script:
         - cd node/
-        - npm ci
+        - npm ci --legacy-peer-deps
     extends:
         .dependencies_cache
     cache:

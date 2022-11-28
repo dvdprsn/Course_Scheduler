@@ -76,7 +76,7 @@ export default function Interface({ semType, isFall }) {
 			<div className="DE-container">
 				<DElist courses={courses} />
 			</div>
-			<Calendar courses={courses} />
+			<Calendar courses={courses} setCourseData={setCourseData} semType={semType} />
 		</div>
 	);
 }

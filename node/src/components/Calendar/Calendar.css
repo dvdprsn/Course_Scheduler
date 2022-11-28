@@ -1,12 +1,21 @@
 .calendar-container {
 	max-width: 1100px; /*This cant be a percentage*/
 	margin: 0 auto 40px auto;
-	padding-bottom: 5vh;
 }
 
 .fc-toolbar {
 	margin-bottom: 0px !important;
 }
+
+.shareBar {
+    display: flex;
+	max-width: 1100px;
+	margin: 0 auto 40px auto;
+	gap: 5px;
+	margin-top: -1.5%;
+	padding-bottom: 2%;
+}
+
 
 /* CSS for event title - was hoping to wrap but can't 
   do that given the size of an event block font size works...
@@ -36,3 +45,4 @@
 .fc-theme-standard {
 	font-weight: 400;
 }
+
