@@ -30,27 +30,26 @@ export default function Save({ courses, setCourseData, semType }) {
 	const exportToJson = (e) => {
 		e.preventDefault();
 		downloadFile({
-			data: JSON.stringify(courses),
+			data: semType + JSON.stringify(courses),
 			fileName: semType + "calendar.json",
 			fileType: "text/json",
 		});
 	};
 
 	const loadCourses = (e) => {
-		if (e.target.files[0].name.includes(semType)) {
-			const fileReader = new FileReader();
-			fileReader.readAsText(e.target.files[0], "UTF-8");
-			fileReader.onload = (e) => {
-				setFiles(e.target.result);
-			};
-		}
+		const fileReader = new FileReader();
+		fileReader.readAsText(e.target.files[0], "UTF-8");
+		fileReader.onload = (e) => {
+			setFiles(e.target.result);
+		};
 	};
 
 	const overwriteCourses = () => {
-		if (files.length !== 0) {
+
+		if(files.charAt(0) == semType[0]){
 			setShow(false);
 			setCourseData([]);
-			setCourseData(JSON.parse(files));
+			setCourseData(JSON.parse(files.slice(3)));
 			setFiles("");
 		} else {
 			window.alert("Cannot load this file to calendar " + semType);
@@ -63,7 +62,11 @@ export default function Save({ courses, setCourseData, semType }) {
 				Load
 			</Button>
 
-			<Button id="saveBtn" variant="outline-danger" onClick={exportToJson}>
+			<Button
+				id="saveBtn"
+				variant="outline-danger"
+				onClick={exportToJson}
+			>
 				Save
 			</Button>
 
