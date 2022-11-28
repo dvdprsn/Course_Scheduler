@@ -7,3 +7,7 @@ Users want to be able to search courses by the course name and not just the cour
 Users want to be able to view exam information for courses.
 - In this instance the user really liked the website however they thought it would be useful for the user if exam information was also readily available.
 - we were not able to implement this as we already reached our weights for the sprint and it was not feasible for the time left.
+
+Users would like to view course information while hovering over courses added in schedule.
+- In this instance the particular user is interested in knowing more information about the course.
+- We have implemented a display of course name, professor, lecture room, semester taken and campus when mouse hovering over the courses.
